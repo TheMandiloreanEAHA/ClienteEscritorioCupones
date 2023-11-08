@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.svg.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLLoginController">
-    <children>
-        <Button layoutX="126" layoutY="90" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
-        <Label layoutX="126" layoutY="120" minHeight="16" minWidth="69" fx:id="label" />
-    </children>
+<AnchorPane id="AnchorPane" prefHeight="428.0" prefWidth="635.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="clienteescritoriocupones.FXMLLoginController">
+   <children>
+      <Pane prefHeight="483.0" prefWidth="435.0" style="-fx-background-color: #000000;">
+         <children>
+            <JFXButton layoutX="37.0" layoutY="391.0" prefHeight="37.0" prefWidth="114.0" ripplerFill="#03e9f4" style="-fx-background-color: #FFFFFF; -fx-background-radius: 100px;" text="API">
+               <font>
+                  <Font name="Gill Sans MT" size="14.0" />
+               </font>
+            </JFXButton>
+            <JFXButton layoutX="265.0" layoutY="391.0" prefHeight="37.0" prefWidth="114.0" ripplerFill="#03e9f4" style="-fx-background-color: #FFFFFF; -fx-background-radius: 100px;" text="Ingresar" />
+         </children>
+      </Pane>
+      <Pane layoutX="419.0" prefHeight="483.0" prefWidth="338.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <JFXPasswordField focusColor="#03e9f4" layoutX="58.0" layoutY="339.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingresa tu contraseña" style="-fx-border-radius: 20;" unFocusColor="BLACK">
+               <font>
+                  <Font name="Gill Sans MT" size="14.0" />
+               </font>
+            </JFXPasswordField>
+            <JFXTextField focusColor="#03e9f4" layoutX="58.0" layoutY="248.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingresa tu correo">
+               <font>
+                  <Font name="Gill Sans MT" size="14.0" />
+               </font>
+            </JFXTextField>
+            <Label layoutX="58.0" layoutY="220.0" text="Correo Electrónico">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="58.0" layoutY="316.0" text="Contraseña">
+               <font>
+                  <Font name="Gill Sans MT Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="71.0" layoutY="177.0" text="Inicio de Sesión">
+               <font>
+                  <Font name="Gill Sans MT" size="31.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="184.0" layoutY="391.0" prefHeight="37.0" prefWidth="97.0" ripplerFill="#03e9f4" style="-fx-background-color: #000000; -fx-background-radius: 100;" text="Ingresar" textFill="WHITE" />
+         </children>
+      </Pane>
+   </children>
 </AnchorPane>
