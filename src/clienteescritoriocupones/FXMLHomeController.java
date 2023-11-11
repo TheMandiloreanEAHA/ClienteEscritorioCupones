@@ -1,5 +1,6 @@
 package clienteescritoriocupones;
 
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,6 +35,10 @@ public class FXMLHomeController implements Initializable {
     private BorderPane bp;
     @FXML
     private AnchorPane ap;
+    @FXML
+    private JFXButton btn_inicio;
+    @FXML
+    private JFXButton btn_cerrarSesion;
 
     
     @Override
@@ -41,10 +46,13 @@ public class FXMLHomeController implements Initializable {
         // TODO
     }    
     
-    
+    @FXML
+    private void btnInicio(ActionEvent event) {
+         bp.setCenter(ap);
+    }
     @FXML
     private void btnEmpresas(MouseEvent event) {
-        
+       
     }
 
     @FXML
@@ -74,6 +82,8 @@ public class FXMLHomeController implements Initializable {
         }
         bp.setCenter(root);
     }
+
+    
 
     
 }
