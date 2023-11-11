@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.svg.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="428.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLHomeController">
+   <children>
+      <Pane prefHeight="70.0" prefWidth="685.0" style="-fx-background-color: #000000;">
+         <children>
+            <Label fx:id="lb_bienvenida" layoutX="14.0" layoutY="17.0" text="Bienvenido" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="31.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane layoutX="14.0" layoutY="81.0" prefHeight="333.0" prefWidth="403.0" style="-fx-background-color: grey;">
+         <children>
+            <Label layoutX="8.0" layoutY="7.0" text="Gestionar">
+               <font>
+                  <Font name="Gill Sans MT Bold Italic" size="31.0" />
+               </font>
+            </Label>
+            <Button fx:id="btn_sucursales" layoutX="74.0" layoutY="110.0" mnemonicParsing="false" onAction="#btnSucursales" prefHeight="31.0" prefWidth="90.0" style="-fx-background-radius: 50px;" text="Sucursales" />
+            <Button fx:id="btn_empresa" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" onAction="#btnEmpresa" prefHeight="31.0" prefWidth="90.0" style="-fx-background-radius: 50px;" text="Empresa" />
+            <Button fx:id="btn_empleados" layoutX="210.0" layoutY="222.0" mnemonicParsing="false" onAction="#btnEmpleados" prefHeight="31.0" prefWidth="96.0" style="-fx-background-radius: 50px;" text="Empleados" />
+            <Button fx:id="btn_promociones" layoutX="146.0" layoutY="167.0" mnemonicParsing="false" onAction="#btnPromos" prefHeight="31.0" prefWidth="112.0" style="-fx-background-radius: 50px;" text="Promociones" />
+            <Button fx:id="btn_cupones" layoutX="258.0" layoutY="277.0" mnemonicParsing="false" onAction="#btnCupones" prefHeight="31.0" prefWidth="96.0" style="-fx-background-radius: 50px;" text="Cupones" />
+         </children>
+      </Pane>
+      <Label fx:id="lb_empresa" layoutX="539.0" layoutY="105.0" text="Empresa">
+         <font>
+            <Font name="Gill Sans MT Bold" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="iv_logoEmpresa" fitHeight="163.0" fitWidth="200.0" layoutX="468.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>
