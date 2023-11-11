@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.*?>
@@ -10,36 +11,63 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="428.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLHomeController">
-   <children>
-      <Pane prefHeight="70.0" prefWidth="685.0" style="-fx-background-color: #000000;">
+<BorderPane fx:id="bp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLHomeController">
+   <left>
+      <VBox alignment="TOP_CENTER" prefHeight="600.0" prefWidth="213.0" style="-fx-background-color: #2C3134;" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="lb_bienvenida" layoutX="14.0" layoutY="17.0" text="Bienvenido" textFill="WHITE">
+            <JFXButton fx:id="btn_empresa" onMouseClicked="#btnEmpresas" prefHeight="50.0" prefWidth="213.0" ripplerFill="#03e9f4" style="-fx-border-color: #1A2126; -fx-border-width: 0px 0px 3px 0px;" text="Empresas" textFill="WHITE">
                <font>
-                  <Font name="Gill Sans MT" size="31.0" />
+                  <Font name="Gill Sans MT" size="27.0" />
                </font>
-            </Label>
+            </JFXButton>
+            <JFXButton fx:id="btn_sucursales" onMouseClicked="#btnSucursales" prefHeight="50.0" prefWidth="213.0" ripplerFill="#03e9f4" style="-fx-border-color: #1A2126; -fx-border-width: 0px 0px 3px 0px;" text="Sucursales" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="27.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn_empleados" onMouseClicked="#btnEmpleados" prefHeight="50.0" prefWidth="213.0" ripplerFill="#03e9f4" style="-fx-border-color: #1A2126; -fx-border-width: 0px 0px 3px 0px;" text="Empleados" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="27.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn_promociones" onMouseClicked="#btnPromociones" prefHeight="50.0" prefWidth="213.0" ripplerFill="#03e9f4" style="-fx-border-color: #1A2126; -fx-border-width: 0px 0px 3px 0px;" text="Promociones" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="27.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn_cupones" onMouseClicked="#btnCupones" prefHeight="50.0" prefWidth="213.0" ripplerFill="#03e9f4" style="-fx-border-color: #1A2126; -fx-border-width: 0px 0px 3px 0px;" text="Cupones" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="27.0" />
+               </font>
+            </JFXButton>
+            <Pane prefHeight="236.0" prefWidth="213.0" />
+            <JFXButton fx:id="btn_cerrarSesion" onMouseClicked="#btnCupones" prefHeight="50.0" prefWidth="213.0" ripplerFill="#03e9f4" style="-fx-border-color: #1A2126; -fx-border-width: 0px 0px 3px 0px;" text="Cerrar Sesión" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="25.0" />
+               </font>
+            </JFXButton>
          </children>
-      </Pane>
-      <Pane layoutX="14.0" layoutY="81.0" prefHeight="333.0" prefWidth="403.0" style="-fx-background-color: grey;">
+      </VBox>
+   </left>
+   <top>
+      <Pane prefHeight="69.0" prefWidth="1000.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="8.0" layoutY="7.0" text="Gestionar">
+            <Text fill="WHITE" layoutX="79.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenido">
                <font>
-                  <Font name="Gill Sans MT Bold Italic" size="31.0" />
+                  <Font name="Gill Sans MT" size="32.0" />
                </font>
-            </Label>
-            <Button fx:id="btn_sucursales" layoutX="74.0" layoutY="110.0" mnemonicParsing="false" onAction="#btnSucursales" prefHeight="31.0" prefWidth="90.0" style="-fx-background-radius: 50px;" text="Sucursales" />
-            <Button fx:id="btn_empresa" layoutX="14.0" layoutY="58.0" mnemonicParsing="false" onAction="#btnEmpresa" prefHeight="31.0" prefWidth="90.0" style="-fx-background-radius: 50px;" text="Empresa" />
-            <Button fx:id="btn_empleados" layoutX="210.0" layoutY="222.0" mnemonicParsing="false" onAction="#btnEmpleados" prefHeight="31.0" prefWidth="96.0" style="-fx-background-radius: 50px;" text="Empleados" />
-            <Button fx:id="btn_promociones" layoutX="146.0" layoutY="167.0" mnemonicParsing="false" onAction="#btnPromos" prefHeight="31.0" prefWidth="112.0" style="-fx-background-radius: 50px;" text="Promociones" />
-            <Button fx:id="btn_cupones" layoutX="258.0" layoutY="277.0" mnemonicParsing="false" onAction="#btnCupones" prefHeight="31.0" prefWidth="96.0" style="-fx-background-radius: 50px;" text="Cupones" />
-         </children>
-      </Pane>
-      <Label fx:id="lb_empresa" layoutX="539.0" layoutY="105.0" text="Empresa">
-         <font>
-            <Font name="Gill Sans MT Bold" size="14.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="iv_logoEmpresa" fitHeight="163.0" fitWidth="200.0" layoutX="468.0" layoutY="133.0" pickOnBounds="true" preserveRatio="true" />
-   </children>
-</AnchorPane>
+            </Text>
+            <ImageView fitHeight="63.0" fitWidth="68.0" layoutX="6.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@recursos/icon_BN.png" />
+               </image>
+            </ImageView>
+         </children></Pane>
+   </top>
+   <center>
+      <AnchorPane fx:id="ap" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding></AnchorPane>
+   </center>
+</BorderPane>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -7,34 +8,51 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLAdminEmpleadosController">
-   <children>
-      <Button fx:id="btn_modificarE" layoutX="429.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnModificarEmpleado" prefWidth="130.0" text="Modificar" />
-      <Pane layoutY="-2.0" prefHeight="47.0" prefWidth="900.0" style="-fx-background-color: black;">
-         <children>
-            <Label fx:id="lb_bienvenida" layoutX="8.0" layoutY="5.0" text="Gestionar Empleados" textFill="WHITE">
-               <font>
-                  <Font name="Gill Sans MT" size="31.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-      <Button fx:id="btn_eliminarE" layoutX="582.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnEliminarEmpleado" prefWidth="130.0" text="Eliminar" />
-      <TableView fx:id="tv_Pacientes" layoutX="11.0" layoutY="108.0" prefHeight="478.0" prefWidth="879.0">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLAdminEmpleadosController">
+   <center>
+      <TableView prefHeight="528.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="col_nombre" prefWidth="107.0" text="Nombre" />
-          <TableColumn fx:id="col_apellidoP" prefWidth="128.0" text="Apellido Paterno" />
-            <TableColumn fx:id="col_apellidoM" prefWidth="130.0" text="Apellido Materno" />
-            <TableColumn fx:id="col_fechaNacimiento" prefWidth="155.0" text="CURP" />
-            <TableColumn fx:id="col_email" prefWidth="102.0" text="Email" />
-            <TableColumn fx:id="col_telefono" prefWidth="111.0" text="Rol" />
+          <TableColumn fx:id="col_nombre" prefWidth="138.0" text="Nombre" />
+          <TableColumn fx:id="col_apellidoP" minWidth="0.0" prefWidth="143.0" text="Apellido Paterno" />
+            <TableColumn fx:id="col_apellidoM" prefWidth="177.0" text="Apellido Materno" />
+            <TableColumn fx:id="col_RFC" prefWidth="144.0" text="RFC" />
+            <TableColumn fx:id="col_correo" prefWidth="75.0" text="Correo" />
+            <TableColumn fx:id="col_rol" prefWidth="75.0" text="Rol" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <TextField layoutX="21.0" layoutY="54.0" promptText="Buscar empleado" />
-      <Button fx:id="btn_agregarE" layoutX="271.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnRegistroEmpleado" prefWidth="130.0" text="Agregar " />
-      <Button fx:id="btn_ubicacion" layoutX="742.0" layoutY="54.0" mnemonicParsing="false" onAction="#btnGestionarUbicacion" prefWidth="130.0" text="Ubicación" />
-   </children>
-</AnchorPane>
+   </center>
+   <top>
+      <HBox alignment="CENTER" prefHeight="59.0" prefWidth="787.0" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="tf_barraBusqueda" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #ffffff; -fx-background-radius: 100px; -fx-border-color: black; -fx-border-radius: 100px;" />
+            <Pane prefHeight="59.0" prefWidth="142.0" />
+            <JFXButton fx:id="btn_agregarE" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Agregar" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="14.0" />
+               </font>
+            </JFXButton>
+            <Pane prefHeight="59.0" prefWidth="28.0" />
+            <JFXButton fx:id="btn_modificarE" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Modificar" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="14.0" />
+               </font>
+            </JFXButton>
+            <Pane prefHeight="59.0" prefWidth="28.0" />
+            <JFXButton fx:id="btn_eliminarE" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Eliminar" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="14.0" />
+               </font>
+            </JFXButton>
+            <Pane prefHeight="59.0" prefWidth="28.0" />
+            <JFXButton fx:id="btn_Ubicacion" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Ubicación" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </HBox>
+   </top>
+</BorderPane>

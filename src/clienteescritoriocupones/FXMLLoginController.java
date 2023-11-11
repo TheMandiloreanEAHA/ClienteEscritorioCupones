@@ -5,13 +5,17 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.awt.Desktop;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,12 +47,13 @@ public class FXMLLoginController implements Initializable {
         colocarImagenBotones();
         
     }
-
+    
 //--------- ActionEvents ---------//
     @FXML
     private void btnCerrarVentana(ActionEvent event) {
         cerrarVentana();
     }
+    
     @FXML
     private void btnAbrirApi(ActionEvent event) {
          String url = "https://github.com/MarcosYahirDCP/APIcuponsmart";
@@ -59,6 +64,11 @@ public class FXMLLoginController implements Initializable {
     private void btnAbrirFrontEnd(ActionEvent event) {
          String url = "https://github.com/TheMandiloreanEAHA/ClienteEscritorioCupones";
          abrirLink(url);
+    }
+    
+     @FXML
+    private void btnIngresar(ActionEvent event) {
+        irPantallaHome();
     }
 //--------- Metodo para asignar iconos a los botones ---------//
     private void colocarImagenBotones() {
@@ -91,4 +101,27 @@ public class FXMLLoginController implements Initializable {
             e.printStackTrace();
         }
     }
+    private void irPantallaHome() {
+    Stage stageActual = (Stage) btn_api.getScene().getWindow();
+
+    try {
+        FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLHome.fxml"));
+        Parent vista = loadMain.load();
+
+        FXMLHomeController controladorHome = loadMain.getController();
+        Scene escenea = new Scene(vista);
+        
+        Stage nuevoStage = new Stage();  
+        nuevoStage.setScene(escenea);
+        nuevoStage.setTitle("Panel de Control");
+        nuevoStage.show();
+
+        // Cerrar la ventana actual
+        stageActual.close();
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+}
+
+   
 }
