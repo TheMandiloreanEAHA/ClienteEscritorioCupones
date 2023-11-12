@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clienteescritoriocupones;
 
 import com.jfoenix.controls.JFXButton;
@@ -14,21 +9,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 
-/**
- * FXML Controller class
- *
- * @author yahir
- */
-public class FXMLAdminSucursalesController implements Initializable {
+
+public class FXMLAdminEmpresasController implements Initializable {
 
     @FXML
     private TextField tfBarraBusqueda;
     @FXML
-    private JFXButton btnAgregarS;
+    private JFXButton btnAgregarE;
     @FXML
-    private JFXButton btnModificarS;
+    private JFXButton btnModificarE;
     @FXML
-    private JFXButton btnEliminarS;
+    private JFXButton btnEliminarE;
     @FXML
     private JFXButton btnUbicacion;
     @FXML
@@ -36,13 +27,15 @@ public class FXMLAdminSucursalesController implements Initializable {
     @FXML
     private TableColumn<?, ?> colNombre;
     @FXML
-    private TableColumn<?, ?> colNumTelefono;
+    private TableColumn<?, ?> colRFC;
     @FXML
-    private TableColumn<?, ?> colEncargado;
+    private TableColumn<?, ?> colRepresentante;
     @FXML
-    private TableColumn<?, ?> colDireccion;
+    private TableColumn<?, ?> colPaginaWeb;
     @FXML
-    private TableColumn<?, ?> colEmpresa;
+    private TableColumn<?, ?> colEstatus;
+    @FXML
+    private TableColumn<?, ?> colCorreo;
 
     /**
      * Initializes the controller class.

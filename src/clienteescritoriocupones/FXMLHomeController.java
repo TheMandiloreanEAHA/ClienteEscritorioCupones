@@ -72,7 +72,7 @@ public class FXMLHomeController implements Initializable {
     }
     @FXML
     private void btnEmpresas(MouseEvent event) {
-       
+       cargarVista("FXMLAdminEmpresas");
     }
 
     @FXML

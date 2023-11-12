@@ -20,29 +20,23 @@ public class FXMLAdminEmpleadosController implements Initializable {
     @FXML
     private TextField tfBarraBusqueda;
     @FXML
-    private JFXButton btnAgregarP;
+    private JFXButton btnAgregarE;
     @FXML
-    private JFXButton btnModificarP;
+    private JFXButton btnModificarE;
     @FXML
-    private JFXButton btnEliminarP;
+    private JFXButton btnEliminarE;
     @FXML
-    private TableView<?> tvPromociones;
+    private TableView<?> tvEmpleados;
     @FXML
-    private TableColumn<?, ?> colDescripcion;
+    private TableColumn<?, ?> colApellidoP;
     @FXML
-    private TableColumn<?, ?> colInicio;
+    private TableColumn<?, ?> colApellidoM;
     @FXML
-    private TableColumn<?, ?> colFin;
+    private TableColumn<?, ?> colCURP;
     @FXML
-    private TableColumn<?, ?> colRestriccion;
+    private TableColumn<?, ?> colCorreo;
     @FXML
-    private TableColumn<?, ?> colTipoPromocion;
-    @FXML
-    private TableColumn<?, ?> colCuponesDisponibles;
-    @FXML
-    private TableColumn<?, ?> colEstatus;
-    @FXML
-    private TableColumn<?, ?> colEmpresaPromocion;
+    private TableColumn<?, ?> colRol;
 
     
     @Override
