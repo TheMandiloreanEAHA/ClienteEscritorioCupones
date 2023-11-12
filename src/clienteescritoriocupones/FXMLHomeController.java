@@ -22,23 +22,43 @@ import javafx.scene.layout.BorderPane;
 public class FXMLHomeController implements Initializable {
 
     @FXML
-    private Button btn_sucursales;
-    @FXML
-    private Button btn_empresa;
-    @FXML
-    private Button btn_empleados;
-    @FXML
-    private Button btn_promociones;
-    @FXML
-    private Button btn_cupones;
-    @FXML
     private BorderPane bp;
     @FXML
     private AnchorPane ap;
     @FXML
-    private JFXButton btn_inicio;
+    private JFXButton btnInicio;
     @FXML
-    private JFXButton btn_cerrarSesion;
+    private JFXButton btnEmpresa;
+    @FXML
+    private JFXButton btnSucursales;
+    @FXML
+    private JFXButton btnEmpleados;
+    @FXML
+    private JFXButton btnPromociones;
+    @FXML
+    private JFXButton btnCerrarSesion;
+    @FXML
+    private Label lbNombreUsuario;
+    @FXML
+    private Label lbNombreEmpresa;
+    @FXML
+    private Label lbRFCEmpresa;
+    @FXML
+    private Label lbNombreComercial;
+    @FXML
+    private ImageView imgEmpresa;
+    @FXML
+    private Label lbNombreEmpleado;
+    @FXML
+    private Label lbCorreo;
+    @FXML
+    private Label lbApellidosEmpleado;
+    @FXML
+    private Label lbNumeroTelefono;
+    @FXML
+    private JFXButton btnEditarPerfil;
+    @FXML
+    private JFXButton btnCanjeCupones;
 
     
     @Override
@@ -57,6 +77,7 @@ public class FXMLHomeController implements Initializable {
 
     @FXML
     private void btnSucursales(MouseEvent event) {
+        cargarVista("FXMLAdminSucursales");
     }
 
     @FXML
@@ -66,6 +87,7 @@ public class FXMLHomeController implements Initializable {
 
     @FXML
     private void btnPromociones(MouseEvent event) {
+        cargarVista("FXMLAdminPromociones");
     }
 
     @FXML
@@ -81,6 +103,10 @@ public class FXMLHomeController implements Initializable {
             Logger.getLogger(FXMLHomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
         bp.setCenter(root);
+    }
+
+    @FXML
+    private void btnEditarPerfil(ActionEvent event) {
     }
 
     

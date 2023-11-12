@@ -16,27 +16,33 @@ import javafx.scene.control.TextField;
 public class FXMLAdminEmpleadosController implements Initializable {
 
     @FXML
-    private Button btn_modificarE;
+    private TableColumn<?, ?> colNombre;
     @FXML
-    private Button btn_eliminarE;
+    private TextField tfBarraBusqueda;
     @FXML
-    private TableColumn<?, ?> col_nombre;
+    private JFXButton btnAgregarP;
     @FXML
-    private TableColumn<?, ?> col_apellidoP;
+    private JFXButton btnModificarP;
     @FXML
-    private TableColumn<?, ?> col_apellidoM;
+    private JFXButton btnEliminarP;
     @FXML
-    private Button btn_agregarE;
+    private TableView<?> tvPromociones;
     @FXML
-    private TextField tf_barraBusqueda;
+    private TableColumn<?, ?> colDescripcion;
     @FXML
-    private JFXButton btn_Ubicacion;
+    private TableColumn<?, ?> colInicio;
     @FXML
-    private TableColumn<?, ?> col_RFC;
+    private TableColumn<?, ?> colFin;
     @FXML
-    private TableColumn<?, ?> col_correo;
+    private TableColumn<?, ?> colRestriccion;
     @FXML
-    private TableColumn<?, ?> col_rol;
+    private TableColumn<?, ?> colTipoPromocion;
+    @FXML
+    private TableColumn<?, ?> colCuponesDisponibles;
+    @FXML
+    private TableColumn<?, ?> colEstatus;
+    @FXML
+    private TableColumn<?, ?> colEmpresaPromocion;
 
     
     @Override

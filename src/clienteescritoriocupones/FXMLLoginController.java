@@ -26,19 +26,18 @@ import javafx.stage.Stage;
 public class FXMLLoginController implements Initializable {
 
     //----------------- DECALARCION DE COMPONENTES FXML -------------------//
-    private Label label;
     @FXML
-    private JFXButton btn_api;
+    private JFXButton btnApi;
     @FXML
-    private JFXPasswordField tf_contraseña;
+    private JFXButton btnFrontend;
     @FXML
-    private JFXTextField tf_nombreUsuario;
+    private JFXPasswordField tfContraseña;
     @FXML
-    private JFXButton btn_ingresar;
+    private JFXTextField tfNombreUsuario;
     @FXML
-    private JFXButton btn_frontend;
+    private JFXButton btnIngresar;
     @FXML
-    private JFXButton btn_cerrarVentana;
+    private JFXButton btnCerrarVentana;
 
 //--------- Método initialize ---------//
     @Override
@@ -83,14 +82,14 @@ public class FXMLLoginController implements Initializable {
         Image imagenFrontend = new Image(linkFrontend.toString(), 40, 40, false, false);
 
         // asignación de la imagen a los botones
-        btn_api.setGraphic(new ImageView(imagenAPI));
-        btn_frontend.setGraphic(new ImageView(imagenFrontend));
-        btn_cerrarVentana.setGraphic(new ImageView(imagenCerrar));
+        btnApi.setGraphic(new ImageView(imagenAPI));
+        btnFrontend.setGraphic(new ImageView(imagenFrontend));
+        btnCerrarVentana.setGraphic(new ImageView(imagenCerrar));
         
     }
 //--------- Método para cerrar la ventana ---------//
     private void cerrarVentana() {
-        Stage escenario = (Stage) btn_api.getScene().getWindow();
+        Stage escenario = (Stage) btnApi.getScene().getWindow();
         escenario.close();
     }
 //--------- Metodos para abrir link desde el boton ---------//
@@ -102,11 +101,16 @@ public class FXMLLoginController implements Initializable {
         }
     }
     private void irPantallaHome() {
-    Stage stageActual = (Stage) btn_api.getScene().getWindow();
+    Stage stageActual = (Stage) btnApi.getScene().getWindow();
 
     try {
         FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLHome.fxml"));
         Parent vista = loadMain.load();
+        
+        URL linkIcon = getClass().getResource("/clienteescritoriocupones/recursos/icon_BN.png");
+        Image imagenIcon = new Image(linkIcon.toString(), 40, 40, false, false);
+        
+        
 
         FXMLHomeController controladorHome = loadMain.getController();
         Scene escenea = new Scene(vista);
@@ -114,6 +118,8 @@ public class FXMLLoginController implements Initializable {
         Stage nuevoStage = new Stage();  
         nuevoStage.setScene(escenea);
         nuevoStage.setTitle("Panel de Control");
+        nuevoStage.getIcons().add(imagenIcon);
+        nuevoStage.setResizable(false);
         nuevoStage.show();
 
         // Cerrar la ventana actual

@@ -10,14 +10,17 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="787.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLAdminEmpleadosController">
    <center>
-      <TableView fx:id="tvEmpleados" prefHeight="528.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tvPromociones" prefHeight="528.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="colNombre" prefWidth="138.0" text="Nombre" />
-          <TableColumn fx:id="colApellidoP" minWidth="0.0" prefWidth="143.0" text="Apellido Paterno" />
-            <TableColumn fx:id="colApellidoM" prefWidth="177.0" text="Apellido Materno" />
-            <TableColumn fx:id="colCURP" prefWidth="144.0" text="CURP" />
-            <TableColumn fx:id="colCorreo" prefWidth="75.0" text="Correo" />
-            <TableColumn fx:id="colRol" prefWidth="75.0" text="Rol" />
+          <TableColumn fx:id="colDescripcion" minWidth="0.0" prefWidth="143.0" text="Descripción" />
+            <TableColumn fx:id="colInicio" prefWidth="70.0" text="Inicio" />
+            <TableColumn fx:id="colFin" prefWidth="77.0" text="Fin" />
+            <TableColumn fx:id="colRestriccion" prefWidth="154.0" text="Restricciones" />
+            <TableColumn fx:id="colTipoPromocion" prefWidth="79.0" text="Tipo de promoción" />
+            <TableColumn fx:id="colCuponesDisponibles" prefWidth="110.0" text="Disponibles" />
+            <TableColumn fx:id="colEstatus" prefWidth="75.0" text="Estatus" />
+            <TableColumn fx:id="colEmpresaPromocion" prefWidth="75.0" text="Empresa" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -30,19 +33,19 @@
             <Pane prefHeight="59.0" prefWidth="29.0" />
             <TextField fx:id="tfBarraBusqueda" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #ffffff; -fx-background-radius: 100px; -fx-border-color: black; -fx-border-radius: 100px;" />
             <Pane prefHeight="59.0" prefWidth="214.0" />
-            <JFXButton fx:id="btnAgregarE" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Agregar" textFill="WHITE">
+            <JFXButton fx:id="btnAgregarP" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Agregar" textFill="WHITE">
                <font>
                   <Font name="Gill Sans MT" size="14.0" />
                </font>
             </JFXButton>
             <Pane prefHeight="59.0" prefWidth="41.0" />
-            <JFXButton fx:id="btnModificarE" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Modificar" textFill="WHITE">
+            <JFXButton fx:id="btnModificarP" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Modificar" textFill="WHITE">
                <font>
                   <Font name="Gill Sans MT" size="14.0" />
                </font>
             </JFXButton>
             <Pane prefHeight="59.0" prefWidth="42.0" />
-            <JFXButton fx:id="btnEliminarE" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Eliminar" textFill="WHITE">
+            <JFXButton fx:id="btnEliminarP" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Eliminar" textFill="WHITE">
                <font>
                   <Font name="Gill Sans MT" size="14.0" />
                </font>
