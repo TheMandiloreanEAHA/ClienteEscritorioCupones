@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.svg.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="428.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLLoginController">
+    <children>
+        <Pane prefHeight="483.0" prefWidth="435.0" style="-fx-background-color: #000000;">
+            <children>
+                <JFXButton fx:id="btnApi" layoutX="17.0" layoutY="405.0" onAction="#btnAbrirApi" prefHeight="50.0" prefWidth="185.0" ripplerFill="#03e9f4" style="-fx-background-color: transparent; -fx-background-radius: 100px;" text="Clic para ir al API" textFill="WHITE">
+                    <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                    </font>
+              
+                </JFXButton>
+                <JFXButton fx:id="btnFrontend" layoutX="233.0" layoutY="405.0" onAction="#btnAbrirFrontEnd" prefHeight="50.0" prefWidth="185.0" ripplerFill="#03e9f4" style="-fx-background-color: TRANSPARENT; -fx-background-radius: 100px;" text="Clic para ir al Front" textFill="WHITE">
+               <font>
+                  <Font name="Gill Sans MT" size="14.0" />
+               </font></JFXButton>
+                <ImageView fitHeight="231.0" fitWidth="223.0" layoutX="106.0" layoutY="56.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@recursos/icon_BN.png" />
+                    </image>
+                </ImageView>
+                <Text fill="WHITE" fontSmoothingType="LCD" layoutX="119.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="EL MEJOR SISTEMA">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Text>
+                <Text fill="WHITE" fontSmoothingType="LCD" layoutX="37.0" layoutY="325.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PARA TUS CLIENTES Y TU EMPRESA">
+                    <font>
+                        <Font size="23.0" />
+                    </font>
+                </Text>
+            <JFXButton fx:id="btnCerrarVentana" layoutX="14.0" layoutY="14.0" onAction="#btnCerrarVentana" prefHeight="30.0" prefWidth="30.0" ripplerFill="RED" style="-fx-background-radius: 100px; -fx-background-color: transparent;" textFill="RED" />
+            </children>
+        </Pane>
+        <Pane layoutX="433.0" prefHeight="483.0" prefWidth="324.0" style="-fx-background-color: #ffffff;">
+            <children>
+                <JFXPasswordField fx:id="tfContraseña" focusColor="#03e9f4" layoutX="58.0" layoutY="348.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingresa tu contraseña..." unFocusColor="BLACK">
+                    <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                    </font>
+                </JFXPasswordField>
+                <JFXTextField fx:id="tfNombreUsuario" focusColor="#03e9f4" layoutX="58.0" layoutY="278.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingresa tu nombre de usuario...">
+                    <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                    </font>
+                </JFXTextField>
+                <Label layoutX="58.0" layoutY="250.0" text="Nombre de Usuario">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Label layoutX="58.0" layoutY="325.0" text="Contraseña">
+                    <font>
+                        <Font name="Gill Sans MT Bold" size="14.0" />
+                    </font>
+                </Label>
+                <Label layoutX="72.0" layoutY="193.0" text="Inicio de Sesión">
+                    <font>
+                        <Font name="Gill Sans MT" size="31.0" />
+                    </font>
+                </Label>
+                <JFXButton fx:id="btnIngresar" layoutX="184.0" layoutY="409.0" onAction="#btnIngresar" prefHeight="37.0" prefWidth="97.0" ripplerFill="#03e9f4" style="-fx-background-color: #000000; -fx-background-radius: 100;" text="Ingresar" textFill="WHITE" />
+                <ImageView fitHeight="130.0" fitWidth="124.0" layoutX="101.0" layoutY="63.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@recursos/icon_Login.png" />
+                    </image>
+                </ImageView>
+            </children>
+        </Pane>
+    </children>
+</AnchorPane>

@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,7 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-
 
 public class FXMLHomeController implements Initializable {
 
@@ -60,19 +60,19 @@ public class FXMLHomeController implements Initializable {
     @FXML
     private JFXButton btnCanjeCupones;
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
-    @FXML
-    private void btnInicio(ActionEvent event) {
-         bp.setCenter(ap);
     }
+
+    @FXML
+    private void btnInicio(MouseEvent event) {
+        bp.setCenter(ap);
+    }
+
     @FXML
     private void btnEmpresas(MouseEvent event) {
-       cargarVista("FXMLAdminEmpresas");
+        cargarVista("FXMLAdminEmpresas");
     }
 
     @FXML
@@ -93,12 +93,11 @@ public class FXMLHomeController implements Initializable {
     @FXML
     private void btnCupones(MouseEvent event) {
     }
-    
-    
-    private void cargarVista(String vista){
+
+    private void cargarVista(String vista) {
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource(vista+".fxml"));
+            root = FXMLLoader.load(getClass().getResource(vista + ".fxml"));
         } catch (IOException ex) {
             Logger.getLogger(FXMLHomeController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,7 +108,8 @@ public class FXMLHomeController implements Initializable {
     private void btnEditarPerfil(ActionEvent event) {
     }
 
-    
 
-    
+    @FXML
+    public void btnCerrarSesion(Event event) {
+    }
 }

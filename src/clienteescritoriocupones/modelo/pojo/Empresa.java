@@ -10,8 +10,8 @@ public class Empresa {
     private String telefono;
     private String paginaWeb;
     private String RFC;
-    private String status;
-    private Integer idUbicación;
+    private String estatus;
+    private Integer idUbicacion;
 
     public Empresa() {
     }
@@ -26,8 +26,8 @@ public class Empresa {
         this.telefono = telefono;
         this.paginaWeb = paginaWeb;
         this.RFC = RFC;
-        this.status = status;
-        this.idUbicación = idUbicación;
+        this.estatus = status;
+        this.idUbicacion = idUbicación;
     }
 
     public Integer getIdEmpresa() {
@@ -102,20 +102,20 @@ public class Empresa {
         this.RFC = RFC;
     }
 
-    public String getStatus() {
-        return status;
+    public String getEstatus() {
+        return estatus;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
     }
 
-    public Integer getIdUbicación() {
-        return idUbicación;
+    public Integer getIdUbicacion() {
+        return idUbicacion;
     }
 
-    public void setIdUbicación(Integer idUbicación) {
-        this.idUbicación = idUbicación;
+    public void setIdUbicacion(Integer idUbicación) {
+        this.idUbicacion = idUbicación;
     }
     
     

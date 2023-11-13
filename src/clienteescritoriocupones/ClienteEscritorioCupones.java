@@ -11,9 +11,9 @@ import javafx.stage.StageStyle;
 
 /**
  *
- * @author errick
- * @author bandonBueno
- * @author marcos
+ * @author Erick Adran Hernandez Aburto
+ * @author Brandon Vasquez Lozano
+ * @author Marcos Yahir De la caña Pérez
  */
 public class ClienteEscritorioCupones extends Application {
     private double xOffset = 0;

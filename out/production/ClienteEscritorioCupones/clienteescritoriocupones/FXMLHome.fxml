@@ -46,7 +46,7 @@
                </font>
             </JFXButton>
             <Pane prefHeight="187.0" prefWidth="213.0" />
-            <JFXButton fx:id="btnCerrarSesion" onMouseClicked="#btnCerrarSesion" prefHeight="50.0" prefWidth="213.0" ripplerFill="#03e9f4" style="-fx-border-color: #1A2126; -fx-border-width: 0px 0px 3px 0px;" text="Cerrar Sesión" textFill="WHITE">
+            <JFXButton fx:id="btnCerrarSesion" onMouseClicked="#btnCupones" prefHeight="50.0" prefWidth="213.0" ripplerFill="#03e9f4" style="-fx-border-color: #1A2126; -fx-border-width: 0px 0px 3px 0px;" text="Cerrar Sesión" textFill="WHITE">
                <font>
                   <Font name="Gill Sans MT" size="25.0" />
                </font>
