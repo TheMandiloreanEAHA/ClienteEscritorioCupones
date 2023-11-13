@@ -1,5 +1,6 @@
 package clienteescritoriocupones;
 
+import clienteescritoriocupones.utils.Constantes;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -43,6 +44,7 @@ public class ClienteEscritorioCupones extends Application {
         });
         
         stage.setScene(scene);
+        stage.getIcons().add(Constantes.imagenIcon);
         stage.show();
     }
 

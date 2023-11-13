@@ -45,11 +45,6 @@
         </Pane>
         <Pane layoutX="433.0" prefHeight="483.0" prefWidth="324.0" style="-fx-background-color: #ffffff;">
             <children>
-                <JFXPasswordField fx:id="tfContraseña" focusColor="#03e9f4" layoutX="58.0" layoutY="348.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingresa tu contraseña..." unFocusColor="BLACK">
-                    <font>
-                        <Font name="Gill Sans MT" size="14.0" />
-                    </font>
-                </JFXPasswordField>
                 <JFXTextField fx:id="tfNombreUsuario" focusColor="#03e9f4" layoutX="58.0" layoutY="278.0" prefHeight="25.0" prefWidth="223.0" promptText="Ingresa tu nombre de usuario...">
                     <font>
                         <Font name="Gill Sans MT" size="14.0" />
@@ -76,6 +71,11 @@
                         <Image url="@recursos/icon_Login.png" />
                     </image>
                 </ImageView>
+            <JFXPasswordField fx:id="tfContraseña" focusColor="#03e9f4" layoutX="60.0" layoutY="352.0" prefHeight="25.0" prefWidth="223.0" promptText="Contraseña">
+               <font>
+                  <Font name="Gill Sans MT" size="14.0" />
+               </font>
+            </JFXPasswordField>
             </children>
         </Pane>
     </children>
