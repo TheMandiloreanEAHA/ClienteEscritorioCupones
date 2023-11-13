@@ -1,6 +1,7 @@
 package clienteescritoriocupones;
 //------------ LIBRERIAS USADAS --------------//
 
+import clienteescritoriocupones.utils.Constantes;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -73,18 +74,16 @@ public class FXMLLoginController implements Initializable {
     private void colocarImagenBotones() {
         // creacionn de los links de la imagen a partir de un recurso
         URL linkAPI = getClass().getResource("/clienteescritoriocupones/recursos/icon_API.png");
-        URL linkCerrar = getClass().getResource("/clienteescritoriocupones/recursos/icon_Cerrar.png");
         URL linkFrontend = getClass().getResource("/clienteescritoriocupones/recursos/icon_Frontend.png");
 
         // creacion de la imagen a partir de los links
         Image imagenAPI = new Image(linkAPI.toString(), 40, 40, false, false);
-        Image imagenCerrar = new Image(linkCerrar.toString(), 20, 20, false, false);
         Image imagenFrontend = new Image(linkFrontend.toString(), 40, 40, false, false);
 
         // asignación de la imagen a los botones
         btnApi.setGraphic(new ImageView(imagenAPI));
         btnFrontend.setGraphic(new ImageView(imagenFrontend));
-        btnCerrarVentana.setGraphic(new ImageView(imagenCerrar));
+        btnCerrarVentana.setGraphic(new ImageView(Constantes.imagenCerrar));
         
     }
 //--------- Método para cerrar la ventana ---------//
@@ -106,11 +105,6 @@ public class FXMLLoginController implements Initializable {
     try {
         FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLHome.fxml"));
         Parent vista = loadMain.load();
-        
-        URL linkIcon = getClass().getResource("/clienteescritoriocupones/recursos/icon_BN.png");
-        Image imagenIcon = new Image(linkIcon.toString(), 40, 40, false, false);
-        
-        
 
         FXMLHomeController controladorHome = loadMain.getController();
         Scene escenea = new Scene(vista);
@@ -118,7 +112,7 @@ public class FXMLLoginController implements Initializable {
         Stage nuevoStage = new Stage();  
         nuevoStage.setScene(escenea);
         nuevoStage.setTitle("Panel de Control");
-        nuevoStage.getIcons().add(imagenIcon);
+        nuevoStage.getIcons().add(Constantes.imagenIcon);
         nuevoStage.setResizable(false);
         nuevoStage.show();
 

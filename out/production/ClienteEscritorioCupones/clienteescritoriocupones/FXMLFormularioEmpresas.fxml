@@ -1,11 +1,199 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLFormularioEmpresasController">
-    
+<AnchorPane id="AnchorPane" prefHeight="419.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLFormularioEmpleadoController">
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <left>
+                <VBox prefHeight="200.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="250.0">
+                            <children>
+                                <Label text="Nombre/s">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Pane prefHeight="25.0" prefWidth="42.0" />
+                                <Label fx:id="lbAlertNombre" prefHeight="17.0" prefWidth="44.0" textFill="RED" />
+                            </children>
+                        </HBox>
+                        <JFXTextField fx:id="tfNombre" promptText="Nombre">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin></JFXTextField>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="250.0">
+                            <children>
+                                <Label text="Apellido Paterno">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Pane prefHeight="25.0" prefWidth="42.0" />
+                                <Label fx:id="lbAlertApellidoP" textFill="RED" />
+                            </children>
+                        </HBox>
+                        <JFXTextField fx:id="tfApellidoP" promptText="Apellido Paterno">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin></JFXTextField>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                            <children>
+                                <Label text="Apellido Materno">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Pane prefHeight="25.0" prefWidth="42.0" />
+                                <Label fx:id="lbAlertApellidoM" textFill="RED" />
+                            </children>
+                        </HBox>
+                        <JFXTextField fx:id="tfApellidoM" promptText="Apellido Materno">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin></JFXTextField>
+                        <Label text="Clave Única de Registro de Población">
+                            <font>
+                                <Font name="Gill Sans MT" size="15.0" />
+                            </font>
+                        </Label>
+                        <JFXTextField fx:id="tfCurp" promptText="CURP">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin></JFXTextField>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                            <children>
+                                <Label text="Correo Electrónico">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Pane prefHeight="25.0" prefWidth="42.0" />
+                                <Label fx:id="lbAlertEmail" textFill="RED" />
+                            </children>
+                        </HBox>
+                        <JFXTextField fx:id="tfEmail" promptText="Correo Electrónico">
+                            <font>
+                                <Font name="Gill Sans MT" size="12.0" />
+                            </font>
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </JFXTextField>
+                    </children>
+                    <padding>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
+                    </padding>
+                </VBox>
+            </left>
+            <right>
+                <VBox prefHeight="449.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                            <children>
+                                <Label text="Nombre de Usuario">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Pane prefHeight="25.0" prefWidth="42.0" />
+                                <Label fx:id="lbAlertNombreUsuario" textFill="RED" />
+                            </children>
+                        </HBox>
+                        <JFXTextField fx:id="tfNombreUsuario" promptText="Nombre de Usuario">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </JFXTextField>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                            <children>
+                                <Label text="Contraseña">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="14.0" />
+                                    </font>
+                                </Label>
+                                <Pane prefHeight="25.0" prefWidth="42.0" />
+                                <Label fx:id="lbAlertPassword" textFill="RED" />
+                            </children>
+                        </HBox>
+                        <JFXTextField fx:id="tfPassword" promptText="Contraseña">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </JFXTextField>
+                        <Label text="Rol Asignado">
+                            <font>
+                                <Font name="Gill Sans MT" size="14.0" />
+                            </font>
+                        </Label>
+                        <JFXComboBox fx:id="cbRol" prefHeight="37.0" prefWidth="250.0" promptText="Rol de Empleado">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </JFXComboBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                            <children>
+                                <Label text="Empresa">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="14.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </HBox>
+                        <JFXComboBox fx:id="cbEmpresa" prefHeight="25.0" prefWidth="290.0" promptText="Empresa" />
+                    </children>
+                    <padding>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
+                    </padding>
+                </VBox>
+            </right>
+            <bottom>
+                <Pane prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                    <children>
+                        <JFXButton fx:id="btnRegistrarEmpleado" layoutX="515.0" layoutY="12.0" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Empleado">
+                            <font>
+                                <Font name="Gill Sans MT" size="18.0" />
+                            </font></JFXButton>
+                    </children>
+                </Pane>
+            </bottom>
+            <top>
+                <BorderPane prefHeight="94.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                    <top>
+                        <Pane prefHeight="58.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                            <children>
+                                <JFXButton fx:id="btnCerrar" layoutX="14.0" layoutY="11.0" prefHeight="36.0" prefWidth="38.0" ripplerFill="RED" style="-fx-background-color: transparent; -fx-background-radius: 100px;" />
+                                <Label layoutX="162.0" layoutY="10.0" text="REGISTRO DE EMPLEADO" textFill="WHITE">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="33.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                    </top>
+                    <bottom>
+                        <Pane prefHeight="49.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label layoutX="204.0" layoutY="15.0" text="INGRESA LOS DATOS DEL EMPLEADO ">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="17.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                    </bottom>
+                </BorderPane>
+            </top>
+        </BorderPane>
+        <Label fx:id="lbAlertRol" layoutX="300.0" layoutY="316.0" textFill="RED" />
+    </children>
 </AnchorPane>
