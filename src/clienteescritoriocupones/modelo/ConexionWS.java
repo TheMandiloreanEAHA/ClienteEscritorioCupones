@@ -152,32 +152,37 @@ public class ConexionWS {
         return respuesta;
     }
     
-    public static RespuestaHTTP peticionPOSTJSON(String url, String json){
+     public static RespuestaHTTP peticionPOSTJSON(String url, String json){
         RespuestaHTTP respuesta = new RespuestaHTTP();
-         try{
+        try {
             URL urlDestino = new URL(url);
             HttpURLConnection conexionHttp = (HttpURLConnection) urlDestino.openConnection();
-            conexionHttp.setRequestMethod("POST");
-            conexionHttp.setRequestProperty("Content-Type","application/json");
-            conexionHttp.setDoOutput(true);
-            OutputStream os = conexionHttp.getOutputStream();
-            os.write(json.getBytes());
-            os.flush();
-            os.close();
-            int codigoRespuesta = conexionHttp.getResponseCode();
+            conexionHttp.setRequestMethod("POST"); //asignamos el tipo de método que deseamos realizar
+            
+            conexionHttp.setRequestProperty("Content-Type", "application/json");
+            conexionHttp.setDoOutput(true); //Le estoy permitiendo escribir datos en el cuerpo de la petición
+            OutputStream os = conexionHttp.getOutputStream(); //Sirve para que yo le permita escribirle en el cuerpo
+            os.write(json.getBytes()); //Es para que yo le escriba los parámetros
+            os.flush(); //Mandar los datos
+            os.close(); //Cierra el cuerpo de la petición
+            
+            int codigoRespuesta = conexionHttp.getResponseCode(); //Lanza la metición y retorna el código de respuesta
             respuesta.setCodigoRespuesta(codigoRespuesta);
-             if(codigoRespuesta == HttpURLConnection.HTTP_OK){
+            if (codigoRespuesta == HttpURLConnection.HTTP_OK) {
                 respuesta.setContenido(obtenerContenidoWS(conexionHttp.getInputStream()));
-            }else{
-                respuesta.setContenido("Codigo de respuesta HTTP:" + codigoRespuesta);
+            } else {
+                respuesta.setContenido("Codigo de respuesta HTTP: " + codigoRespuesta);
             }
-        }catch(MalformedURLException e){
+            
+        } catch (MalformedURLException e) {
             respuesta.setCodigoRespuesta(Constantes.ERROR_URL);
-            respuesta.setContenido("Error en la dirección de conexión.");
-        }catch(IOException io){
+            respuesta.setContenido("Error en la dirección de conexión");
+        } catch (IOException io) {
             respuesta.setCodigoRespuesta(Constantes.ERROR_PETICION);
-            respuesta.setContenido("Error no se pudo realizar la solicitud correspondiente.");
+            respuesta.setContenido("Error: No se pudo realizar la solicitud correspondiente");
+
         }
+
         return respuesta;
     }
     
