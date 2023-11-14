@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="419.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLFormularioSucursalController">
+   <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox prefHeight="200.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="250.0">
+                     <children>
+                        <Label text="Nombre de la sucursal">
+                           <font>
+                              <Font name="Gill Sans MT" size="15.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="25.0" prefWidth="42.0" />
+                        <Label fx:id="lbAlertNombre" prefHeight="17.0" prefWidth="44.0" textFill="RED" />
+                     </children>
+                  </HBox>
+                  <JFXTextField fx:id="tfNombre" promptText="Nombre">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin></JFXTextField>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="250.0">
+                     <children>
+                        <Label text="Telefono">
+                           <font>
+                              <Font name="Gill Sans MT" size="15.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="25.0" prefWidth="42.0" />
+                        <Label fx:id="lbAlertApellidoP" textFill="RED" />
+                     </children>
+                  </HBox>
+                  <JFXTextField fx:id="tfTelefono" promptText="Teléfono">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin></JFXTextField>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="25.0" prefWidth="42.0" />
+                        <Label fx:id="lbAlertApellidoM" textFill="RED" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="25.0" prefWidth="42.0" />
+                        <Label fx:id="lbAlertEmail" textFill="RED" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
+               </padding>
+            </VBox>
+         </left>
+         <right>
+            <VBox prefHeight="449.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Nombre del encargado">
+                           <font>
+                              <Font name="Gill Sans MT" size="14.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="25.0" prefWidth="42.0" />
+                        <Label fx:id="lbAlertNombreUsuario" textFill="RED" />
+                     </children>
+                  </HBox>
+                  <JFXTextField fx:id="tfNombreEncargado" promptText="Nombre del encargado">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Pane prefHeight="25.0" prefWidth="42.0" />
+                        <Label fx:id="lbAlertPassword" textFill="RED" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0" />
+               </children>
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
+               </padding>
+            </VBox>
+         </right>
+         <bottom>
+            <Pane prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnRegistrarSucursal" layoutX="515.0" layoutY="12.0" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Sucursal">
+                     <font>
+                        <Font name="Gill Sans MT" size="18.0" />
+                     </font></JFXButton>
+               </children>
+            </Pane>
+         </bottom>
+         <top>
+            <BorderPane prefHeight="94.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+               <top>
+                  <Pane prefHeight="58.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btnCerrar" layoutX="14.0" layoutY="11.0" onAction="#cerrarVentana" prefHeight="36.0" prefWidth="38.0" ripplerFill="RED" style="-fx-background-color: transparent; -fx-background-radius: 100px;" />
+                        <Label layoutX="162.0" layoutY="10.0" text="REGISTRO DE SUCURSAL" textFill="WHITE">
+                           <font>
+                              <Font name="Gill Sans MT" size="33.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </top>
+               <bottom>
+                  <Pane prefHeight="49.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="204.0" layoutY="15.0" text="INGRESA LOS DATOS DE LA SUCURSAL ">
+                           <font>
+                              <Font name="Gill Sans MT" size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </bottom>
+            </BorderPane>
+         </top>
+      </BorderPane>
+      <Label fx:id="lbAlertRol" layoutX="300.0" layoutY="316.0" textFill="RED" />
+   </children>
+</AnchorPane>
