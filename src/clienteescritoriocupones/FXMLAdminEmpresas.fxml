@@ -15,7 +15,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="531.0" prefWidth="787.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLAdminEmpresasController">
    <center>
-      <TableView fx:id="tvSucursales" prefHeight="528.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
+      <TableView fx:id="tvEmpresa" prefHeight="528.0" prefWidth="1000.0" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="colNombre" prefWidth="138.0" text="Nombre" />
           <TableColumn fx:id="colRFC" minWidth="0.0" prefWidth="143.0" text="RFC" />

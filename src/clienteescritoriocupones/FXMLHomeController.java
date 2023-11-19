@@ -1,5 +1,6 @@
 package clienteescritoriocupones;
 
+import clienteescritoriocupones.modelo.pojo.Empleado;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
@@ -59,10 +60,22 @@ public class FXMLHomeController implements Initializable {
     private JFXButton btnEditarPerfil;
     @FXML
     private JFXButton btnCanjeCupones;
+    
+    private Empleado empleadoSesion;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    public void inicializarEmpleado(Empleado empleadoSesion){
+        this.empleadoSesion = empleadoSesion;
+        lbNombreUsuario.setText(empleadoSesion.getNombreUsuario());
+        lbNombreEmpleado.setText(empleadoSesion.getNombre());
+        lbApellidosEmpleado.setText(empleadoSesion.getApellidoPaterno() + " "+ empleadoSesion.getApellidoMaterno());
+        lbCorreo.setText(empleadoSesion.getCorreo());
+        lbNombreEmpresa.setText(empleadoSesion.getNombreEmpresa());
+        lbRFCEmpresa.setText(empleadoSesion.getRFC());
+        lbNombreComercial.setText(empleadoSesion.getNombreComercial());
     }
 
     @FXML
@@ -71,8 +84,9 @@ public class FXMLHomeController implements Initializable {
     }
 
     @FXML
-    private void btnEmpresas(MouseEvent event) {
+    private void btnEmpresas(MouseEvent event) throws IOException {
         cargarVista("FXMLAdminEmpresas");
+        
     }
 
     @FXML

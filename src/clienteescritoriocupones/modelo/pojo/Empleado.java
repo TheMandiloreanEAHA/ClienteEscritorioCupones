@@ -11,11 +11,17 @@ public class Empleado {
     private String contraseña;
     private Integer idRol;
     private Integer idEmpresa;
+    private String nombreRol;
+    private String nombreEmpresa;
+    private String nombreComercial;
+    private String RFC;
+    private Byte[] logo;
+    private String logoBase64;
 
     public Empleado() {
     }
 
-    public Empleado(Integer idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String CURP, String correo, String nombreUsuario, String contraseña, Integer idRol, Integer idEmpresa) {
+    public Empleado(Integer idEmpleado, String nombre, String apellidoPaterno, String apellidoMaterno, String CURP, String correo, String nombreUsuario, String contraseña, Integer idRol, Integer idEmpresa, String nombreRol, String nombreEmpresa, String nombreComercial, String RFC, Byte[] logo, String logoBase64) {
         this.idEmpleado = idEmpleado;
         this.nombre = nombre;
         this.apellidoPaterno = apellidoPaterno;
@@ -26,6 +32,12 @@ public class Empleado {
         this.contraseña = contraseña;
         this.idRol = idRol;
         this.idEmpresa = idEmpresa;
+        this.nombreRol = nombreRol;
+        this.nombreEmpresa = nombreEmpresa;
+        this.nombreComercial = nombreComercial;
+        this.RFC = RFC;
+        this.logo = logo;
+        this.logoBase64 = logoBase64;
     }
 
     public Integer getIdEmpleado() {
@@ -107,6 +119,54 @@ public class Empleado {
     public void setIdEmpresa(Integer idEmpresa) {
         this.idEmpresa = idEmpresa;
     }
+
+    public String getNombreRol() {
+        return nombreRol;
+    }
+
+    public void setNombreRol(String nombreRol) {
+        this.nombreRol = nombreRol;
+    }
+
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
+    }
+
+    public void setNombreEmpresa(String nombreEmpresa) {
+        this.nombreEmpresa = nombreEmpresa;
+    }
+
+    public String getNombreComercial() {
+        return nombreComercial;
+    }
+
+    public void setNombreComercial(String nombreComercial) {
+        this.nombreComercial = nombreComercial;
+    }
+
+    public String getRFC() {
+        return RFC;
+    }
+
+    public void setRFC(String RFC) {
+        this.RFC = RFC;
+    }
+
+    public Byte[] getLogo() {
+        return logo;
+    }
+
+    public void setLogo(Byte[] logo) {
+        this.logo = logo;
+    }
+
+    public String getLogoBase64() {
+        return logoBase64;
+    }
+
+    public void setLogoBase64(String logoBase64) {
+        this.logoBase64 = logoBase64;
+    }
+    
     
 }
-

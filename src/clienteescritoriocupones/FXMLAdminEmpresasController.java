@@ -1,9 +1,16 @@
 package clienteescritoriocupones;
 
+import clienteescritoriocupones.modelo.dao.EmpresaDAO;
+import clienteescritoriocupones.modelo.pojo.Empresa;
+import clienteescritoriocupones.utils.Utilidades;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,9 +18,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -23,6 +32,7 @@ import javafx.stage.StageStyle;
 public class FXMLAdminEmpresasController implements Initializable {
 private double xOffset = 0;
     private double yOffset = 0;
+    private ObservableList<Empresa> empresa;
     @FXML
     private TextField tfBarraBusqueda;
     @FXML
@@ -34,26 +44,47 @@ private double xOffset = 0;
     @FXML
     private JFXButton btnUbicacion;
     @FXML
-    private TableView<?> tvSucursales;
+    private TableView<Empresa> tvEmpresa;
     @FXML
-    private TableColumn<?, ?> colNombre;
+    private TableColumn colNombre;
     @FXML
-    private TableColumn<?, ?> colRFC;
+    private TableColumn colRFC;
     @FXML
-    private TableColumn<?, ?> colRepresentante;
+    private TableColumn colRepresentante;
     @FXML
-    private TableColumn<?, ?> colPaginaWeb;
+    private TableColumn colPaginaWeb;
     @FXML
-    private TableColumn<?, ?> colEstatus;
+    private TableColumn colEstatus;
     @FXML
-    private TableColumn<?, ?> colCorreo;
+    private TableColumn colCorreo;
 
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        empresa = FXCollections.observableArrayList();
+        configurarTabla();
+        descargarEmpresas();
     }    
-
+    private void configurarTabla(){
+        colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
+        colRFC.setCellValueFactory(new PropertyValueFactory("RFC"));
+        colRepresentante.setCellValueFactory(new PropertyValueFactory("representante"));
+        colPaginaWeb.setCellValueFactory(new PropertyValueFactory("paginaWeb"));
+        colEstatus.setCellValueFactory(new PropertyValueFactory("estatus"));
+        colCorreo.setCellValueFactory(new PropertyValueFactory("correo"));
+    }
+    
+    private void descargarEmpresas(){
+        HashMap<String, Object> respuesta = EmpresaDAO.listaEmpresa();
+        if(!(boolean)respuesta.get("error")){
+            List<Empresa> listaWS = (List<Empresa>)respuesta.get("empresa");
+            empresa.addAll(listaWS);
+            tvEmpresa.setItems(empresa);
+        }else{
+            Utilidades.mostrarAlertaSimple("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
+        }
+    }
+    
     @FXML
     private void btnAgregar(ActionEvent event) {
         try {

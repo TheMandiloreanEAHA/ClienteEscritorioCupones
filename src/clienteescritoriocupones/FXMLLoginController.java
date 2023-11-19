@@ -125,13 +125,14 @@ public class FXMLLoginController implements Initializable {
     }
 //--------- Metodo para abrir la pantalla Home ---------//    
 
-    private void irPantallaHome() {
+    private void irPantallaHome(Empleado empleado) {
         Stage stageActual = (Stage) btnApi.getScene().getWindow();
         try {
             FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLHome.fxml"));
             Parent vista = loadMain.load();
 
             FXMLHomeController controladorHome = loadMain.getController();
+            controladorHome.inicializarEmpleado(empleado);
             Scene escenea = new Scene(vista);
 
             Stage nuevoStage = new Stage();
@@ -150,14 +151,6 @@ public class FXMLLoginController implements Initializable {
 
 //--------- Metodo para verificar las credenciales e inicar sesión ---------//
     public void verificarCredenciales() {
-        /*
-        RespuestaLogin respuesta = InicioSesionDAO.iniciarSesion(nombreUsr, password);
-        if(respuesta.getError()== false){
-            Utilidades.mostrarAlertaSimple("Credenciales Correctas", respuesta.getMensaje(), Alert.AlertType.INFORMATION);
-            irPantallaHome();
-        }else{
-            Utilidades.mostrarAlertaSimple("Error", respuesta.getMensaje(), Alert.AlertType.ERROR);
-        }*/
         Empleado empleado = new Empleado();
         String contraseña = tfContraseña.getText();
         String nombreUsuario = tfNombreUsuario.getText();
@@ -166,7 +159,7 @@ public class FXMLLoginController implements Initializable {
         RespuestaLogin respuesta = InicioSesionDAO.iniciarSesion(empleado);
         if (respuesta.getError() == false) {
             Utilidades.mostrarAlertaSimple("Acceso concedido", respuesta.getMensaje(), Alert.AlertType.CONFIRMATION);
-            irPantallaHome();
+            irPantallaHome(respuesta.getEmpleadoSesion());
         } else {
             Utilidades.mostrarAlertaSimple("Error", respuesta.getMensaje(), Alert.AlertType.ERROR);
         }
