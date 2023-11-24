@@ -74,6 +74,16 @@
                                 <Insets bottom="20.0" />
                             </VBox.margin>
                         </JFXTextField>
+                  <Label text="Teléfono">
+                     <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="tfTelefono" promptText="Teléfono">
+                     <font>
+                        <Font name="Gill Sans MT" size="12.0" />
+                     </font>
+                  </JFXTextField>
                     </children>
                     <padding>
                         <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
@@ -138,6 +148,26 @@
                         <RadioButton fx:id="rbInactiva" mnemonicParsing="false" text="Inactiva" />
                      </children>
                   </HBox>
+                  <Label text="Representante">
+                     <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="tfRepresentante" promptText="Representante">
+                     <font>
+                        <Font name="Gill Sans MT" size="12.0" />
+                     </font>
+                  </JFXTextField>
+                  <Label text="Página Web">
+                     <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="tfPaginaWeb" promptText="Página Web">
+                     <font>
+                        <Font name="Gill Sans MT" size="12.0" />
+                     </font>
+                  </JFXTextField>
                     </children>
                     <padding>
                         <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
@@ -182,6 +212,5 @@
                 </BorderPane>
             </top>
         </BorderPane>
-        <Label fx:id="lbAlertRol" layoutX="300.0" layoutY="316.0" textFill="RED" />
     </children>
 </AnchorPane>

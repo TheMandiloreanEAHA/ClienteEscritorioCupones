@@ -91,7 +91,12 @@ public class FXMLHomeController implements Initializable {
 
     @FXML
     private void btnSucursales(MouseEvent event) {
+        
+        //FXMLLoader loadAdminSuc = new FXMLLoader(getClass().getResource("FXMLAdminSucursales.fxml"));
+        //FXMLAdminSucursalesController controladorAdminSuc = loadAdminSuc.getController();
+        //controladorAdminSuc.inicializarIdEmpresa(empleadoSesion.getIdEmpresa());
         cargarVista("FXMLAdminSucursales");
+        
     }
 
     @FXML

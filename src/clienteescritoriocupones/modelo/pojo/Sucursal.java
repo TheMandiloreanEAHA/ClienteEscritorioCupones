@@ -7,6 +7,8 @@ public class Sucursal {
     private String encargado;
     private Integer idUbicacion;
     private Integer idEmpresa;
+    private String codigoPostal;
+    private String nombreEmpresa;
 
     public Sucursal() {
     }
@@ -66,6 +68,22 @@ public class Sucursal {
 
     public void setIdEmpresa(Integer idEmpresa) {
         this.idEmpresa = idEmpresa;
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
+    }
+
+    public void setNombreEmpresa(String nombreEmpresa) {
+        this.nombreEmpresa = nombreEmpresa;
     }
     
     

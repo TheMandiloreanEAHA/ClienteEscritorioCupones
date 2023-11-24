@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="419.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLFormularioSucursalController">
+<AnchorPane id="AnchorPane" prefHeight="419.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLFormularioUbicacionController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -18,7 +18,7 @@
                <children>
                   <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="250.0">
                      <children>
-                        <Label text="Nombre de la sucursal">
+                        <Label text="Calle">
                            <font>
                               <Font name="Gill Sans MT" size="15.0" />
                            </font>
@@ -26,13 +26,13 @@
                         <Pane prefHeight="25.0" prefWidth="42.0" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfNombre" promptText="Nombre">
+                  <JFXTextField fx:id="tfCalle" promptText="Calle">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin></JFXTextField>
                   <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="250.0">
                      <children>
-                        <Label text="Telefono">
+                        <Label text="Número">
                            <font>
                               <Font name="Gill Sans MT" size="15.0" />
                            </font>
@@ -40,10 +40,16 @@
                         <Pane prefHeight="25.0" prefWidth="42.0" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfTelefono" promptText="Teléfono">
+                  <JFXTextField fx:id="tfNumero" prefHeight="31.0" prefWidth="67.0" promptText="Número">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin></JFXTextField>
+                  <Label text="Código Postal">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="tfNumero1" prefHeight="31.0" prefWidth="67.0" promptText="CP" />
                   <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
                      <children>
                         <Pane prefHeight="25.0" prefWidth="42.0" />
@@ -60,45 +66,10 @@
                </padding>
             </VBox>
          </left>
-         <right>
-            <VBox prefHeight="449.0" prefWidth="350.0" BorderPane.alignment="CENTER">
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Nombre del encargado">
-                           <font>
-                              <Font name="Gill Sans MT" size="14.0" />
-                           </font>
-                        </Label>
-                        <Pane prefHeight="25.0" prefWidth="42.0" />
-                     </children>
-                  </HBox>
-                  <JFXTextField fx:id="tfNombreEncargado" promptText="Nombre del encargado">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </JFXTextField>
-                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
-                     <children>
-                        <Pane prefHeight="25.0" prefWidth="42.0" />
-                     </children>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0" />
-                  <JFXButton fx:id="btnUbi" onAction="#btnUbicacion" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: black; -fx-background-radius: 90px;" text="Ubicacion" textFill="WHITE">
-                     <font>
-                        <Font name="Gill Sans MT" size="18.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-               <padding>
-                  <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
-               </padding>
-            </VBox>
-         </right>
          <bottom>
             <Pane prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnRegistrarSucursal" layoutX="515.0" layoutY="12.0" onAction="#btnRegistrar" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Sucursal">
+                  <JFXButton fx:id="btnGuardarDatos" layoutX="265.0" layoutY="12.0" onAction="#btnGuardarCambios" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Guardar Cambios">
                      <font>
                         <Font name="Gill Sans MT" size="18.0" />
                      </font></JFXButton>
@@ -111,7 +82,7 @@
                   <Pane prefHeight="58.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                      <children>
                         <JFXButton fx:id="btnCerrar" layoutX="14.0" layoutY="11.0" onAction="#cerrarVentana" prefHeight="36.0" prefWidth="38.0" ripplerFill="RED" style="-fx-background-color: transparent; -fx-background-radius: 100px;" />
-                        <Label layoutX="162.0" layoutY="10.0" text="REGISTRO DE SUCURSAL" textFill="WHITE">
+                        <Label layoutX="162.0" layoutY="10.0" text="REGISTRO DE UBICACIÓN" textFill="WHITE">
                            <font>
                               <Font name="Gill Sans MT" size="33.0" />
                            </font>
@@ -122,7 +93,7 @@
                <bottom>
                   <Pane prefHeight="49.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
                      <children>
-                        <Label layoutX="204.0" layoutY="15.0" text="INGRESA LOS DATOS DE LA SUCURSAL ">
+                        <Label layoutX="162.0" layoutY="15.0" text="INGRESA LOS DATOS COMPLETOS SOLICITADOS">
                            <font>
                               <Font name="Gill Sans MT" size="17.0" />
                            </font>
@@ -132,6 +103,49 @@
                </bottom>
             </BorderPane>
          </top>
+         <center>
+            <VBox prefHeight="449.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Colonia">
+                           <font>
+                              <Font name="Gill Sans MT" size="14.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="25.0" prefWidth="42.0" />
+                     </children>
+                  </HBox>
+                  <JFXTextField fx:id="tfLatitud" promptText="Colonia">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <Label text="Latitud">
+                     <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="tfLatitud" promptText="Latitud" />
+                     </children>
+                  </HBox>
+                  <Label text="Longitud">
+                     <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="tfLongitud" promptText="Longitud" />
+                  <Pane prefHeight="200.0" prefWidth="200.0" />
+                  <ComboBox fx:id="cbEstados" prefWidth="150.0" promptText="Estados" />
+               </children>
+               <padding>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
+               </padding>
+            </VBox>
+         </center>
       </BorderPane>
+      <ComboBox fx:id="cbMunicipios" layoutX="632.0" layoutY="307.0" promptText="Municipios" AnchorPane.leftAnchor="632.0" />
    </children>
 </AnchorPane>

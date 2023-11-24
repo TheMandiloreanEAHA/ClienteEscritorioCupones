@@ -30,8 +30,10 @@ import javafx.stage.StageStyle;
 
 
 public class FXMLAdminEmpresasController implements Initializable {
-private double xOffset = 0;
+    
+    private double xOffset = 0;
     private double yOffset = 0;
+    
     private ObservableList<Empresa> empresa;
     @FXML
     private TextField tfBarraBusqueda;
@@ -119,7 +121,7 @@ private double xOffset = 0;
             });
 
             stageNuevo.setScene(escena);
-            stageNuevo.setTitle("Registro de Empleado");
+            stageNuevo.setTitle("Registro de empresa");
             stageNuevo.initModality(Modality.APPLICATION_MODAL); //Configuracion que nos ayuda a elegir el control de las pantallas. No perimte que otro stage tenga el control hasta que se cierre el stage actual
             stageNuevo.showAndWait(); //Bloquea la pantalla de atras 
 

@@ -63,7 +63,7 @@ public class FXMLFormularioEmpresasController implements Initializable {
 
     @javafx.fxml.FXML
     public void btnRegistrarEmpresa(ActionEvent actionEvent) {
-
+        
     }
 
     @javafx.fxml.FXML

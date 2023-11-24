@@ -38,7 +38,7 @@ public class EmpresaDAO {
         }else{
             respService.put("error", true);
             respService.put("mensaje","Hubo un error en la peticion, por el momento no se puede cargar "
-                    + "la informacion de los pacientes");
+                    + "la informacion de las empresas");
         }
         return respService;
     }
