@@ -68,12 +68,12 @@ public class FXMLAdminSucursalesController implements Initializable {
         // TODO
         sucursales = FXCollections.observableArrayList();
         configurarTabla();
-        descargarSucursales();
     }    
     
     public void inicializarIdEmpresa(int idEmpresa){
         this.idEmpresa = idEmpresa;
-        System.out.print(this.idEmpresa);        
+        System.out.print(this.idEmpresa); 
+        descargarSucursales();
     }
     
     private void configurarTabla(){
@@ -86,7 +86,7 @@ public class FXMLAdminSucursalesController implements Initializable {
     }
     
     private void descargarSucursales(){
-        HashMap<String, Object> respuesta = SucursalDAO.listaSucursal(2);//Aquí debería ser una variable
+        HashMap<String, Object> respuesta = SucursalDAO.listaSucursal(idEmpresa);//Aquí debería ser una variable
         if(!(boolean)respuesta.get("error")){
             List<Sucursal> listaWS = (List<Sucursal>)respuesta.get("sucursal");
             sucursales.addAll(listaWS);

@@ -12,14 +12,16 @@ public class Promocion {
     private String codigoPromocion;
     private String estatus;
     private Integer idTipoPromocion;
+    private String tipo;
     private Integer idCategoria;
     private Integer idEmpresa;
+    private String empresa;
     private String imagenBase64;
 
     public Promocion() {
     }
 
-    public Promocion(Integer idPromocion, String nombre, String descripcion, Byte[] imagen, String inicioPromocion, String finPromocion, String restriccion, Integer numeroCupones, String codigoPromocion, String estatus, Integer idTipoPromocion, Integer idCategoria, Integer idEmpresa, String imagenBase64) {
+    public Promocion(Integer idPromocion, String nombre, String descripcion, Byte[] imagen, String inicioPromocion, String finPromocion, String restriccion, Integer numeroCupones, String codigoPromocion, String estatus, Integer idTipoPromocion, String tipo, Integer idCategoria, Integer idEmpresa, String empresa, String imagenBase64) {
         this.idPromocion = idPromocion;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -31,20 +33,13 @@ public class Promocion {
         this.codigoPromocion = codigoPromocion;
         this.estatus = estatus;
         this.idTipoPromocion = idTipoPromocion;
+        this.tipo = tipo;
         this.idCategoria = idCategoria;
         this.idEmpresa = idEmpresa;
+        this.empresa = empresa;
         this.imagenBase64 = imagenBase64;
     }
 
-    public String getImagenBase64() {
-        return imagenBase64;
-    }
-
-    public void setImagenBase64(String imagenBase64) {
-        this.imagenBase64 = imagenBase64;
-    }
-
-    
     public Integer getIdPromocion() {
         return idPromocion;
     }
@@ -133,6 +128,14 @@ public class Promocion {
         this.idTipoPromocion = idTipoPromocion;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
     public Integer getIdCategoria() {
         return idCategoria;
     }
@@ -148,6 +151,22 @@ public class Promocion {
     public void setIdEmpresa(Integer idEmpresa) {
         this.idEmpresa = idEmpresa;
     }
-    
-    
+
+    public String getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(String empresa) {
+        this.empresa = empresa;
+    }
+
+    public String getImagenBase64() {
+        return imagenBase64;
+    }
+
+    public void setImagenBase64(String imagenBase64) {
+        this.imagenBase64 = imagenBase64;
+    }
+
+   
 }

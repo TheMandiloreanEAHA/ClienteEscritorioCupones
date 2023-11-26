@@ -91,10 +91,6 @@ public class FXMLHomeController implements Initializable {
 
     @FXML
     private void btnSucursales(MouseEvent event) {
-        
-        //FXMLLoader loadAdminSuc = new FXMLLoader(getClass().getResource("FXMLAdminSucursales.fxml"));
-        //FXMLAdminSucursalesController controladorAdminSuc = loadAdminSuc.getController();
-        //controladorAdminSuc.inicializarIdEmpresa(empleadoSesion.getIdEmpresa());
         cargarVista("FXMLAdminSucursales");
         
     }
@@ -114,14 +110,23 @@ public class FXMLHomeController implements Initializable {
     }
 
     private void cargarVista(String vista) {
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource(vista + ".fxml"));
-        } catch (IOException ex) {
-            Logger.getLogger(FXMLHomeController.class.getName()).log(Level.SEVERE, null, ex);
+    try {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(vista + ".fxml"));
+        Parent root = loader.load();
+        if (vista.equals("FXMLAdminSucursales") ) {
+            FXMLAdminSucursalesController controladorAdminSuc = loader.getController();
+            controladorAdminSuc.inicializarIdEmpresa(empleadoSesion.getIdEmpresa());
+        }else if(vista.equals("FXMLAdminEmpleados")){
+            FXMLAdminEmpleadosController controladorAdminEmp = loader.getController();
+            controladorAdminEmp.inicializarIdEmpresa(empleadoSesion.getIdEmpresa());
         }
+
         bp.setCenter(root);
+    } catch (IOException ex) {
+        Logger.getLogger(FXMLHomeController.class.getName()).log(Level.SEVERE, null, ex);
     }
+}
+
 
     @FXML
     private void btnEditarPerfil(ActionEvent event) {

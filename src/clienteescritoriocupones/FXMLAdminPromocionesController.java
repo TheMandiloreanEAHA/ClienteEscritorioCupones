@@ -73,10 +73,10 @@ public class FXMLAdminPromocionesController implements Initializable {
         colRestriccion.setCellValueFactory(new PropertyValueFactory("restriccion"));
         colInicio.setCellValueFactory(new PropertyValueFactory("inicioPromocion"));
         colFin.setCellValueFactory(new PropertyValueFactory("finPromocion"));
-        colTipoPromocion.setCellValueFactory(new PropertyValueFactory("idTipoPromocion"));
+        colTipoPromocion.setCellValueFactory(new PropertyValueFactory("tipo"));
         colCuponesDisponibles.setCellValueFactory(new PropertyValueFactory("numeroCupones"));
         colEstatus.setCellValueFactory(new PropertyValueFactory("estatus"));
-        colEmpresaPromocion.setCellValueFactory(new PropertyValueFactory("idEmpresa"));
+        colEmpresaPromocion.setCellValueFactory(new PropertyValueFactory("empresa"));
     }
     
     private void descargarEmpresas(){
