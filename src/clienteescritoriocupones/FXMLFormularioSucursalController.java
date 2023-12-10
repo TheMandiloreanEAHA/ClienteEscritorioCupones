@@ -62,11 +62,8 @@ public class FXMLFormularioSucursalController implements Initializable {
     
     public void inicializarUbicacion(Ubicacion ubicacion){
         this.ubicacion = ubicacion;  
-        if(ubicacion == null){
-            System.out.println("La ubicacion es nula");
-        }else{
-            System.out.print(ubicacion.getCalle()); 
-        }
+        System.out.print(ubicacion.getCalle()); 
+        
     }
     
     @FXML

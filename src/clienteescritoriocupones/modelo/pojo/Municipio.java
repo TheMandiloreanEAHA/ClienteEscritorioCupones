@@ -38,4 +38,8 @@ public class Municipio {
         this.idEstado = idEstado;
     }
     
+    @Override
+    public String toString() {
+        return "- "+ nombre;
+    }
 }
