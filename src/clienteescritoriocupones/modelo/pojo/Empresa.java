@@ -117,6 +117,12 @@ public class Empresa {
     public void setIdUbicacion(Integer idUbicación) {
         this.idUbicacion = idUbicación;
     }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
+    
     
     
 }

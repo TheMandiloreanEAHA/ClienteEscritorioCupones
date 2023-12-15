@@ -9,6 +9,8 @@ public class Sucursal {
     private Integer idEmpresa;
     private String codigoPostal;
     private String nombreEmpresa;
+    private String calle;
+    private String numero;
 
     public Sucursal() {
     }
@@ -85,6 +87,24 @@ public class Sucursal {
     public void setNombreEmpresa(String nombreEmpresa) {
         this.nombreEmpresa = nombreEmpresa;
     }
+
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
+    
+    
     
     
 }

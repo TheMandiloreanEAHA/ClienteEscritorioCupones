@@ -60,6 +60,7 @@ public class SucursalDAO {
         String url = Constantes.URL_WS+"sucursal/editarSucursal";
         Gson gson = new Gson();
         String parametros = gson.toJson(sucursal);
+        System.out.println(parametros);
         RespuestaHTTP respuestaPeticion = ConexionWS.peticionPUTJSON(url, parametros);
         if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
             msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);
@@ -71,11 +72,12 @@ public class SucursalDAO {
     }
     
     //-------------------------------- Eliminar sucursal --------------------------------\\
-    public static Mensaje eliminarSucursal(int idSucursal){
+    public static Mensaje eliminarSucursal(Sucursal sucursal){
         Mensaje msj = new Mensaje();
         String url = Constantes.URL_WS+"sucursal/eliminarSucursal";
         Gson gson = new Gson();
-        String parametros = gson.toJson(idSucursal);
+        String parametros = gson.toJson(sucursal);
+        System.out.println("JsonGenerado: "+ parametros);
         RespuestaHTTP respuestaPeticion = ConexionWS.peticionDELETEJSON(url, parametros);
         if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
             msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);

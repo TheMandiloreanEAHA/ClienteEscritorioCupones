@@ -1,5 +1,6 @@
 package clienteescritoriocupones;
 
+import clienteescritoriocupones.interfaz.IRespuesta;
 import clienteescritoriocupones.modelo.dao.SucursalDAO;
 import clienteescritoriocupones.modelo.pojo.Mensaje;
 import clienteescritoriocupones.modelo.pojo.Sucursal;
@@ -30,7 +31,11 @@ public class FXMLFormularioSucursalController implements Initializable {
     
     private int idEmpresa;
     
-    private Ubicacion ubicacion = null;
+    private Ubicacion ubicacion;
+    
+    private Sucursal sucursal;
+    
+    private IRespuesta observador;
     
     private double xOffset = 0;
     private double yOffset = 0;
@@ -57,13 +62,29 @@ public class FXMLFormularioSucursalController implements Initializable {
     
     public void inicializarIdEmpresa(int idEmpresa){
         this.idEmpresa = idEmpresa;
+        //System.out.println("IdEmpresa: " +this.idEmpresa);
               
+    }
+    
+    public void inicializarSucursal(Sucursal sucursal, IRespuesta observador){
+        btnRegistrarSucursal.setText("Guardar Cambios");
+        this.sucursal = sucursal;
+        this.observador = observador;
+        mostrarInfoSucursal(this.sucursal);
+        
     }
     
     public void inicializarUbicacion(Ubicacion ubicacion){
         this.ubicacion = ubicacion;  
         System.out.print(ubicacion.getCalle()); 
         
+    }
+    
+    private void mostrarInfoSucursal(Sucursal sucrusal){
+        tfNombre.setText(sucrusal.getNombre());
+        tfNombreEncargado.setText(sucrusal.getEncargado());
+        tfTelefono.setText(sucrusal.getTelefono());
+        System.out.println("ID sucursal: "+sucursal.getIdSucursal());
     }
     
     @FXML
@@ -77,49 +98,66 @@ public class FXMLFormularioSucursalController implements Initializable {
 
     @FXML
     private void btnRegistrar(ActionEvent event) {
-        String nombre = tfNombre.getText();
-        String encargado = tfNombreEncargado.getText();
-        String telefono = tfTelefono.getText();
-        
-        boolean isValido = true;
-        if (nombre.isEmpty() && encargado.isEmpty() && telefono.isEmpty()) {
-            Utilidades.mostrarAlertaSimple("Campos completos", "Ingrese todos los campos solicitados, por favor", Alert.AlertType.ERROR);
-            isValido = false;
-        } else if (nombre.isEmpty()) {
-            Utilidades.mostrarAlertaSimple("Campo Incompleto", "Nombre de sucursal requerida", Alert.AlertType.ERROR);
-            isValido = false;
-        } else if (encargado.isEmpty()) {
-            Utilidades.mostrarAlertaSimple("Campo Incompleto", "Nombre del encargado de la sucursal requerido", Alert.AlertType.ERROR);
-            isValido = false;
-        } else if (telefono.isEmpty()) {
-            Utilidades.mostrarAlertaSimple("Campo Incompleto", "Teléfono de la sucursal requerido", Alert.AlertType.ERROR);
-            isValido = false;
-        }/*else if(ubicacion == null){
-            Utilidades.mostrarAlertaSimple("Ubicación requerida", "Por favor, presione el botón de ubicación y llene los campos requeridos. Asrgurese de guardar los datos", Alert.AlertType.ERROR);
-            isValido = false;
-        }*/
-
-        if (isValido) {
-            //Registrar sucursal
-            Sucursal sucursal = new Sucursal();
-            sucursal.setNombre(nombre);
-            sucursal.setEncargado(encargado);
-            sucursal.setTelefono(telefono);
-            sucursal.setIdEmpresa(2);//El Id empresa lo ponemos manual porque aún no descrubo como pasar datos :(
-            sucursal.setIdUbicacion(registrarUbicacion(ubicacion));
-            registrarSucursal(sucursal);
+        boolean isValido = validarCampos();
+         String nombre = tfNombre.getText();
+         String encargado = tfNombreEncargado.getText();
+         String telefono = tfTelefono.getText(); 
+         Sucursal suc = new Sucursal();
+         
+         if (isValido) {       
+            suc.setNombre(nombre);
+            suc.setEncargado(encargado);
+            suc.setTelefono(telefono);
+            suc.setIdEmpresa(idEmpresa);//El Id empresa lo ponemos manual porque aún no descubro como pasar datos :(
+               
         }
+        if(btnRegistrarSucursal.getText().equals("Guardar Cambios")){
+            //Asignarle el id a la sucursla a modificar
+            suc.setIdSucursal(sucursal.getIdSucursal());
+            
+            //Aquí se debe obtener el id del domicilio para asignarle una ubicación al domicilio
+            suc.setIdUbicacion(9);
+            modificarSucursal(suc);
+        }else{
+            suc.setIdUbicacion(registrarUbicacion(ubicacion)); //Se debe otner el id de la ibicación
+            registrarSucursal(suc);    
+        }
+        
+    }
+    
+    private boolean validarCampos(){
+        boolean isValido = true;
+        if (tfNombre.getText().isEmpty() && tfNombreEncargado.getText().isEmpty() && tfTelefono.getText().isEmpty()) {
+                Utilidades.mostrarAlertaSimple("Campos completos", "Ingrese todos los campos solicitados, por favor", Alert.AlertType.ERROR);
+                isValido = false;
+            } else if (tfNombre.getText().isEmpty()) {
+                Utilidades.mostrarAlertaSimple("Campo Incompleto", "Nombre de sucursal requerida", Alert.AlertType.ERROR);
+                isValido = false;
+            } else if (tfNombreEncargado.getText().isEmpty()) {
+                Utilidades.mostrarAlertaSimple("Campo Incompleto", "Nombre del encargado de la sucursal requerido", Alert.AlertType.ERROR);
+                isValido = false;
+            } else if (tfTelefono.getText().isEmpty()) {
+                Utilidades.mostrarAlertaSimple("Campo Incompleto", "Teléfono de la sucursal requerido", Alert.AlertType.ERROR);
+                isValido = false;
+            }/*else if(ubicacion == null){
+                Utilidades.mostrarAlertaSimple("Ubicación requerida", "Por favor, presione el botón de ubicación y llene los campos requeridos. Asrgurese de guardar los datos", Alert.AlertType.ERROR);
+                isValido = false;
+            }*/
+        
+        return isValido;
     }
     
     private void registrarSucursal(Sucursal sucursal){
         Mensaje msj = SucursalDAO.agregarSucursal(sucursal);
         if(!msj.getError()){
             Utilidades.mostrarAlertaSimple("Sucursal registrada", msj.getMensaje(), Alert.AlertType.INFORMATION);
+            observador.notificarGuardado();
             cerrarVentana();
         }else{
             Utilidades.mostrarAlertaSimple("Error al registrar la Sucursal", msj.getMensaje(), Alert.AlertType.ERROR);
         }
     }
+    
     private int registrarUbicacion(Ubicacion ubicacion){
         int idUbicacion = 10;
         /*
@@ -137,6 +175,17 @@ public class FXMLFormularioSucursalController implements Initializable {
         }
         */
         return idUbicacion;
+    }
+    
+    private void modificarSucursal(Sucursal sucursal){
+        Mensaje msj = SucursalDAO.modificarSucursal(sucursal);
+        if(!msj.getError()){
+            Utilidades.mostrarAlertaSimple("Sucursal Modifcada", msj.getMensaje(), Alert.AlertType.INFORMATION);
+            observador.notificarGuardado();
+            cerrarVentana();
+        }else{
+            Utilidades.mostrarAlertaSimple("Error al modificar la Sucursal", msj.getMensaje(), Alert.AlertType.ERROR);
+        }
     }
 
     @FXML

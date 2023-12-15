@@ -135,7 +135,7 @@
                         <Font name="Gill Sans MT" size="14.0" />
                      </font>
                   </Label>
-                  <JFXComboBox fx:id="cbRol" prefHeight="37.0" prefWidth="250.0" promptText="Rol de Empleado">
+                  <JFXComboBox fx:id="cbRol" onAction="#listenerComboRol" prefHeight="37.0" prefWidth="250.0" promptText="Rol de Empleado">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>

@@ -27,6 +27,11 @@ public class Mensaje {
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
     }
+
+    @Override
+    public String toString() {
+        return "Mensaje{" + "error=" + error + ", mensaje=" + mensaje + '}';
+    }
     
     
 }

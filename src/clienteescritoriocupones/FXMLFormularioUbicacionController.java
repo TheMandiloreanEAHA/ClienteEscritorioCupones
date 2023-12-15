@@ -24,9 +24,7 @@ import javafx.stage.Stage;
 public class FXMLFormularioUbicacionController implements Initializable {
     
     private Ubicacion ubicacion;
-    private ObservableList<Estado> estadosList;
-    private ObservableList<Municipio> municipiosList;
-
+    
     @FXML
     private JFXButton btnCerrar;
     @FXML
