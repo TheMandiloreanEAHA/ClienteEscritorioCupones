@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Open Street Map</title>
+    <link rel="stylesheet" href="leaflet.css" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #mi_mapa {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mi_mapa"></div>
+    <script src="leaflet.js"></script>
+
+    <script>
+        let map = L.map('mi_mapa').setView([19.54103, -96.92699], 16)
+        L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
+
+        // Declara una variable para almacenar el marcador
+        let marcador;
+
+        // Agrega el control de zoom al mapa
+        L.control.zoom({ position: 'bottomright' }).addTo(map);
+        map.zoomControl.remove();
+
+        map.on('click', function (e) {
+            // Borra el marcador anterior si existe
+            if (marcador) {
+                map.removeLayer(marcador);
+            }
+
+            // Restablecer la variable del marcador a null
+            marcador = null;
+
+            // Obtener coordenadas del clic
+            let latlng = e.latlng;
+
+            // Agregar un nuevo marcador en las coordenadas del clic
+            marcador = L.marker(latlng).addTo(map)
+                .bindPopup("La longitud es " + latlng.lng + " y la latitud es " + latlng.lat)
+                .openPopup();
+        });
+    </script>
+
+</body>
+
+</html>

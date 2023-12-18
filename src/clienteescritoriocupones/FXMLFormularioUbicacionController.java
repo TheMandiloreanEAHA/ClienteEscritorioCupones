@@ -7,24 +7,37 @@ import clienteescritoriocupones.modelo.pojo.Municipio;
 import clienteescritoriocupones.modelo.pojo.Ubicacion;
 import clienteescritoriocupones.utils.Utilidades;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import netscape.javascript.JSObject;
+import javafx.scene.layout.Pane;
 
-public class FXMLFormularioUbicacionController implements Initializable {
-    
+
+
+public class FXMLFormularioUbicacionController  implements Initializable {
+
     private Ubicacion ubicacion;
-    
+
     @FXML
     private JFXButton btnCerrar;
     @FXML
@@ -40,30 +53,70 @@ public class FXMLFormularioUbicacionController implements Initializable {
     @FXML
     private JFXTextField tfLongitud;
     @FXML
-    private ComboBox<Estado> cbEstados;
-    @FXML
-    private ComboBox<Municipio> cbMunicipios;
-    @FXML
     private JFXTextField tfColonia;
-   
+    @FXML
+    private JFXComboBox<Estado> cbEstados;
+    @FXML
+    private JFXComboBox<Municipio> cbMunicipios;
+    @FXML
+    private WebView pnMapa;
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         cargarEstadosCB();
-        
-    }    
-    
+        inicializarMapa();
+
+    }
+
+    private void inicializarMapa() {
+     pnMapa.setPrefSize(800, 600);
+
+     WebEngine webEngine = pnMapa.getEngine();
+
+        // Obtener la URL del archivo HTML en el mismo paquete
+        String htmlFilePath = getClass().getResource("/clienteescritoriocupones/map/googlemap.html").toExternalForm();
+        inicializarComunicacion();
+        // Cargar el contenido HTML en el WebView
+        webEngine.load(htmlFilePath);
+
+}
+    private void inicializarComunicacion() {
+        WebEngine webEngine = pnMapa.getEngine();
+        webEngine.getLoadWorker().stateProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    if (newValue == Worker.State.SUCCEEDED) {
+                        // Configurar la interfaz entre JavaScript y JavaFX
+                        JSObject window = (JSObject) webEngine.executeScript("window");
+                        window.setMember("javaConnector", new JavaConnector());
+                    }
+                });
+    }
+    public class JavaConnector {
+
+       public void enviarInformacionMarcador(double latitud, double longitud, String calle, String cp) {
+        Platform.runLater(() -> {
+            // Aquí puedes realizar acciones en JavaFX con la información del marcador
+            // por ejemplo, mostrar información en los campos de texto
+            // o realizar cualquier otra lógica que necesites.
+            // Puedes acceder a los campos de tu controlador de JavaFX desde aquí.
+            // Ejemplo:
+            tfLatitud.setText(Double.toString(latitud));
+            tfLongitud.setText(Double.toString(longitud));
+            tfCalle.setText(calle);
+            tfCodigoPostal.setText(cp);
+        });
+    }
+    }
     public void inicializarUbicacion(Ubicacion ubicacion){
         this.ubicacion = ubicacion;
         if(ubicacion == null){
             System.out.println("La ubicacion es nula");
         }else{
-            System.out.print(ubicacion.getCalle()); 
+            System.out.print(ubicacion.getCalle());
         }
-               
+
     }
-    
+
     private void cargarEstadosCB(){
         //Obtener los estados
         List<Estado> estados = UbicacionDAO.obtenerEstados();
@@ -73,24 +126,24 @@ public class FXMLFormularioUbicacionController implements Initializable {
         cbEstados.getItems().addAll(estados);
     }
 
-    
+
     private List<Municipio> cargarMunicipios(Estado estado){
         return UbicacionDAO.obtenerMunicipioEstado(estado.getIdEstado());
     }
-    
+
     //Funcion para validar que todos los campos esten vacios
     private boolean esValido(
-            String calle, 
-            String colonia, 
-            String numero, 
+            String calle,
+            String colonia,
+            String numero,
             String codigoPostal,
             String latitud,
             String longitud,
             Estado estado,
             Municipio municipio){
         //Variable que cambiara su valor en caso de que algún campo este vacio
-        boolean esValido = true;        
-        
+        boolean esValido = true;
+
         //Comienzan las validaciones
         if(calle.isEmpty()){
             //lbAlert_calle.setText("*Campo oblogatorio");
@@ -111,11 +164,11 @@ public class FXMLFormularioUbicacionController implements Initializable {
        if(longitud.isEmpty()){
             //lbAlert_municipio.setText("*Campo oblogatorio");
             esValido = false;
-        }  
+        }
        if(latitud.isEmpty()){
             //lbAlert_municipio.setText("*Campo oblogatorio");
             esValido = false;
-        }  
+        }
        if(estado == null){
             //lbAlert_estado.setText("*Campo oblogatorio");
             esValido = false;
@@ -123,20 +176,20 @@ public class FXMLFormularioUbicacionController implements Initializable {
        if(municipio == null){
             //lbAlert_municipio.setText("*Campo oblogatorio");
             esValido = false;
-        }     
-        
+        }
+
         return esValido;
     }
-    
+
     private void mandarUbicacion(Ubicacion ubi){
          //Cargar las vistas a memoria
         FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLFormularioSucursal.fxml"));
-        //Parent vista = loadMain.load();            
+        //Parent vista = loadMain.load();
         //Cargamos la información
         FXMLFormularioSucursalController formSucursalController = loadMain.getController();
         formSucursalController.inicializarUbicacion(ubi);
     }
-    
+
 
     @FXML
     private void cerrarVentana(ActionEvent event) {
@@ -159,9 +212,9 @@ public class FXMLFormularioUbicacionController implements Initializable {
         Municipio municipio = cbMunicipios.getValue();
         boolean esValido = esValido(calle, colonia, numero, codigoPostal, latitud, longitud, estado, municipio);
         Ubicacion ubi = new Ubicacion();
-         
-        if(esValido){    
-            ubi.setCalle(calle); 
+
+        if(esValido){
+            ubi.setCalle(calle);
             ubi.setColonia(colonia);
             ubi.setNumero(numero);
             ubi.setCodigoPostal(codigoPostal);
@@ -170,23 +223,21 @@ public class FXMLFormularioUbicacionController implements Initializable {
             ubi.setIdMunicipio(municipio.getIdMunicipio());
             ubi.setIdEstado(municipio.getIdEstado());
             ubi.setEstado(estado.getNombre());
-            ubi.setMunicipio(municipio.getNombre()); 
+            ubi.setMunicipio(municipio.getNombre());
             mandarUbicacion(ubi);
-            
-            Utilidades.mostrarAlertaSimple("Información Guardada", "La información de la ubicación guardada con éxito", Alert.AlertType.ERROR);            
+
+            Utilidades.mostrarAlertaSimple("Información Guardada", "La información de la ubicación guardada con éxito", Alert.AlertType.ERROR);
             cerrarVentana();
 
         }else{
             Utilidades.mostrarAlertaSimple("Información incompleta", "Asegurese de llenar todos los campos solicitados", Alert.AlertType.ERROR);
         }
-        
-        
 
     }
-    
+
     @FXML
-    private void comboListenerEstado(ActionEvent event){ 
-        
+    private void comboListenerEstado(ActionEvent event){
+
         Estado estadoSeleccionado = cbEstados.getValue();
         if(estadoSeleccionado != null){
             //obtener la lista de los municipios de ese estado:
@@ -196,7 +247,7 @@ public class FXMLFormularioUbicacionController implements Initializable {
             //Agregar los municipios al comboBox
             cbMunicipios.getItems().addAll(municipios);
         }
-        
+
     }
-    
+
 }

@@ -21,7 +21,12 @@ public class ClienteEscritorioCupones extends Application {
     private double yOffset = 0;
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
+           if (isSecureEnvironment()) {
+            System.out.println("La aplicación se está ejecutando en un entorno seguro (HTTPS).");
+        } else {
+            System.out.println("La aplicación se está ejecutando en un entorno no seguro (HTTP).");
+        }
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLFormularioUbicacion.fxml"));
         
         Scene scene = new Scene(root);
        
@@ -47,7 +52,10 @@ public class ClienteEscritorioCupones extends Application {
         stage.getIcons().add(Constantes.imagenIcon);
         stage.show();
     }
-
+private static boolean isSecureEnvironment() {
+        SecurityManager securityManager = System.getSecurityManager();
+        return securityManager != null;
+    }
     /**
      * @param args the command line arguments
      */
