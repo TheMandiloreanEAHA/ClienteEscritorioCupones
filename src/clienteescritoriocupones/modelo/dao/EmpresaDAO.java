@@ -69,7 +69,7 @@ public class EmpresaDAO {
         return msj;
     }
     //---------------------------------------- Eliminar empresa por RFC----------------------------------------\\
-    public static Mensaje meliminarEmpresa(String RFC){
+    public static Mensaje eliminarEmpresa(String RFC){
         Mensaje msj = new Mensaje();
         String url = Constantes.URL_WS+"empresa/eliminarEmpresa";
         Gson gson = new Gson();
@@ -105,11 +105,14 @@ public class EmpresaDAO {
     public static HashMap<String, Object> buscarEmpresaPorId(int idEmpresa){
         HashMap<String, Object> respService = new LinkedHashMap<>();
         String url = Constantes.URL_WS+"empresa/empresaPorId/"+idEmpresa;
-        RespuestaHTTP respuesta = ConexionWS.peticionGET(url);
+        RespuestaHTTP respuesta = ConexionWS.peticionGET(url); 
+        Empresa empresa = new Empresa();
+        Gson gson = new Gson();
         System.out.println(url);
         if(respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+            empresa = gson.fromJson(respuesta.getContenido(), Empresa.class);
             respService.put("error", false);
-            respService.put("empresa", respuesta.getContenido());
+            respService.put("empresa", empresa);
         
         }else{
             respService.put("error", true);

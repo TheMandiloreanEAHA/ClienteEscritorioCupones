@@ -90,7 +90,7 @@ public class FXMLAdminSucursalesController implements Initializable, IRespuesta 
     }
     
     private void descargarSucursales(){
-        HashMap<String, Object> respuesta = SucursalDAO.listaSucursal(idEmpresa);//Aquí debería ser una variable
+        HashMap<String, Object> respuesta = SucursalDAO.listaSucursal(idEmpresa);
         if(!(boolean)respuesta.get("error")){
             List<Sucursal> listaWS = (List<Sucursal>)respuesta.get("sucursal");
             sucursales.addAll(listaWS);
@@ -109,7 +109,7 @@ public class FXMLAdminSucursalesController implements Initializable, IRespuesta 
             
             //Pasamos el id de la empresa
             FXMLFormularioSucursalController formSucursalController = loadMain.getController();
-            formSucursalController.inicializarIdEmpresa(idEmpresa);
+            formSucursalController.inicializarIdEmpresa(idEmpresa, this);
 
             //Creamos un nuevo stage
             Stage stageNuevo = new Stage();
@@ -152,17 +152,11 @@ public class FXMLAdminSucursalesController implements Initializable, IRespuesta 
                 //Cargar las vistas a memoria
                 FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLFormularioSucursal.fxml"));
                 Parent vista = loadMain.load();
-                
-                /*
-                //Cargamos la información
-                FXMLModificarPacienteController modificarController = loadMain.getController();
-                //Pasar la información del paciente
-                modificarController.inicializarPaciente(paciente, this);
-                */
+               
                 //Cargamos la información de la sucursal
                 FXMLFormularioSucursalController formSucController = loadMain.getController();
                 //Pasar la info de la sucursal
-                formSucController.inicializarSucursal(sucursal, this);
+                formSucController.inicializarSucursal(sucursal);
 
                 //Creamos un nuevo stage
                 Stage stageNuevo = new Stage();

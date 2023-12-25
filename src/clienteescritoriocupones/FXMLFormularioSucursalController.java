@@ -60,16 +60,16 @@ public class FXMLFormularioSucursalController implements Initializable {
         btnCerrar.setGraphic(new ImageView(Constantes.imagenCerrar));
     } 
     
-    public void inicializarIdEmpresa(int idEmpresa){
+    public void inicializarIdEmpresa(int idEmpresa, IRespuesta observador){
         this.idEmpresa = idEmpresa;
-        //System.out.println("IdEmpresa: " +this.idEmpresa);
+        this.observador = observador;
               
     }
     
-    public void inicializarSucursal(Sucursal sucursal, IRespuesta observador){
+    public void inicializarSucursal(Sucursal sucursal){
         btnRegistrarSucursal.setText("Guardar Cambios");
         this.sucursal = sucursal;
-        this.observador = observador;
+        
         mostrarInfoSucursal(this.sucursal);
         
     }
@@ -108,13 +108,12 @@ public class FXMLFormularioSucursalController implements Initializable {
             suc.setNombre(nombre);
             suc.setEncargado(encargado);
             suc.setTelefono(telefono);
-            suc.setIdEmpresa(idEmpresa);//El Id empresa lo ponemos manual porque aún no descubro como pasar datos :(
+            suc.setIdEmpresa(idEmpresa);
                
         }
         if(btnRegistrarSucursal.getText().equals("Guardar Cambios")){
             //Asignarle el id a la sucursla a modificar
-            suc.setIdSucursal(sucursal.getIdSucursal());
-            
+            suc.setIdSucursal(sucursal.getIdSucursal());            
             //Aquí se debe obtener el id del domicilio para asignarle una ubicación al domicilio
             suc.setIdUbicacion(9);
             modificarSucursal(suc);
@@ -228,37 +227,6 @@ public class FXMLFormularioSucursalController implements Initializable {
         }catch(IOException ex){
              ex.printStackTrace();
         }
-        /*
-        try {
-           
-            stageNuevo.initStyle(StageStyle.DECORATED.UNDECORATED);
-            vista.setOnMousePressed(new EventHandler<MouseEvent>(){
-                @Override
-                public void handle(MouseEvent event){
-                    xOffset = event.getSceneX();
-                    yOffset = event.getSceneY();
-                }
-
-            });
-            vista.setOnMouseDragged(new EventHandler<MouseEvent>(){
-                @Override
-                public void handle(MouseEvent event){
-                    stageNuevo.setX(event.getScreenX() -xOffset);
-                    stageNuevo.setY(event.getScreenY() -yOffset);
-                }
-
-            });
-
-            stageNuevo.setScene(escena);
-            stageNuevo.setTitle("Registro de empresa");
-            stageNuevo.initModality(Modality.APPLICATION_MODAL); //Configuracion que nos ayuda a elegir el control de las pantallas. No perimte que otro stage tenga el control hasta que se cierre el stage actual
-            stageNuevo.showAndWait(); //Bloquea la pantalla de atras 
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-    }
-        */
     }
     
     

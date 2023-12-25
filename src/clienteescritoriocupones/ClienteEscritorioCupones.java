@@ -26,7 +26,7 @@ public class ClienteEscritorioCupones extends Application {
         } else {
             System.out.println("La aplicación se está ejecutando en un entorno no seguro (HTTP).");
         }
-        Parent root = FXMLLoader.load(getClass().getResource("FXMLFormularioUbicacion.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("FXMLLogin.fxml"));
         
         Scene scene = new Scene(root);
        

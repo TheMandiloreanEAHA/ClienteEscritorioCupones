@@ -71,11 +71,12 @@ public class EmpleadoDAO {
     }
     
     //-------------------------------- Eliminar empleado --------------------------------\\
-    public static Mensaje eliminarEmpleado(int idEmpleado){
+    public static Mensaje eliminarEmpleado(Empleado empleado){
         Mensaje msj = new Mensaje();
         String url = Constantes.URL_WS+"empleado/eliminarEmpleado";
         Gson gson = new Gson();
-        String parametros = gson.toJson(idEmpleado);
+        String parametros = gson.toJson(empleado);
+        
         RespuestaHTTP respuestaPeticion = ConexionWS.peticionDELETEJSON(url, parametros);
         if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
             msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);
