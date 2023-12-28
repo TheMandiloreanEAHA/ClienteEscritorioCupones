@@ -4,10 +4,12 @@ import clienteescritoriocupones.modelo.dao.UbicacionDAO;
 import clienteescritoriocupones.modelo.pojo.Estado;
 import clienteescritoriocupones.modelo.pojo.Municipio;
 import clienteescritoriocupones.modelo.pojo.Ubicacion;
+import clienteescritoriocupones.utils.Constantes;
 import clienteescritoriocupones.utils.Utilidades;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import java.net.URL;
@@ -53,9 +55,14 @@ public class FXMLFormularioUbicacionController  implements Initializable {
     private JFXComboBox<Municipio> cbMunicipios;
     @FXML
     private WebView pnMapa;
+    @FXML
+    private JFXButton btnLongitud;
+    @FXML
+    private JFXButton btnLatitud;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        btnCerrar.setGraphic(new ImageView(Constantes.imagenCerrar));
         cargarEstadosCB();
         inicializarMapa();
 
@@ -180,11 +187,6 @@ public class FXMLFormularioUbicacionController  implements Initializable {
         formSucursalController.inicializarUbicacion(ubi);
     }
 
-
-    @FXML
-    private void cerrarVentana(ActionEvent event) {
-        cerrarVentana();
-    }
     private void cerrarVentana() {
         Stage escenario = (Stage) btnCerrar.getScene().getWindow();
         escenario.close();
@@ -240,4 +242,32 @@ public class FXMLFormularioUbicacionController  implements Initializable {
 
     }
 
+    @FXML
+    public void copiarLongitud(ActionEvent actionEvent) {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+
+        // Verifica si el contenido del portapapeles es de tipo String
+        if (clipboard.hasString()) {
+            // Obtiene el contenido del portapapeles y lo pega en el TextField
+            String clipboardContent = clipboard.getString();
+            tfLongitud.setText(clipboardContent);
+        }
+    }
+
+    @FXML
+    public void copiarLatitud(ActionEvent actionEvent) {
+        Clipboard clipboard = Clipboard.getSystemClipboard();
+
+        // Verifica si el contenido del portapapeles es de tipo String
+        if (clipboard.hasString()) {
+            // Obtiene el contenido del portapapeles y lo pega en el TextField
+            String clipboardContent = clipboard.getString();
+            tfLatitud.setText(clipboardContent);
+        }
+    }
+
+    @FXML
+    public void btnCerrarVentana(ActionEvent actionEvent) {
+        cerrarVentana();
+    }
 }

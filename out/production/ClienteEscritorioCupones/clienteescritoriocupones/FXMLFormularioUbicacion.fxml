@@ -105,7 +105,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </HBox>
-                  <HBox maxWidth="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="43.0" prefWidth="257.0">
+                  <HBox maxWidth="-Infinity" minWidth="-Infinity" pickOnBounds="false" prefHeight="110.0" prefWidth="257.0">
                      <children>
                         <JFXComboBox fx:id="cbEstados" focusColor="#03e9f4" minWidth="-Infinity" onAction="#comboListenerEstado" prefHeight="25.0" prefWidth="119.0" promptText="Estados" HBox.hgrow="NEVER" />
                         <Pane prefHeight="25.0" prefWidth="49.0" />
@@ -122,27 +122,39 @@
                               <Font name="Gill Sans MT" size="14.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="tfLongitud" focusColor="#03e9f4" promptText="Longitud" />
+                        <HBox prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <JFXTextField fx:id="tfLongitud" focusColor="#03e9f4" promptText="Longitud" />
+                              <JFXButton fx:id="btnLongitud" onAction="#copiarLongitud" prefHeight="25.0" prefWidth="47.0" ripplerFill="#03e9f4" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Pegar" textFill="WHITE">
+                                 <font>
+                                    <Font name="Gill Sans MT" size="12.0" />
+                                 </font></JFXButton>
+                           </children>
+                        </HBox>
                      </children>
                      <VBox.margin>
-                        <Insets bottom="20.0" right="100.0" />
+                        <Insets bottom="20.0" right="80.0" />
                      </VBox.margin>
                   </VBox>
-                  <VBox prefHeight="200.0" prefWidth="100.0">
+                  <VBox prefHeight="42.0" prefWidth="103.0">
                      <children>
                         <Label text="Latitud">
                            <font>
                               <Font name="Gill Sans MT" size="14.0" />
                            </font>
                         </Label>
-                        <JFXTextField fx:id="tfLatitud" focusColor="#03e9f4" prefHeight="31.0" prefWidth="311.0" promptText="Latitud">
-                           <VBox.margin>
-                              <Insets right="100.0" />
-                           </VBox.margin>
-                        </JFXTextField>
+                        <HBox prefHeight="25.0" prefWidth="91.0">
+                           <children>
+                              <JFXTextField fx:id="tfLatitud" focusColor="#03e9f4" promptText="Latitud" />
+                              <JFXButton fx:id="btnLatitud" onAction="#copiarLatitud" prefHeight="25.0" prefWidth="47.0" ripplerFill="#03e9f4" style="-fx-background-color: #000000; -fx-background-radius: 25;" text="Pegar" textFill="WHITE">
+                                 <font>
+                                    <Font name="Gill Sans MT" size="12.0" />
+                                 </font></JFXButton>
+                           </children>
+                        </HBox>
                      </children>
                      <VBox.margin>
-                        <Insets />
+                        <Insets right="80.0" />
                      </VBox.margin>
                   </VBox>
                </children>
@@ -154,7 +166,7 @@
          <bottom>
             <Pane prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnGuardarDatos" layoutX="265.0" layoutY="12.0" onAction="#btnGuardarCambios" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Guardar Cambios">
+                  <JFXButton fx:id="btnGuardarDatos" layoutX="265.0" layoutY="12.0" onAction="#btnGuardarCambios" prefHeight="45.0" prefWidth="171.0" ripplerFill="#03e9f4" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Guardar Cambios">
                      <font>
                         <Font name="Gill Sans MT" size="18.0" />
                      </font></JFXButton>
@@ -166,7 +178,7 @@
                <top>
                   <Pane prefHeight="58.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                      <children>
-                        <JFXButton fx:id="btnCerrar" layoutX="14.0" layoutY="11.0" onAction="#cerrarVentana" prefHeight="36.0" prefWidth="38.0" ripplerFill="RED" style="-fx-background-color: transparent; -fx-background-radius: 100px;" />
+                        <JFXButton fx:id="btnCerrar" layoutX="14.0" layoutY="11.0" onAction="#btnCerrarVentana" prefHeight="36.0" prefWidth="38.0" ripplerFill="RED" style="-fx-background-color: transparent; -fx-background-radius: 100px;" />
                         <Label layoutX="162.0" layoutY="10.0" text="REGISTRO DE UBICACIÓN" textFill="WHITE">
                            <font>
                               <Font name="Gill Sans MT" size="33.0" />
