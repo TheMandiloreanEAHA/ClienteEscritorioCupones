@@ -2,35 +2,28 @@ package clienteescritoriocupones;
 
 import clienteescritoriocupones.modelo.dao.UbicacionDAO;
 import clienteescritoriocupones.modelo.pojo.Estado;
-import clienteescritoriocupones.modelo.pojo.Mensaje;
 import clienteescritoriocupones.modelo.pojo.Municipio;
 import clienteescritoriocupones.modelo.pojo.Ubicacion;
 import clienteescritoriocupones.utils.Utilidades;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
-
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
-import javafx.scene.layout.Pane;
 
 
 
@@ -72,41 +65,38 @@ public class FXMLFormularioUbicacionController  implements Initializable {
      pnMapa.setPrefSize(800, 600);
 
      WebEngine webEngine = pnMapa.getEngine();
+        webEngine.setJavaScriptEnabled(true);
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == Worker.State.SUCCEEDED) {
+                // Configurar el entorno del WebView para permitir el acceso al portapapeles
+                JSObject window = (JSObject) webEngine.executeScript("window");
+                window.setMember("java", this);
+
+                // Desactivar la prevención de copia en el documento
+                webEngine.executeScript("document.addEventListener('copy', function(e) {e.preventDefault();});");
+
+                // Definir funciones de Java que estarán disponibles en JavaScript
+                webEngine.executeScript("function copyToClipboard(data) {" +
+                        "   java.copyToClipboard(data);" +
+                        "}");
+            }
+        });
 
         // Obtener la URL del archivo HTML en el mismo paquete
         String htmlFilePath = getClass().getResource("/clienteescritoriocupones/map/googlemap.html").toExternalForm();
-        inicializarComunicacion();
         // Cargar el contenido HTML en el WebView
         webEngine.load(htmlFilePath);
 
 }
-    private void inicializarComunicacion() {
-        WebEngine webEngine = pnMapa.getEngine();
-        webEngine.getLoadWorker().stateProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    if (newValue == Worker.State.SUCCEEDED) {
-                        // Configurar la interfaz entre JavaScript y JavaFX
-                        JSObject window = (JSObject) webEngine.executeScript("window");
-                        window.setMember("javaConnector", new JavaConnector());
-                    }
-                });
-    }
-    public class JavaConnector {
-
-       public void enviarInformacionMarcador(double latitud, double longitud, String calle, String cp) {
+    public void copyToClipboard(String data) {
         Platform.runLater(() -> {
-            // Aquí puedes realizar acciones en JavaFX con la información del marcador
-            // por ejemplo, mostrar información en los campos de texto
-            // o realizar cualquier otra lógica que necesites.
-            // Puedes acceder a los campos de tu controlador de JavaFX desde aquí.
-            // Ejemplo:
-            tfLatitud.setText(Double.toString(latitud));
-            tfLongitud.setText(Double.toString(longitud));
-            tfCalle.setText(calle);
-            tfCodigoPostal.setText(cp);
+            Clipboard clipboard = Clipboard.getSystemClipboard();
+            ClipboardContent content = new ClipboardContent();
+            content.putString(data);
+            clipboard.setContent(content);
         });
     }
-    }
+
     public void inicializarUbicacion(Ubicacion ubicacion){
         this.ubicacion = ubicacion;
         if(ubicacion == null){

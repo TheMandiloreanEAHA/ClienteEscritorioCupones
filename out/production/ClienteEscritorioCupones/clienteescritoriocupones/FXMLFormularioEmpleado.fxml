@@ -159,7 +159,7 @@
          <bottom>
             <Pane prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnRegistrarEmpleado" layoutX="515.0" layoutY="12.0" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Empleado">
+                  <JFXButton fx:id="btnRegistrarEmpleado" layoutX="515.0" layoutY="12.0" onAction="#btnRegistrarEmpleado" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Empleado">
                      <font>
                         <Font name="Gill Sans MT" size="18.0" />
                      </font></JFXButton>

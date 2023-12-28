@@ -15,7 +15,7 @@
         }
 
         #mi_mapa {
-            height: 100%;
+            height: 90%;
             width: 100%;
         }
     </style>
@@ -23,9 +23,16 @@
 
 <body>
     <div id="mi_mapa"></div>
+    <button onclick="copyCoordinate('longitude')">Copiar Longitud</button>
+    <button onclick="copyCoordinate('latitude')">Copiar Latitud</button>
     <script src="leaflet.js"></script>
 
     <script>
+        function roundToDecimals(value, decimals) {
+            const factor = Math.pow(10, decimals);
+            return Math.round(value * factor) / factor;
+        }
+
         let map = L.map('mi_mapa').setView([19.54103, -96.92699], 16)
         L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
 
@@ -48,13 +55,28 @@
             // Obtener coordenadas del clic
             let latlng = e.latlng;
 
+            // Redondear las coordenadas a 8 decimales usando la función personalizada
+            const roundedLatLng = {
+                lat: roundToDecimals(latlng.lat, 8),
+                lng: roundToDecimals(latlng.lng, 8)
+            };
+
             // Agregar un nuevo marcador en las coordenadas del clic
             marcador = L.marker(latlng).addTo(map)
-                .bindPopup("La longitud es " + latlng.lng + " y la latitud es " + latlng.lat)
+                .bindPopup("La longitud es " + roundedLatLng.lng + " y la latitud es " + roundedLatLng.lat)
                 .openPopup();
         });
-    </script>
 
+        function copyCoordinate(type) {
+            if (marcador) {
+                const coordinate = type === 'longitude' ? marcador.getLatLng().lng.toFixed(8) :
+                    marcador.getLatLng().lat.toFixed(8);
+
+                // Llamada a la función JavaFX para copiar al portapapeles
+                java.copyToClipboard(coordinate);
+            }
+        }
+    </script>
 </body>
 
 </html>
