@@ -27,7 +27,7 @@
                                 <Label fx:id="lbAlertNombre" prefHeight="17.0" prefWidth="44.0" textFill="RED" />
                             </children>
                         </HBox>
-                        <JFXTextField fx:id="tfNombreEmpresa" promptText="Nombre de la Empresa">
+                        <JFXTextField fx:id="tfNombreEmpresa" focusColor="#03e9f4" promptText="Nombre de la Empresa">
                             <VBox.margin>
                                 <Insets bottom="20.0" />
                             </VBox.margin></JFXTextField>
@@ -42,7 +42,7 @@
                                 <Label fx:id="lbAlertApellidoP" textFill="RED" />
                             </children>
                         </HBox>
-                        <JFXTextField fx:id="tfNombreComercial" promptText="Nombre Comercail">
+                        <JFXTextField fx:id="tfNombreComercial" focusColor="#03e9f4" promptText="Nombre Comercail">
                             <VBox.margin>
                                 <Insets bottom="20.0" />
                             </VBox.margin></JFXTextField>
@@ -51,7 +51,7 @@
                                 <Font name="Gill Sans MT" size="15.0" />
                             </font>
                         </Label>
-                        <JFXTextField fx:id="tfRFC" promptText="RFC">
+                        <JFXTextField fx:id="tfRFC" focusColor="#03e9f4" promptText="RFC">
                             <VBox.margin>
                                 <Insets bottom="20.0" />
                             </VBox.margin></JFXTextField>
@@ -66,7 +66,7 @@
                                 <Label fx:id="lbAlertEmail" textFill="RED" />
                             </children>
                         </HBox>
-                        <JFXTextField fx:id="tfEmail" promptText="Correo Electrónico">
+                        <JFXTextField fx:id="tfEmail" focusColor="#03e9f4" promptText="Correo Electrónico">
                             <font>
                                 <Font name="Gill Sans MT" size="12.0" />
                             </font>
@@ -79,7 +79,7 @@
                         <Font name="Gill Sans MT" size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="tfTelefono" promptText="Teléfono">
+                  <JFXTextField fx:id="tfTelefono" focusColor="#03e9f4" promptText="Teléfono">
                      <font>
                         <Font name="Gill Sans MT" size="12.0" />
                      </font>
@@ -107,7 +107,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="imgEmpresa" fitHeight="150.0" fitWidth="148.0" pickOnBounds="true">
+                        <ImageView fx:id="imgEmpresa" fitHeight="125.0" fitWidth="138.0" pickOnBounds="true">
                            <image>
                               <Image url="@recursos/icon_CargarImagen.png" />
                            </image></ImageView>
@@ -140,6 +140,9 @@
                                 <Pane prefHeight="25.0" prefWidth="42.0" />
                                 <Label fx:id="lbAlertNombreUsuario" textFill="RED" />
                             </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
                         </HBox>
                   <HBox alignment="CENTER" prefHeight="38.0" prefWidth="250.0">
                      <children>
@@ -152,18 +155,24 @@
                      <font>
                         <Font name="Gill Sans MT" size="14.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
                   </Label>
-                  <JFXTextField fx:id="tfRepresentante" promptText="Representante">
+                  <JFXTextField fx:id="tfRepresentante" focusColor="#03e9f4" promptText="Representante">
                      <font>
                         <Font name="Gill Sans MT" size="12.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
                   </JFXTextField>
                   <Label text="Página Web">
                      <font>
                         <Font name="Gill Sans MT" size="14.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="tfPaginaWeb" promptText="Página Web">
+                  <JFXTextField fx:id="tfPaginaWeb" focusColor="#03e9f4" promptText="Página Web">
                      <font>
                         <Font name="Gill Sans MT" size="12.0" />
                      </font>
@@ -177,7 +186,7 @@
             <bottom>
                 <Pane prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                     <children>
-                        <JFXButton fx:id="btnRegistrarEmpresa" layoutX="515.0" layoutY="12.0" onAction="#btnRegistrarEmpresa" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Empresa">
+                        <JFXButton fx:id="btnRegistrarEmpresa" layoutX="515.0" layoutY="12.0" onAction="#btnRegistrarEmpresa" prefHeight="45.0" prefWidth="171.0" ripplerFill="#03e9f4" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Empresa">
                             <font>
                                 <Font name="Gill Sans MT" size="18.0" />
                             </font></JFXButton>

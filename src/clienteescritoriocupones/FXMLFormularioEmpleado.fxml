@@ -27,7 +27,7 @@
                         <Label fx:id="lbAlertNombre" prefHeight="17.0" prefWidth="44.0" textFill="RED" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfNombre" promptText="Nombre">
+                  <JFXTextField fx:id="tfNombre" focusColor="#03e9f4" promptText="Nombre">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin></JFXTextField>
@@ -42,7 +42,7 @@
                         <Label fx:id="lbAlertApellidoP" textFill="RED" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfApellidoP" promptText="Apellido Paterno">
+                  <JFXTextField fx:id="tfApellidoP" focusColor="#03e9f4" promptText="Apellido Paterno">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin></JFXTextField>
@@ -57,7 +57,7 @@
                         <Label fx:id="lbAlertApellidoM" textFill="RED" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfApellidoM" promptText="Apellido Materno">
+                  <JFXTextField fx:id="tfApellidoM" focusColor="#03e9f4" promptText="Apellido Materno">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin></JFXTextField>
@@ -66,7 +66,7 @@
                         <Font name="Gill Sans MT" size="15.0" />
                      </font>
                   </Label>
-                  <JFXTextField fx:id="tfCurp" promptText="CURP">
+                  <JFXTextField fx:id="tfCurp" focusColor="#03e9f4" promptText="CURP">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin></JFXTextField>
@@ -81,7 +81,7 @@
                         <Label fx:id="lbAlertEmail" textFill="RED" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfEmail" promptText="Correo Electrónico">
+                  <JFXTextField fx:id="tfEmail" focusColor="#03e9f4" promptText="Correo Electrónico">
                      <font>
                         <Font name="Gill Sans MT" size="12.0" />
                      </font>
@@ -109,7 +109,7 @@
                         <Label fx:id="lbAlertNombreUsuario" textFill="RED" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfNombreUsuario" promptText="Nombre de Usuario">
+                  <JFXTextField fx:id="tfNombreUsuario" focusColor="#03e9f4" promptText="Nombre de Usuario">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
@@ -125,7 +125,7 @@
                         <Label fx:id="lbAlertPassword" textFill="RED" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfPassword" promptText="Contraseña">
+                  <JFXTextField fx:id="tfPassword" focusColor="#03e9f4" promptText="Contraseña">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
@@ -135,7 +135,7 @@
                         <Font name="Gill Sans MT" size="14.0" />
                      </font>
                   </Label>
-                  <JFXComboBox fx:id="cbRol" onAction="#listenerComboRol" prefHeight="37.0" prefWidth="250.0" promptText="Rol de Empleado">
+                  <JFXComboBox fx:id="cbRol" focusColor="#03e9f4" onAction="#listenerComboRol" prefHeight="37.0" prefWidth="250.0" promptText="Rol de Empleado">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
@@ -149,7 +149,7 @@
                         </Label>
                      </children>
                   </HBox>
-                  <JFXComboBox fx:id="cbEmpresa" prefHeight="25.0" prefWidth="290.0" promptText="Empresa" />
+                  <JFXComboBox fx:id="cbEmpresa" focusColor="#03e9f4" prefHeight="25.0" prefWidth="290.0" promptText="Empresa" />
                </children>
                <padding>
                   <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
@@ -159,7 +159,7 @@
          <bottom>
             <Pane prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnRegistrarEmpleado" layoutX="515.0" layoutY="12.0" onAction="#btnRegistrarEmpleado" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Empleado">
+                  <JFXButton fx:id="btnRegistrarEmpleado" layoutX="515.0" layoutY="12.0" onAction="#btnRegistrarEmpleado" prefHeight="45.0" prefWidth="171.0" ripplerFill="#03e9f4" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Empleado">
                      <font>
                         <Font name="Gill Sans MT" size="18.0" />
                      </font></JFXButton>

@@ -26,7 +26,7 @@
                         <Pane prefHeight="25.0" prefWidth="42.0" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfNombre" promptText="Nombre">
+                  <JFXTextField fx:id="tfNombre" focusColor="#03e9f4" promptText="Nombre">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin></JFXTextField>
@@ -40,7 +40,7 @@
                         <Pane prefHeight="25.0" prefWidth="42.0" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfTelefono" promptText="Teléfono">
+                  <JFXTextField fx:id="tfTelefono" focusColor="#03e9f4" promptText="Teléfono">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin></JFXTextField>
@@ -73,7 +73,7 @@
                         <Pane prefHeight="25.0" prefWidth="42.0" />
                      </children>
                   </HBox>
-                  <JFXTextField fx:id="tfNombreEncargado" promptText="Nombre del encargado">
+                  <JFXTextField fx:id="tfNombreEncargado" focusColor="#03e9f4" promptText="Nombre del encargado">
                      <VBox.margin>
                         <Insets bottom="20.0" />
                      </VBox.margin>
@@ -84,7 +84,7 @@
                      </children>
                   </HBox>
                   <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0" />
-                  <JFXButton fx:id="btnUbi" onAction="#btnUbicacion" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: black; -fx-background-radius: 90px;" text="Ubicacion" textFill="WHITE">
+                  <JFXButton fx:id="btnUbi" onAction="#btnUbicacion" prefHeight="45.0" prefWidth="171.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 90px;" text="Ubicacion" textFill="WHITE">
                      <font>
                         <Font name="Gill Sans MT" size="18.0" />
                      </font>
@@ -98,7 +98,7 @@
          <bottom>
             <Pane prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                <children>
-                  <JFXButton fx:id="btnRegistrarSucursal" layoutX="515.0" layoutY="12.0" onAction="#btnRegistrar" prefHeight="45.0" prefWidth="171.0" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Sucursal">
+                  <JFXButton fx:id="btnRegistrarSucursal" layoutX="515.0" layoutY="12.0" onAction="#btnRegistrar" prefHeight="45.0" prefWidth="171.0" ripplerFill="#03e9f4" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Sucursal">
                      <font>
                         <Font name="Gill Sans MT" size="18.0" />
                      </font></JFXButton>

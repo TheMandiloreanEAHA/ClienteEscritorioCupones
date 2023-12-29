@@ -55,13 +55,13 @@ public class FXMLHomeController implements Initializable {
     @FXML
     private Label lbApellidosEmpleado;
     @FXML
-    private Label lbNumeroTelefono;
-    @FXML
     private JFXButton btnEditarPerfil;
     @FXML
     private JFXButton btnCanjeCupones;
     
     private Empleado empleadoSesion;
+    @FXML
+    private Label lbRFCEmpresa1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
