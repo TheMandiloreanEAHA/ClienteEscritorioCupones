@@ -1,6 +1,7 @@
 package clienteescritoriocupones.modelo.dao;
 
 import clienteescritoriocupones.modelo.ConexionWS;
+import clienteescritoriocupones.modelo.pojo.Coordenada;
 import clienteescritoriocupones.modelo.pojo.Estado;
 import clienteescritoriocupones.modelo.pojo.Mensaje;
 import clienteescritoriocupones.modelo.pojo.Municipio;
@@ -55,8 +56,10 @@ public class UbicacionDAO {
         RespuestaHTTP respuesta = ConexionWS.peticionGET(url);
         System.out.println(url);
         if(respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+            Gson gson = new Gson();
+            Ubicacion ubi = gson.fromJson(respuesta.getContenido(), Ubicacion.class);
             respService.put("error", false);
-            respService.put("ubicacion", respuesta.getContenido());        
+            respService.put("ubicacion", ubi);        
         }else{
             respService.put("error", true);
             
@@ -66,7 +69,7 @@ public class UbicacionDAO {
         return respService;
         
     }
-    
+    //-------------------------------- Obtener Estados --------------------------------\\
     public static List<Estado> obtenerEstados(){
         List<Estado> estados = new ArrayList<>();
         String url = Constantes.URL_WS+"catalogo/obtenerEstados";
@@ -79,7 +82,7 @@ public class UbicacionDAO {
         }        
         return estados;
     }
-    
+    //-------------------------------- Obtener Municipios por estado --------------------------------\\
     public static List<Municipio>obtenerMunicipioEstado(int idEstado){
         List<Municipio> municipios = new ArrayList<>();
         String url = Constantes.URL_WS+"catalogo/obtenerMunicipiosEstados/"+idEstado;
@@ -90,6 +93,32 @@ public class UbicacionDAO {
             municipios = gson.fromJson(respuesta.getContenido(), tipoListaMunicipio);
         }        
         return municipios;
+    }
+    
+    //-------------------------------- Obtener Ubicación por coordenadas --------------------------------\\
+    public static int obtenerUbicacionCoordenadas(Coordenada coordenada){
+        int idUbiObtenida;
+        String url = Constantes.URL_WS+"ubicacion/obtenerUbicacionRegistro";
+        Gson gson = new Gson();
+        String parametros = gson.toJson(coordenada);
+        RespuestaHTTP respuestaPeticion = ConexionWS.peticionPOSTJSON(url, parametros);
+        if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
+            idUbiObtenida = gson.fromJson(respuestaPeticion.getContenido(), int.class);
+        }else{
+            idUbiObtenida = -1;
+        }  
+        return idUbiObtenida;
+    }
+    
+    public static Municipio obtenerMunicipioPorId(Integer idMunicipio){
+        Municipio municipio = new Municipio();
+        String url = Constantes.URL_WS+"catalogo/obtenerMunicipioPorId/"+idMunicipio;
+        RespuestaHTTP respuestaPeticion = ConexionWS.peticionGET(url);
+        if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
+            Gson gson = new Gson();
+            municipio = gson.fromJson(respuestaPeticion.getContenido(), Municipio.class);
+        } 
+        return municipio;
     }
     
     

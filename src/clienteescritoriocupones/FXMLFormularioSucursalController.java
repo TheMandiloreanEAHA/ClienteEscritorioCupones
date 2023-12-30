@@ -1,7 +1,10 @@
 package clienteescritoriocupones;
 
 import clienteescritoriocupones.interfaz.IRespuesta;
+import clienteescritoriocupones.interfaz.IUbicacion;
 import clienteescritoriocupones.modelo.dao.SucursalDAO;
+import clienteescritoriocupones.modelo.dao.UbicacionDAO;
+import clienteescritoriocupones.modelo.pojo.Coordenada;
 import clienteescritoriocupones.modelo.pojo.Mensaje;
 import clienteescritoriocupones.modelo.pojo.Sucursal;
 import clienteescritoriocupones.modelo.pojo.Ubicacion;
@@ -11,6 +14,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -27,7 +32,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 
-public class FXMLFormularioSucursalController implements Initializable {
+public class FXMLFormularioSucursalController implements Initializable, IUbicacion {
     
     private int idEmpresa;
     
@@ -52,6 +57,8 @@ public class FXMLFormularioSucursalController implements Initializable {
     private JFXTextField tfNombreEncargado;
     @FXML
     private JFXButton btnUbi;
+    @FXML
+    private Label lbTitulo;
 
     
     @Override
@@ -63,21 +70,24 @@ public class FXMLFormularioSucursalController implements Initializable {
     public void inicializarIdEmpresa(int idEmpresa, IRespuesta observador){
         this.idEmpresa = idEmpresa;
         this.observador = observador;
+        System.out.println("IdEmpresa: " + this.idEmpresa);
+        
               
     }
-    
+    //--- Método que se ejecuta cuando se modifica la sucursal
     public void inicializarSucursal(Sucursal sucursal){
         btnRegistrarSucursal.setText("Guardar Cambios");
-        this.sucursal = sucursal;
+        lbTitulo.setText("Editar Sucursal");
+        this.sucursal = sucursal;        
+        mostrarInfoSucursal(this.sucursal);      
+        //Obtenemos la información de la ubicación de la sucursal
         
-        mostrarInfoSucursal(this.sucursal);
-        
-    }
-    
-    public void inicializarUbicacion(Ubicacion ubicacion){
-        this.ubicacion = ubicacion;  
-        System.out.print(ubicacion.getCalle()); 
-        
+        HashMap<String, Object> respuesta = UbicacionDAO.buscarUbicacionPorId(this.sucursal.getIdUbicacion());
+        if(!(boolean)respuesta.get("error")){
+            this.ubicacion = (Ubicacion)respuesta.get("ubicacion");
+        }else{
+            Utilidades.mostrarAlertaSimple("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
+        }        
     }
     
     private void mostrarInfoSucursal(Sucursal sucrusal){
@@ -109,18 +119,25 @@ public class FXMLFormularioSucursalController implements Initializable {
             suc.setEncargado(encargado);
             suc.setTelefono(telefono);
             suc.setIdEmpresa(idEmpresa);
+            System.out.println("IdEpresaSUC:" + suc.getIdEmpresa());
+            if(btnRegistrarSucursal.getText().equals("Guardar Cambios")){
+                //Asignarle el id a la sucursla a modificar
+                suc.setIdSucursal(sucursal.getIdSucursal()); 
+                //Aquí se debe obtener el id del domicilio para asignarle una ubicación al domicilio                
+                modificarSucursal(suc);
+            }else{
+                if(ubicacion != null){
+                    suc.setIdUbicacion(registrarUbicacion(ubicacion)); //Se debe obtener el id de la ibicación
+                    System.out.println("IdUbicacion de la sucursal. " + suc.getIdUbicacion());
+                    registrarSucursal(suc);
+                }else{
+                    Utilidades.mostrarAlertaSimple("Ubicación requerida", "Por favor, presione el botón de ubicación y llene los campos requeridos. Asrgurese de guardar los datos", Alert.AlertType.ERROR);
+                }
+                
+            }           
                
         }
-        if(btnRegistrarSucursal.getText().equals("Guardar Cambios")){
-            //Asignarle el id a la sucursla a modificar
-            suc.setIdSucursal(sucursal.getIdSucursal());            
-            //Aquí se debe obtener el id del domicilio para asignarle una ubicación al domicilio
-            suc.setIdUbicacion(9);
-            modificarSucursal(suc);
-        }else{
-            suc.setIdUbicacion(registrarUbicacion(ubicacion)); //Se debe otner el id de la ibicación
-            registrarSucursal(suc);    
-        }
+        
         
     }
     
@@ -138,10 +155,7 @@ public class FXMLFormularioSucursalController implements Initializable {
             } else if (tfTelefono.getText().isEmpty()) {
                 Utilidades.mostrarAlertaSimple("Campo Incompleto", "Teléfono de la sucursal requerido", Alert.AlertType.ERROR);
                 isValido = false;
-            }/*else if(ubicacion == null){
-                Utilidades.mostrarAlertaSimple("Ubicación requerida", "Por favor, presione el botón de ubicación y llene los campos requeridos. Asrgurese de guardar los datos", Alert.AlertType.ERROR);
-                isValido = false;
-            }*/
+            }
         
         return isValido;
     }
@@ -158,21 +172,20 @@ public class FXMLFormularioSucursalController implements Initializable {
     }
     
     private int registrarUbicacion(Ubicacion ubicacion){
-        int idUbicacion = 10;
-        /*
-        Mensaje msj =SucursalDAO.agregarSucursal(sucursal); 
+        int idUbicacion;
+        
+        Mensaje msj = UbicacionDAO.agregarUbicacion(ubicacion);
         if(!msj.getError()){
             //Si si se regisró la ubicación, realizar nuevamente la consulta para obtener su ID y así registrar la sucursal
-            //...
-            //Ejemplo: int idUbicacion = ubicacionDAO.obtenerubicacion();
-            //sucursal.setIdUbicacion(idUbicacion);
-            
-            cerrarVentana();
-        
+            Utilidades.mostrarAlertaSimple("Ubicacion registrada", msj.getMensaje(), Alert.AlertType.INFORMATION);
+            Coordenada coordenada = new Coordenada(ubicacion.getLatitud(), ubicacion.getLongitud());
+            idUbicacion = UbicacionDAO.obtenerUbicacionCoordenadas(coordenada); 
+            //cerrarVentana();  
         }else{
             Utilidades.mostrarAlertaSimple("Error al registrar la ubicacion", msj.getMensaje(), Alert.AlertType.ERROR);
+            return 0;
         }
-        */
+              
         return idUbicacion;
     }
     
@@ -196,7 +209,7 @@ public class FXMLFormularioSucursalController implements Initializable {
             
             //Cargamos la información
             FXMLFormularioUbicacionController formUbiController = loadMain.getController();
-            formUbiController.inicializarUbicacion(ubicacion);
+            formUbiController.inicializarUbicacion(ubicacion, this);
             
             Stage stageNuevo = new Stage();
             Scene escena = new Scene(vista);
@@ -227,6 +240,12 @@ public class FXMLFormularioSucursalController implements Initializable {
         }catch(IOException ex){
              ex.printStackTrace();
         }
+    }
+
+    @Override
+    public void devolverUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
+        
     }
     
     

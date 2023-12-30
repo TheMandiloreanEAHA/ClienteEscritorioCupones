@@ -111,7 +111,7 @@
                   <Pane prefHeight="58.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                      <children>
                         <JFXButton fx:id="btnCerrar" layoutX="14.0" layoutY="11.0" onAction="#cerrarVentana" prefHeight="36.0" prefWidth="38.0" ripplerFill="RED" style="-fx-background-color: transparent; -fx-background-radius: 100px;" />
-                        <Label layoutX="162.0" layoutY="10.0" text="REGISTRO DE SUCURSAL" textFill="WHITE">
+                        <Label fx:id="lbTitulo" layoutX="162.0" layoutY="10.0" text="REGISTRO DE SUCURSAL" textFill="WHITE">
                            <font>
                               <Font name="Gill Sans MT" size="33.0" />
                            </font>

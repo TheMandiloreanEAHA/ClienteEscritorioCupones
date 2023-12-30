@@ -1,5 +1,6 @@
 package clienteescritoriocupones;
 
+import clienteescritoriocupones.interfaz.IUbicacion;
 import clienteescritoriocupones.modelo.dao.UbicacionDAO;
 import clienteescritoriocupones.modelo.pojo.Estado;
 import clienteescritoriocupones.modelo.pojo.Municipio;
@@ -22,6 +23,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+
+import javafx.scene.control.ComboBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -32,6 +39,8 @@ import netscape.javascript.JSObject;
 public class FXMLFormularioUbicacionController  implements Initializable {
 
     private Ubicacion ubicacion;
+    
+    private IUbicacion intertfazUbicacion;
 
     @FXML
     private JFXButton btnCerrar;
@@ -69,9 +78,9 @@ public class FXMLFormularioUbicacionController  implements Initializable {
     }
 
     private void inicializarMapa() {
-     pnMapa.setPrefSize(800, 600);
+        pnMapa.setPrefSize(800, 600);
 
-     WebEngine webEngine = pnMapa.getEngine();
+        WebEngine webEngine = pnMapa.getEngine();
         webEngine.setJavaScriptEnabled(true);
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue == Worker.State.SUCCEEDED) {
@@ -94,7 +103,7 @@ public class FXMLFormularioUbicacionController  implements Initializable {
         // Cargar el contenido HTML en el WebView
         webEngine.load(htmlFilePath);
 
-}
+    }
     public void copyToClipboard(String data) {
         Platform.runLater(() -> {
             Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -103,13 +112,15 @@ public class FXMLFormularioUbicacionController  implements Initializable {
             clipboard.setContent(content);
         });
     }
-
-    public void inicializarUbicacion(Ubicacion ubicacion){
+    
+    public void inicializarUbicacion(Ubicacion ubicacion, IUbicacion interfazUbicacion){
         this.ubicacion = ubicacion;
-        if(ubicacion == null){
-            System.out.println("La ubicacion es nula");
+        this.intertfazUbicacion = interfazUbicacion;
+        if(this.ubicacion != null){
+            System.out.println("Si pasó la ubicación :3");
+            llenarCampos(this.ubicacion);
         }else{
-            System.out.print(ubicacion.getCalle());
+            System.out.println("La ubicacion es nula");
         }
 
     }
@@ -179,12 +190,50 @@ public class FXMLFormularioUbicacionController  implements Initializable {
     }
 
     private void mandarUbicacion(Ubicacion ubi){
-         //Cargar las vistas a memoria
-        FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLFormularioSucursal.fxml"));
-        //Parent vista = loadMain.load();
-        //Cargamos la información
-        FXMLFormularioSucursalController formSucursalController = loadMain.getController();
-        formSucursalController.inicializarUbicacion(ubi);
+        System.out.println(ubi.getCalle() + " " + ubi.getLatitud() + " ID Municipio: " + ubi.getIdMunicipio());
+        intertfazUbicacion.devolverUbicacion(ubi);
+    }
+    
+    private void llenarCampos(Ubicacion ubi){
+        tfCalle.setText(ubi.getCalle());
+        tfColonia.setText(ubi.getColonia());
+        tfNumero.setText(ubi.getNumero());
+        tfCodigoPostal.setText(ubi.getCodigoPostal());
+        tfLatitud.setText(ubi.getLatitud());
+        tfLongitud.setText(ubi.getLongitud());
+        
+        tfCalle.setDisable(true);
+        tfColonia.setDisable(true);
+        tfNumero.setDisable(true);
+        tfCodigoPostal.setDisable(true);
+        tfLongitud.setDisable(true);
+        tfLatitud.setDisable(true);
+        
+        if(ubi.getIdEstado() == null){
+            Municipio mun = UbicacionDAO.obtenerMunicipioPorId(ubi.getIdMunicipio());
+            ubi.setIdEstado(mun.getIdEstado());
+        }
+        
+        for(Estado estado: cbEstados.getItems()){
+            if(estado.getIdEstado() == ubi.getIdEstado()){
+                cbEstados.setValue(estado);
+                break;
+            }
+        }
+        
+        List<Municipio> municipios = UbicacionDAO.obtenerMunicipioEstado(ubi.getIdEstado());
+        cbMunicipios.getItems().clear();
+        cbMunicipios.getItems().addAll(municipios);
+        for(Municipio municipio: municipios){
+            if(municipio.getIdMunicipio() == ubicacion.getIdMunicipio()){
+                cbMunicipios.setValue(municipio);
+                break;
+            }
+        }
+        
+        cbEstados.setDisable(true);
+        cbMunicipios.setDisable(true);
+
     }
 
     private void cerrarVentana() {
@@ -218,7 +267,7 @@ public class FXMLFormularioUbicacionController  implements Initializable {
             ubi.setMunicipio(municipio.getNombre());
             mandarUbicacion(ubi);
 
-            Utilidades.mostrarAlertaSimple("Información Guardada", "La información de la ubicación guardada con éxito", Alert.AlertType.ERROR);
+            Utilidades.mostrarAlertaSimple("Información Guardada", "La información de la ubicación guardada con éxito", Alert.AlertType.INFORMATION);
             cerrarVentana();
 
         }else{

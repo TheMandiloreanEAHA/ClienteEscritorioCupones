@@ -155,8 +155,9 @@ public class FXMLAdminSucursalesController implements Initializable, IRespuesta 
                
                 //Cargamos la información de la sucursal
                 FXMLFormularioSucursalController formSucController = loadMain.getController();
-                //Pasar la info de la sucursal
+                //Pasar la info de la sucursal, el observador y el id de la Empresa
                 formSucController.inicializarSucursal(sucursal);
+                formSucController.inicializarIdEmpresa(idEmpresa, this);
 
                 //Creamos un nuevo stage
                 Stage stageNuevo = new Stage();
@@ -221,8 +222,7 @@ public class FXMLAdminSucursalesController implements Initializable, IRespuesta 
 
     @Override
     public void notificarGuardado() {
-        sucursales.clear();
-        descargarSucursales();
+        recargarTabla();
     }
     
     public void recargarTabla(){
