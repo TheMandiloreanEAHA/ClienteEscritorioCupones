@@ -42,7 +42,7 @@
                                 <Label fx:id="lbAlertApellidoP" textFill="RED" />
                             </children>
                         </HBox>
-                        <JFXTextField fx:id="tfNombreComercial" focusColor="#03e9f4" promptText="Nombre Comercail">
+                        <JFXTextField fx:id="tfNombreComercial" focusColor="#03e9f4" promptText="Nombre Comercial">
                             <VBox.margin>
                                 <Insets bottom="20.0" />
                             </VBox.margin></JFXTextField>
@@ -199,7 +199,7 @@
                         <Pane prefHeight="58.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
                             <children>
                                 <JFXButton fx:id="btnCerrar" layoutX="14.0" layoutY="11.0" onAction="#btnCerrarVentana" prefHeight="36.0" prefWidth="38.0" ripplerFill="RED" style="-fx-background-color: transparent; -fx-background-radius: 100px;" />
-                                <Label layoutX="162.0" layoutY="10.0" text="REGISTRO DE EMPRESAS" textFill="WHITE">
+                                <Label fx:id="lbTitulo" layoutX="162.0" layoutY="10.0" text="REGISTRO DE EMPRESAS" textFill="WHITE">
                                     <font>
                                         <Font name="Gill Sans MT" size="33.0" />
                                     </font>
@@ -210,7 +210,7 @@
                     <bottom>
                         <Pane prefHeight="49.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
                             <children>
-                                <Label layoutX="204.0" layoutY="15.0" text="INGRESA LOS DATOS DE LA EMPRESA">
+                                <Label fx:id="lbSubtitulo" layoutX="204.0" layoutY="15.0" text="INGRESA LOS DATOS DE LA EMPRESA">
                                     <font>
                                         <Font name="Gill Sans MT" size="17.0" />
                                     </font>

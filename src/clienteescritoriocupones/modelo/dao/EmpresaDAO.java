@@ -69,11 +69,11 @@ public class EmpresaDAO {
         return msj;
     }
     //---------------------------------------- Eliminar empresa por RFC----------------------------------------\\
-    public static Mensaje eliminarEmpresa(String RFC){
+    public static Mensaje eliminarEmpresa(Empresa empresa){
         Mensaje msj = new Mensaje();
         String url = Constantes.URL_WS+"empresa/eliminarEmpresa";
         Gson gson = new Gson();
-        String parametros = gson.toJson(RFC);
+        String parametros = gson.toJson(empresa);
         RespuestaHTTP respuestaPeticion = ConexionWS.peticionDELETEJSON(url, parametros);
         if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
             msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);
