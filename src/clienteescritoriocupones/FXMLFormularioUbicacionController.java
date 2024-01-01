@@ -1,8 +1,12 @@
 package clienteescritoriocupones;
 
 import clienteescritoriocupones.interfaz.IUbicacion;
+import clienteescritoriocupones.modelo.dao.EmpresaDAO;
 import clienteescritoriocupones.modelo.dao.UbicacionDAO;
+import clienteescritoriocupones.modelo.pojo.Coordenada;
+import clienteescritoriocupones.modelo.pojo.Empresa;
 import clienteescritoriocupones.modelo.pojo.Estado;
+import clienteescritoriocupones.modelo.pojo.Mensaje;
 import clienteescritoriocupones.modelo.pojo.Municipio;
 import clienteescritoriocupones.modelo.pojo.Ubicacion;
 import clienteescritoriocupones.utils.Constantes;
@@ -14,6 +18,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -41,6 +46,8 @@ public class FXMLFormularioUbicacionController  implements Initializable {
     private Ubicacion ubicacion;
     
     private IUbicacion intertfazUbicacion;
+    
+    private Empresa empresa;
 
     @FXML
     private JFXButton btnCerrar;
@@ -119,10 +126,29 @@ public class FXMLFormularioUbicacionController  implements Initializable {
         if(this.ubicacion != null){
             System.out.println("Si pasó la ubicación :3");
             llenarCampos(this.ubicacion);
+            bloquearCampos();
         }else{
             System.out.println("La ubicacion es nula");
         }
-
+    }
+    
+    public void inializarEmpresa(Empresa empresa){
+        btnGuardarDatos.setText("Asignar Ubicación");
+        if(empresa.getIdUbicacion() != null){
+            System.out.println("La empresa tiene una ubicación asignada");
+             HashMap<String, Object> respuesta = UbicacionDAO.buscarUbicacionPorId(empresa.getIdUbicacion());
+             if(!(boolean)respuesta.get("error")){
+                ubicacion = (Ubicacion)respuesta.get("ubicacion");
+                llenarCampos(ubicacion);
+                bloquearCampos();
+             }else{
+                 Utilidades.mostrarAlertaSimple("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
+             }             
+        }else{
+            System.out.println("La empresa NO tiene una ubicación asignada");
+            this.empresa = empresa;
+            
+        }
     }
 
     private void cargarEstadosCB(){
@@ -194,6 +220,20 @@ public class FXMLFormularioUbicacionController  implements Initializable {
         intertfazUbicacion.devolverUbicacion(ubi);
     }
     
+    private void bloquearCampos(){
+        tfCalle.setDisable(true);
+        tfColonia.setDisable(true);
+        tfNumero.setDisable(true);
+        tfCodigoPostal.setDisable(true);
+        tfLongitud.setDisable(true);
+        tfLatitud.setDisable(true);
+        btnLongitud.setDisable(true);
+        btnLatitud.setDisable(true);
+        cbEstados.setDisable(true);
+        cbMunicipios.setDisable(true);
+        btnGuardarDatos.setVisible(false);
+    }
+    
     private void llenarCampos(Ubicacion ubi){
         tfCalle.setText(ubi.getCalle());
         tfColonia.setText(ubi.getColonia());
@@ -202,17 +242,12 @@ public class FXMLFormularioUbicacionController  implements Initializable {
         tfLatitud.setText(ubi.getLatitud());
         tfLongitud.setText(ubi.getLongitud());
         
-        tfCalle.setDisable(true);
-        tfColonia.setDisable(true);
-        tfNumero.setDisable(true);
-        tfCodigoPostal.setDisable(true);
-        tfLongitud.setDisable(true);
-        tfLatitud.setDisable(true);
-        
         if(ubi.getIdEstado() == null){
             Municipio mun = UbicacionDAO.obtenerMunicipioPorId(ubi.getIdMunicipio());
             ubi.setIdEstado(mun.getIdEstado());
-        }
+            System.out.println("IDMun:"+ubi.getIdMunicipio());
+            System.out.println("IDEstado:"+ubi.getIdEstado());
+        }        
         
         for(Estado estado: cbEstados.getItems()){
             if(estado.getIdEstado() == ubi.getIdEstado()){
@@ -231,8 +266,6 @@ public class FXMLFormularioUbicacionController  implements Initializable {
             }
         }
         
-        cbEstados.setDisable(true);
-        cbMunicipios.setDisable(true);
 
     }
 
@@ -240,7 +273,35 @@ public class FXMLFormularioUbicacionController  implements Initializable {
         Stage escenario = (Stage) btnCerrar.getScene().getWindow();
         escenario.close();
     }
+    
+    private int registrarUbicacion(Ubicacion ubicacion){
+        int idUbicacion;        
+        Mensaje msj = UbicacionDAO.agregarUbicacion(ubicacion);
+        if(!msj.getError()){
+            //Si si se regisró la ubicación, realizar nuevamente la consulta para obtener su ID y así registrar la sucursal
+            Utilidades.mostrarAlertaSimple("Ubicacion registrada", msj.getMensaje(), Alert.AlertType.INFORMATION);
+            Coordenada coordenada = new Coordenada(ubicacion.getLatitud(), ubicacion.getLongitud());
+            idUbicacion = UbicacionDAO.obtenerUbicacionCoordenadas(coordenada); 
+            //cerrarVentana();  
+        }else{
+            Utilidades.mostrarAlertaSimple("Error al registrar la ubicacion", msj.getMensaje(), Alert.AlertType.ERROR);
+            return 0;
+        }
+        
+        return idUbicacion;
+    }
+    
+    
 
+    private void asignarUbicacionEmpresa(Empresa empr){
+        Mensaje msj = EmpresaDAO.modificarEmpresa(empresa);
+        if(!msj.getError()){
+            Utilidades.mostrarAlertaSimple("Ubicación asignada a la Empresa " + empresa.getNombreComercial(), msj.getMensaje(), Alert.AlertType.INFORMATION);
+            cerrarVentana();
+        }else{
+            Utilidades.mostrarAlertaSimple("Error al adignar la ubicación a la Empresa", msj.getMensaje(), Alert.AlertType.ERROR);
+        }  
+    }
     @FXML
     private void btnGuardarCambios(ActionEvent event) {
         String calle = tfCalle.getText();
@@ -264,11 +325,19 @@ public class FXMLFormularioUbicacionController  implements Initializable {
             ubi.setIdMunicipio(municipio.getIdMunicipio());
             ubi.setIdEstado(municipio.getIdEstado());
             ubi.setEstado(estado.getNombre());
-            ubi.setMunicipio(municipio.getNombre());
-            mandarUbicacion(ubi);
-
-            Utilidades.mostrarAlertaSimple("Información Guardada", "La información de la ubicación guardada con éxito", Alert.AlertType.INFORMATION);
-            cerrarVentana();
+            ubi.setMunicipio(municipio.getNombre());            
+            
+            if(btnGuardarDatos.getText().equals("Asignar Ubicación")){
+                System.out.println("Aquí se registra la ubicación y se le asigna a la empresa");
+                empresa.setIdUbicacion(registrarUbicacion(ubi));
+                System.out.println("IdUbicacion de la Empresa: " + empresa.getIdUbicacion());                
+                asignarUbicacionEmpresa(empresa);
+                
+            }else{
+                mandarUbicacion(ubi);
+                Utilidades.mostrarAlertaSimple("Información Guardada", "La información de la ubicación guardada con éxito", Alert.AlertType.INFORMATION);
+                cerrarVentana();
+            }            
 
         }else{
             Utilidades.mostrarAlertaSimple("Información incompleta", "Asegurese de llenar todos los campos solicitados", Alert.AlertType.ERROR);

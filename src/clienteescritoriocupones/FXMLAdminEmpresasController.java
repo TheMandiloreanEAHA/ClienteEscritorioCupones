@@ -220,6 +220,54 @@ public class FXMLAdminEmpresasController implements Initializable, IRespuesta {
         descargarEmpresas();
     }
 
+    @FXML
+    private void btnUbicacion(ActionEvent event) {
+        int posicion = tvEmpresa.getSelectionModel().getSelectedIndex();
+        if(posicion != -1){
+            Empresa empr = empresa.get(posicion);
+            try{
+                 //Cargar las vistas a memoria
+                FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLFormularioUbicacion.fxml"));
+                Parent vista = loadMain.load();
+            
+                //Cargamos la información
+                FXMLFormularioUbicacionController formUbiController = loadMain.getController();
+                formUbiController.inializarEmpresa(empr);
+
+                //Creamos un nuevo stage
+                Stage stageNuevo = new Stage();
+                Scene escena = new Scene(vista);
+
+                stageNuevo.initStyle(StageStyle.DECORATED.UNDECORATED);
+                vista.setOnMousePressed(new EventHandler<MouseEvent>(){
+                    @Override
+                    public void handle(MouseEvent event){
+                        xOffset = event.getSceneX();
+                        yOffset = event.getSceneY();
+                    }
+
+                });
+                vista.setOnMouseDragged(new EventHandler<MouseEvent>(){
+                    @Override
+                    public void handle(MouseEvent event){
+                        stageNuevo.setX(event.getScreenX() -xOffset);
+                        stageNuevo.setY(event.getScreenY() -yOffset);
+                    }
+
+                });
+
+                stageNuevo.setScene(escena);
+                stageNuevo.setTitle("Ubicación Empresa");
+                stageNuevo.initModality(Modality.APPLICATION_MODAL); //Configuracion que nos ayuda a elegir el control de las pantallas. No perimte que otro stage tenga el control hasta que se cierre el stage actual
+                stageNuevo.showAndWait(); //Bloquea la pantalla de atras 
+            }catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }else{
+            Utilidades.mostrarAlertaSimple("Selección Requerida","Debes seleccionar una Empresa de la tabla para poder ver acerca de su ubicación", Alert.AlertType.WARNING);
+        }
+    }
+
 
     
 }

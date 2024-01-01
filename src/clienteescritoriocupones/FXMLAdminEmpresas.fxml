@@ -53,7 +53,7 @@
                </font>
             </JFXButton>
             <Pane prefHeight="59.0" prefWidth="28.0" />
-            <JFXButton fx:id="btnUbicacion" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Ubicación" textFill="WHITE">
+            <JFXButton fx:id="btnUbicacion" onAction="#btnUbicacion" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Ubicación" textFill="WHITE">
                <font>
                   <Font name="Gill Sans MT" size="14.0" />
                </font>

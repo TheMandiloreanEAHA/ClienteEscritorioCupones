@@ -172,8 +172,7 @@ public class FXMLFormularioSucursalController implements Initializable, IUbicaci
     }
     
     private int registrarUbicacion(Ubicacion ubicacion){
-        int idUbicacion;
-        
+        int idUbicacion;        
         Mensaje msj = UbicacionDAO.agregarUbicacion(ubicacion);
         if(!msj.getError()){
             //Si si se regisró la ubicación, realizar nuevamente la consulta para obtener su ID y así registrar la sucursal
