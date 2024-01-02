@@ -1,5 +1,6 @@
 package clienteescritoriocupones;
 
+import clienteescritoriocupones.interfaz.IRespuesta;
 import clienteescritoriocupones.modelo.pojo.Empleado;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
@@ -9,18 +10,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-public class FXMLHomeController implements Initializable {
+public class FXMLHomeController implements Initializable, IRespuesta {
+    
+    private double xOffset = 0;
+    private double yOffset = 0;
 
     @FXML
     private BorderPane bp;
@@ -73,9 +82,21 @@ public class FXMLHomeController implements Initializable {
         lbNombreEmpleado.setText(empleadoSesion.getNombre());
         lbApellidosEmpleado.setText(empleadoSesion.getApellidoPaterno() + " "+ empleadoSesion.getApellidoMaterno());
         lbCorreo.setText(empleadoSesion.getCorreo());
-        lbNombreEmpresa.setText(empleadoSesion.getNombreEmpresa());
-        lbRFCEmpresa.setText(empleadoSesion.getRFC());
-        lbNombreComercial.setText(empleadoSesion.getNombreComercial());
+        //Si es un administrador de empresa
+        if(this.empleadoSesion.getIdEmpresa() != null){
+            lbNombreEmpresa.setText(empleadoSesion.getNombreEmpresa());
+            lbRFCEmpresa.setText(empleadoSesion.getRFC());
+            lbNombreComercial.setText(empleadoSesion.getNombreComercial());
+            btnEmpresa.setDisable(true);
+            btnEmpleados.setDisable(true);
+        }else{ //SI no, es un administrador general
+            lbNombreEmpresa.setText("Administrador General");
+            lbRFCEmpresa.setText("Accesso TOTAL");
+            //lbNombreComercial.setText(empleadoSesion.getNombreComercial());        
+        }
+        
+        
+        
     }
 
     @FXML
@@ -110,30 +131,82 @@ public class FXMLHomeController implements Initializable {
     }
 
     private void cargarVista(String vista) {
-    try {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(vista + ".fxml"));
-        Parent root = loader.load();
-        if (vista.equals("FXMLAdminSucursales") ) {
-            FXMLAdminSucursalesController controladorAdminSuc = loader.getController();
-            controladorAdminSuc.inicializarIdEmpresa(empleadoSesion.getIdEmpresa());
-        }else if(vista.equals("FXMLAdminEmpleados")){
-            FXMLAdminEmpleadosController controladorAdminEmp = loader.getController();
-            controladorAdminEmp.inicializarIdEmpresa(empleadoSesion.getIdEmpresa());
-        }
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(vista + ".fxml"));
+            Parent root = loader.load();
+            if (vista.equals("FXMLAdminSucursales") ) {
+                FXMLAdminSucursalesController controladorAdminSuc = loader.getController();
+                if(empleadoSesion.getIdEmpresa() == null){ //Si el id de la empresa es null, significa que es un administrador general
+                    controladorAdminSuc.inicializarIdEmpresa(0);
+                }else{ //De lo contrario, es un administrador comercial y se debe mandar su id
+                    controladorAdminSuc.inicializarIdEmpresa(empleadoSesion.getIdEmpresa());
+                }
+                
+            }else if(vista.equals("FXMLAdminEmpleados")){
+                FXMLAdminEmpleadosController controladorAdminEmp = loader.getController();
+                if(empleadoSesion.getIdEmpresa() == null){ //Si el id de la empresa es null, significa que es un administrador general
+                    controladorAdminEmp.inicializarIdEmpresa(0);
+                }else{ //De lo contrario, es un administrador comercial y se debe mandar su id
+                    controladorAdminEmp.inicializarIdEmpresa(empleadoSesion.getIdEmpresa());
+                }                
+            }
 
-        bp.setCenter(root);
-    } catch (IOException ex) {
-        Logger.getLogger(FXMLHomeController.class.getName()).log(Level.SEVERE, null, ex);
+            bp.setCenter(root);
+        } catch (IOException ex) {
+            Logger.getLogger(FXMLHomeController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-}
 
 
     @FXML
-    private void btnEditarPerfil(ActionEvent event) {
+    private void btnEditarPerfil(MouseEvent event) {
+        try{
+            //Cargar las vistas a memoria
+            FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLFormularioEmpleado.fxml"));
+            Parent vista = loadMain.load();
+             
+            //Cargamos la información de la sucursal
+            FXMLFormularioEmpleadoController formEmpController = loadMain.getController();
+            //Pasar la info de la sucursal
+            formEmpController.inicializarEmpleado(empleadoSesion, this);
+
+            //Creamos un nuevo stage
+            Stage stageNuevo = new Stage();
+            Scene escena = new Scene(vista);
+
+            stageNuevo.initStyle(StageStyle.DECORATED.UNDECORATED);
+            vista.setOnMousePressed(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent event){
+                    xOffset = event.getSceneX();
+                    yOffset = event.getSceneY();
+                }
+            });
+            vista.setOnMouseDragged(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent event){
+                    stageNuevo.setX(event.getScreenX() -xOffset);
+                    stageNuevo.setY(event.getScreenY() -yOffset);
+                }
+            });
+
+            stageNuevo.setScene(escena);
+            stageNuevo.setTitle("Datos empleado");
+            stageNuevo.initModality(Modality.APPLICATION_MODAL); //Configuracion que nos ayuda a elegir el control de las pantallas. No perimte que otro stage tenga el control hasta que se cierre el stage actual
+            stageNuevo.showAndWait(); //Bloquea la pantalla de atras 
+
+        }catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 
 
     @FXML
     public void btnCerrarSesion(Event event) {
+    }
+
+    @Override
+    public void notificarGuardado() {
+        
     }
 }

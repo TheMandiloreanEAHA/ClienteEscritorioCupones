@@ -54,6 +54,29 @@ public class SucursalDAO {
          
     }
     
+    //-------------------------------- Lista de sucursales --------------------------------\\
+    public static HashMap<String, Object> listaSucursales(){
+        HashMap<String, Object> respService = new LinkedHashMap<>();
+        List<Sucursal> sucursal =null;
+        String url = Constantes.URL_WS+"sucursal/sucursales";
+        RespuestaHTTP respuesta = ConexionWS.peticionGET(url);
+        System.out.println(url);
+        if(respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+            Gson gson = new Gson();
+            Type tipoListaSucursal = new TypeToken<List<Sucursal>>(){}.getType();
+            sucursal = gson.fromJson(respuesta.getContenido(), tipoListaSucursal);
+            respService.put("error", false);
+            respService.put("sucursal", sucursal);
+        
+        }else{
+            respService.put("error", true);
+            respService.put("mensaje","Hubo un error en la peticion, por el momento no se puede cargar "
+                    + "la informacion de las sucursales");
+        }
+        return respService;
+         
+    }
+    
     //-------------------------------- Modificar sucursal --------------------------------\\
     public static Mensaje modificarSucursal(Sucursal sucursal){
         Mensaje msj = new Mensaje();

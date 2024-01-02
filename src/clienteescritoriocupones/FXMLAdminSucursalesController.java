@@ -90,7 +90,13 @@ public class FXMLAdminSucursalesController implements Initializable, IRespuesta 
     }
     
     private void descargarSucursales(){
-        HashMap<String, Object> respuesta = SucursalDAO.listaSucursal(idEmpresa);
+        HashMap<String, Object> respuesta = null;
+        //SI el idEmpresa es 0, es porque es un Admin general, por lo que verá todas las sucursales registradas
+        if(idEmpresa == 0){
+            respuesta = SucursalDAO.listaSucursales();
+        }else{ //Caso contrario, es un administrador comercial y sólo tiene acceso a las sucursales de su empresa
+            respuesta = SucursalDAO.listaSucursal(idEmpresa);
+        }
         if(!(boolean)respuesta.get("error")){
             List<Sucursal> listaWS = (List<Sucursal>)respuesta.get("sucursal");
             sucursales.addAll(listaWS);

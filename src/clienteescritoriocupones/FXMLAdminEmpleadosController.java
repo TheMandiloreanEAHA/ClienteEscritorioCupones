@@ -87,7 +87,14 @@ public class FXMLAdminEmpleadosController implements Initializable, IRespuesta {
     }
     
     private void descargarEmpleados(){
-        HashMap<String, Object> respuesta = EmpleadoDAO.listaEmpleado(idEmpresa);
+        HashMap<String, Object> respuesta = null;
+        //Si el idEmpresa es 0, es porque es un admin generla, el cual peude ver todos los empleados
+        if(idEmpresa == 0){
+            respuesta = EmpleadoDAO.empleados();
+        }else{ //SI no, es porque es un admin comercial, el cual sólo puede ver los empleados relacionados a su empresa
+            respuesta = EmpleadoDAO.listaEmpleado(idEmpresa);
+        }
+        
         if(!(boolean)respuesta.get("error")){
             List<Empleado> listaWS = (List<Empleado>)respuesta.get("empleado");
             empleados.addAll(listaWS);

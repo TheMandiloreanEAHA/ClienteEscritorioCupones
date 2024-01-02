@@ -157,7 +157,14 @@ public class FXMLLoginController implements Initializable {
         empleado.setNombreUsuario(nombreUsuario);
         empleado.setContraseña(contraseña);
         RespuestaLogin respuesta = InicioSesionDAO.iniciarSesion(empleado);
+
         if (respuesta.getError() == false) {
+            System.out.println("ID empresa: "+ respuesta.getEmpleadoSesion().getIdEmpresa());
+            //Si SI tiene una empresa asignada, es porque es un administrador comercial
+            if(respuesta.getEmpleadoSesion().getIdEmpresa() != null){
+                System.out.println("Admin comercial");
+                respuesta = InicioSesionDAO.iniciarSesionComercial(empleado);
+            }          
             Utilidades.mostrarAlertaSimple("Acceso concedido", respuesta.getMensaje(), Alert.AlertType.CONFIRMATION);
             irPantallaHome(respuesta.getEmpleadoSesion());
         } else {
