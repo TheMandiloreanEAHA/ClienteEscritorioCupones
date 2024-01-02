@@ -1,10 +1,12 @@
 package clienteescritoriocupones;
 
 import clienteescritoriocupones.interfaz.IRespuesta;
+import clienteescritoriocupones.modelo.dao.EmpleadoDAO;
 import clienteescritoriocupones.modelo.dao.EmpresaDAO;
+import clienteescritoriocupones.modelo.dao.SucursalDAO;
 import clienteescritoriocupones.modelo.pojo.Empresa;
 import clienteescritoriocupones.modelo.pojo.Mensaje;
-import clienteescritoriocupones.utils.Constantes;
+import clienteescritoriocupones.modelo.pojo.Sucursal;
 import clienteescritoriocupones.utils.Utilidades;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
@@ -191,7 +193,7 @@ public class FXMLAdminEmpresasController implements Initializable, IRespuesta {
     private void btnEliminar(ActionEvent event) {
         Empresa empresaSeleccion = tvEmpresa.getSelectionModel().getSelectedItem();
         if(empresaSeleccion != null){
-            Optional<ButtonType> respuesta = Utilidades.mostrarAlertaConfirmacion("Confirmar Eliminación", "¿Está seguro que desea eliminar la empresa " + empresaSeleccion.getNombre() + ", de su registro?");
+            Optional<ButtonType> respuesta = Utilidades.mostrarAlertaConfirmacion("Confirmar Eliminación", "¿Está seguro que desea eliminar la empresa " + empresaSeleccion.getNombre() + ", juntos con TODOS sus empleados dentro de su registro?");
             //Comparar el resultado del botón en la conficación
             if(respuesta.get() == ButtonType.OK){
                 eliminar(empresaSeleccion);
@@ -201,14 +203,32 @@ public class FXMLAdminEmpresasController implements Initializable, IRespuesta {
     }
     
     private void eliminar(Empresa empr){
-        Mensaje msj = EmpresaDAO.eliminarEmpresa(empr);
-        System.out.println(msj);
-        if (msj.getError() == false) {
-            Utilidades.mostrarAlertaSimple("Empresa eliminada con exito", msj.getMensaje(), Alert.AlertType.INFORMATION);
-        }else {
-            Utilidades.mostrarAlertaSimple("Error:", "La empresa tiene Sucursales asociadas. Primero deebe eliminar las sucursales asociadas a la emrpesa para poder eliminarla del registro.", Alert.AlertType.ERROR);           
-            
+        HashMap<String, Object> respuesta = SucursalDAO.listaSucursal(empr.getIdEmpresa()); //Comprobamos si la empresa tiene sucursales asignadas
+        if(!(boolean)respuesta.get("error")){
+            List<Sucursal> listaEmpresas = (List<Sucursal>)respuesta.get("sucursal");
+            if(!listaEmpresas.isEmpty()){
+                Utilidades.mostrarAlertaSimple("Sucursales asignadas:", "LA empresa tiene sucursales asignadas. Asegurese se eliminar las sucursales asociadas a esta empresa antes de realizar su eliminación", Alert.AlertType.ERROR);           
+            }else{ //Si no tiene sucursdales asignadas, elimina a la empresa junto con sus empleados asociados.  
+                Mensaje msj = EmpleadoDAO.eliminarEmpleadosEmpresa(empr);                
+                if (msj.getError() == false) {
+                    Utilidades.mostrarAlertaSimple("Empleados eliminados", "Empleados de la empresa "+ empr.getNombreComercial() + "Eliminados", Alert.AlertType.INFORMATION);
+                    msj = EmpresaDAO.eliminarEmpresa(empr);
+                    if (msj.getError() == false) {
+                        Utilidades.mostrarAlertaSimple("Empresa eliminada con exito", msj.getMensaje(), Alert.AlertType.INFORMATION);
+                    }else {
+                        Utilidades.mostrarAlertaSimple("Error:", msj.getMensaje(), Alert.AlertType.ERROR);           
+                    }                    
+                }else {
+                    Utilidades.mostrarAlertaSimple("Error:", msj.getMensaje(), Alert.AlertType.ERROR);           
+                }
+                                 
+            }    
+        }else{
+            Utilidades.mostrarAlertaSimple("Error", (String) respuesta.get("mensaje"), Alert.AlertType.ERROR);
         }
+        //Si tiene sucursales asignadas, no se realiza la eliminación
+           
+        
     }
     @Override
     public void notificarGuardado() {

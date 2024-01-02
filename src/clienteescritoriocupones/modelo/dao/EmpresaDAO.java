@@ -140,7 +140,7 @@ public class EmpresaDAO {
         return respService;        
     }
     
-    //---------------------------------------- Buscar empresa por nmombre del Representante----------------------------------------\\
+    //---------------------------------------- Buscar empresa por nombre del Representante----------------------------------------\\
     public static HashMap<String, Object> buscarEmpresaPorNombreRepresentante(String nombreRepresentante){
         HashMap<String, Object> respService = new LinkedHashMap<>();
         String url = Constantes.URL_WS+"empresa/empresaRepresentante/"+nombreRepresentante;

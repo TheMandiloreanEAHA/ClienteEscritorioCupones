@@ -2,6 +2,7 @@ package clienteescritoriocupones.modelo.dao;
 
 import clienteescritoriocupones.modelo.ConexionWS;
 import clienteescritoriocupones.modelo.pojo.Empleado;
+import clienteescritoriocupones.modelo.pojo.Empresa;
 import clienteescritoriocupones.modelo.pojo.Mensaje;
 import clienteescritoriocupones.modelo.pojo.RespuestaHTTP;
 import clienteescritoriocupones.utils.Constantes;
@@ -99,6 +100,23 @@ public class EmpleadoDAO {
         String url = Constantes.URL_WS+"empleado/eliminarEmpleado";
         Gson gson = new Gson();
         String parametros = gson.toJson(empleado);
+        
+        RespuestaHTTP respuestaPeticion = ConexionWS.peticionDELETEJSON(url, parametros);
+        if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
+            msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);
+        }else{
+            msj.setError(true);
+            msj.setMensaje("Hubo un error al procesar la solictud, porfavor intentalo más tarde");
+        }        
+        return msj;
+    }
+    
+    //-------------------------------- Eliminar empleados de una Empresa --------------------------------\\
+    public static Mensaje eliminarEmpleadosEmpresa(Empresa empresa){
+        Mensaje msj = new Mensaje();
+        String url = Constantes.URL_WS+"empleado/eliminarEmpleadosEmpresa";
+        Gson gson = new Gson();
+        String parametros = gson.toJson(empresa);
         
         RespuestaHTTP respuestaPeticion = ConexionWS.peticionDELETEJSON(url, parametros);
         if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
