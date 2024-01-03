@@ -157,4 +157,32 @@ public class EmpresaDAO {
         }
         return respService;        
     }
+    //---------------------------------------- Subir logo Empresa ----------------------------------------\\
+     public static Mensaje subirLogoEmpresa(int idEmpresa, byte[] logo){
+        Mensaje msj = new Mensaje();
+        String url = Constantes.URL_WS + "empresa/subirLogo/" + idEmpresa;
+        RespuestaHTTP respuesta = ConexionWS.peticionPUTImagen(url, logo);
+        if(respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+            Gson gson = new Gson();
+            msj = gson.fromJson(respuesta.getContenido(), Mensaje.class);
+        }else{
+            msj.setError(true);
+            msj.setMensaje("Error al envíar el logo de la empresa, por favor intnte más tarde.");
+        }
+        return msj;
+    }
+    
+     //---------------------------------------- Obtener Logo empresa ----------------------------------------\\
+    public static Empresa obtenerLogoEmpresa(int idEmpresa){
+        Empresa empresa = null;
+        String url = Constantes.URL_WS + "empresa/obtenerLogo/"+idEmpresa;
+        RespuestaHTTP respuesta = ConexionWS.peticionGET(url);
+        
+        if(respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+            Gson gson = new Gson();
+            empresa = gson.fromJson(respuesta.getContenido(), Empresa.class);
+        }
+               
+        return empresa;
+    }
 }

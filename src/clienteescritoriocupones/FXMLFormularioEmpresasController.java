@@ -11,9 +11,15 @@ import clienteescritoriocupones.utils.Constantes;
 import clienteescritoriocupones.utils.Utilidades;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Base64;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,8 +28,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
 public class FXMLFormularioEmpresasController implements Initializable {
     
@@ -53,11 +62,7 @@ public class FXMLFormularioEmpresasController implements Initializable {
     @FXML
     private JFXTextField tfEmail;
     @FXML
-    private ImageView imgEmpresa;
-    @FXML
     private JFXButton btnCargarImagen;
-    @FXML
-    private JFXButton btnActualizarImagen;
     @FXML
     private Label lbAlertNombreUsuario;
     @FXML
@@ -78,6 +83,10 @@ public class FXMLFormularioEmpresasController implements Initializable {
     private Label lbTitulo;
     @FXML
     private Label lbSubtitulo;
+    @FXML
+    private JFXButton btnSeleccionar;
+    @FXML
+    private ImageView ivLogo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,6 +105,9 @@ public class FXMLFormularioEmpresasController implements Initializable {
                 }
             }
         });
+        
+        btnCargarImagen.setDisable(true);
+        btnSeleccionar.setDisable(true);
 
     }
     public void inicializarObservador(IRespuesta observador){
@@ -114,6 +126,8 @@ public class FXMLFormularioEmpresasController implements Initializable {
         rbInactiva.setDisable(false); //Esto cambiará cuando se modifique la empresa
         rbActiva.setSelected(false);
         mostrarInfoEmpresa(this.empresa);
+        btnCargarImagen.setDisable(false);
+        btnSeleccionar.setDisable(false);
         
     }
     
@@ -130,6 +144,9 @@ public class FXMLFormularioEmpresasController implements Initializable {
             rbActiva.setSelected(true);
         else
             rbInactiva.setSelected(true);
+        
+        //Mostrar logo
+        obtenerLogoServicio();
         
     }
 
@@ -216,4 +233,73 @@ public class FXMLFormularioEmpresasController implements Initializable {
     public void btnCerrarVentana(ActionEvent actionEvent) {
         cerrarVentana();
     }
+
+    //---- Únicamente se selecciona la imagen ----\\
+    @FXML
+    private void btnSeleccionarImagen(ActionEvent event) {
+        FileChooser dialogoSeleccionLogo = new FileChooser();
+        dialogoSeleccionLogo.setTitle("Selecciona un logo");
+        //Configuración del tipo de archivo 
+        FileChooser.ExtensionFilter filtroImg = new FileChooser.ExtensionFilter("Archivos de imagen (*.png, *.jpg, *.jpeg)", "*.png", "*.jpg", "*.jpeg");
+        dialogoSeleccionLogo.getExtensionFilters().add(filtroImg);
+        Stage stageActual = (Stage) tfEmail.getScene().getWindow();
+        imagenSeleccionada = dialogoSeleccionLogo.showOpenDialog(stageActual);
+        if(imagenSeleccionada != null){
+            mostrarLogoSeleccionado(imagenSeleccionada);
+        }
+    }
+    
+    //---- Se carga la imagen(logo) en la BD ----\\
+    @FXML
+    private void btnCargarImagen(ActionEvent event) {
+        if(imagenSeleccionada != null){
+            cargarLogoServidor(imagenSeleccionada);
+        }else{
+            Utilidades.mostrarAlertaSimple("Selecciona una foto", "Para cargar un logo a la empresa, debes seleccionarlo previamente", Alert.AlertType.WARNING);
+        }
+    }
+    
+    //--- Muestra la imagen seleccionada en el ImageView
+    private void mostrarLogoSeleccionado(File logo){
+        try{
+            BufferedImage buffer = ImageIO.read(logo);
+            Image image = SwingFXUtils.toFXImage(buffer, null);
+            ivLogo.setImage(image);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    
+    //Carga la imagen al servidor
+    private void cargarLogoServidor(File logo){
+        try {
+            byte[] imgBytes = Files.readAllBytes(logo.toPath());
+            Mensaje msj = EmpresaDAO.subirLogoEmpresa(empresa.getIdEmpresa(), imgBytes);
+            
+            if(!msj.getError()){
+                Utilidades.mostrarAlertaSimple("Logo Guardado", msj.getMensaje(), Alert.AlertType.INFORMATION);
+            }else{
+                Utilidades.mostrarAlertaSimple("Error al subir el logo", msj.getMensaje(), Alert.AlertType.ERROR);
+            }
+        } catch (IOException ex) {
+            Utilidades.mostrarAlertaSimple("ERROR", "Error: "+ex.getMessage(), Alert.AlertType.ERROR);
+
+        }
+    }
+    
+    //Metodo para mostrar el logo de la empresa cagrado anteriormente
+    private void obtenerLogoServicio(){
+        Empresa empresaLogo = EmpresaDAO.obtenerLogoEmpresa(empresa.getIdEmpresa());
+        if(empresaLogo != null && empresaLogo.getFotoBase64() != null && !empresaLogo.getFotoBase64().isEmpty()){
+            mostrarLogoServidor(empresaLogo.getFotoBase64());
+        }
+    }
+    
+    private void mostrarLogoServidor(String imgBase64){
+        byte[] logo = Base64.getDecoder().decode(imgBase64.replaceAll("\\n", "")); //Se tiene que eliminar los saltos de linea, debido a que el Base64 sólo soporta letrar, signos de suma o igual
+        Image image = new Image(new ByteArrayInputStream(logo));
+        ivLogo.setImage(image);
+    }
+    
 }

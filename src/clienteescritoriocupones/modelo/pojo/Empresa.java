@@ -12,11 +12,12 @@ public class Empresa {
     private String RFC;
     private String estatus;
     private Integer idUbicacion;
+    private String fotoBase64;
 
     public Empresa() {
     }
 
-    public Empresa(Integer idEmpresa, String nombre, String nombreComercial, byte[] logo, String representante, String correo, String telefono, String paginaWeb, String RFC, String status, Integer idUbicación) {
+    public Empresa(Integer idEmpresa, String nombre, String nombreComercial, byte[] logo, String representante, String correo, String telefono, String paginaWeb, String RFC, String status, Integer idUbicación, String fotoBase64) {
         this.idEmpresa = idEmpresa;
         this.nombre = nombre;
         this.nombreComercial = nombreComercial;
@@ -28,6 +29,7 @@ public class Empresa {
         this.RFC = RFC;
         this.estatus = status;
         this.idUbicacion = idUbicación;
+        this.fotoBase64 = fotoBase64;
     }
 
     public Integer getIdEmpresa() {
@@ -116,6 +118,14 @@ public class Empresa {
 
     public void setIdUbicacion(Integer idUbicación) {
         this.idUbicacion = idUbicación;
+    }
+
+    public String getFotoBase64() {
+        return fotoBase64;
+    }
+
+    public void setFotoBase64(String fotoBase64) {
+        this.fotoBase64 = fotoBase64;
     }
 
     @Override
