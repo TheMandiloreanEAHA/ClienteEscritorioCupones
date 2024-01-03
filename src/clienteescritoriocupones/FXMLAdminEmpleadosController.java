@@ -12,8 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -53,15 +57,17 @@ public class FXMLAdminEmpleadosController implements Initializable, IRespuesta {
     @FXML
     private TableColumn colApellidoP;
     @FXML
-    private TableColumn colApellidoM;
-    @FXML
     private TableColumn colCURP;
     @FXML
     private TableColumn colCorreo;
     @FXML
     private TableColumn colRol;
+    
     private int idEmpresa;
+    
     private ObservableList<Empleado> empleados;
+    @FXML
+    private TableColumn colUserName;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,12 +80,13 @@ public class FXMLAdminEmpleadosController implements Initializable, IRespuesta {
         this.idEmpresa = idEmpresa;
         System.out.print(this.idEmpresa); 
         descargarEmpleados();
+        inicializarBusqueda();
     }
      
      private void configurarTabla(){
         colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         colApellidoP.setCellValueFactory(new PropertyValueFactory("apellidoPaterno"));
-        colApellidoM.setCellValueFactory(new PropertyValueFactory("apellidoMaterno"));
+        colUserName.setCellValueFactory(new PropertyValueFactory("nombreUsuario"));
         colCURP.setCellValueFactory(new PropertyValueFactory("CURP"));
         colCorreo.setCellValueFactory(new PropertyValueFactory("correo"));
         colRol.setCellValueFactory(new PropertyValueFactory("nombreRol"));
@@ -232,7 +239,45 @@ public class FXMLAdminEmpleadosController implements Initializable, IRespuesta {
         }
         
     }
-
-
+    
+    private void inicializarBusqueda(){
+        if(empleados != null){
+            FilteredList<Empleado> filtroEmpleado = new FilteredList<>(empleados, p -> true); //Filtro, se le manda un observable list y un predicado, el cual determina qué se hará dependiedo si este es true o false
+            tfBarraBusqueda.textProperty().addListener(new ChangeListener<String>(){
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    filtroEmpleado.setPredicate(busqueda ->{
+                        //Si no hay nada en el tf (es vacío), mete todo los valores
+                        if(newValue == null || newValue.isEmpty()){
+                            return true;                        
+                        } 
+                        String lowerFilter = newValue.toLowerCase();
+                        //-- Reglas de filtrado --\\
+                        //Por nombre
+                        if(busqueda.getNombre().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por userName
+                        if(busqueda.getNombreUsuario().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por ROl
+                        if(busqueda.getNombreRol().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por Curp
+                        if(busqueda.getCURP().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        return false;
+                    
+                    });
+                }
+            });//Modifica las porpiedades de un TF, para saber qué se escribe caracter por caracter y poder hacer algo con respecto a esto
+            SortedList<Empleado> empeladosOrdenados = new SortedList(filtroEmpleado);
+            empeladosOrdenados.comparatorProperty().bind(tvEmpleados.comparatorProperty());
+            tvEmpleados.setItems(empeladosOrdenados);
+        }
+    }
     
 }

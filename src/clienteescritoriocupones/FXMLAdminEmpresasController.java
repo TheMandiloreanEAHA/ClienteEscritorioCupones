@@ -15,8 +15,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -73,6 +77,7 @@ public class FXMLAdminEmpresasController implements Initializable, IRespuesta {
         empresa = FXCollections.observableArrayList();
         configurarTabla();
         descargarEmpresas();
+        inicializarBusqueda();
     }    
     private void configurarTabla(){
         colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
@@ -285,6 +290,42 @@ public class FXMLAdminEmpresasController implements Initializable, IRespuesta {
             }
         }else{
             Utilidades.mostrarAlertaSimple("Selección Requerida","Debes seleccionar una Empresa de la tabla para poder ver acerca de su ubicación", Alert.AlertType.WARNING);
+        }
+    }
+    
+    private void inicializarBusqueda(){
+        if(empresa != null){
+            FilteredList<Empresa> filtroEmpresa = new FilteredList<>(empresa, p -> true); //Filtro, se le manda un observable list y un predicado, el cual determina qué se hará dependiedo si este es true o false
+            tfBarraBusqueda.textProperty().addListener(new ChangeListener<String>(){
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    filtroEmpresa.setPredicate(busqueda ->{
+                        //Si no hay nada en el tf (es vacío), mete todo los valores
+                        if(newValue == null || newValue.isEmpty()){
+                            return true;                        
+                        } 
+                        String lowerFilter = newValue.toLowerCase();
+                        //-- Reglas de filtrado --\\
+                        //Por nombre
+                        if(busqueda.getNombre().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por RFC
+                        if(busqueda.getRFC().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por Nombre del representante
+                        if(busqueda.getRepresentante().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        return false;
+                    
+                    });
+                }
+            });//Modifica las porpiedades de un TF, para saber qué se escribe caracter por caracter y poder hacer algo con respecto a esto
+            SortedList<Empresa> empresasOrdenadas = new SortedList(filtroEmpresa);
+            empresasOrdenadas.comparatorProperty().bind(tvEmpresa.comparatorProperty());
+            tvEmpresa.setItems(empresasOrdenadas);
         }
     }
 

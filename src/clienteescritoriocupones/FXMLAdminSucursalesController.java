@@ -13,8 +13,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -52,19 +56,19 @@ public class FXMLAdminSucursalesController implements Initializable, IRespuesta 
     @FXML
     private JFXButton btnEliminarS;
     @FXML
-    private JFXButton btnUbicacion;
-    @FXML
     private TableView<Sucursal> tvSucursales;
     @FXML
     private TableColumn colNombre;
     @FXML
     private TableColumn colNumTelefono;
     @FXML
-    private TableColumn colEncargado;
-    @FXML
-    private TableColumn colDireccion;
-    @FXML
     private TableColumn colEmpresa;
+    @FXML
+    private TableColumn colCalle;
+    @FXML
+    private TableColumn colCodigoPostal;
+    @FXML
+    private TableColumn colNumero;
 
 
     @Override
@@ -76,18 +80,23 @@ public class FXMLAdminSucursalesController implements Initializable, IRespuesta 
     
     public void inicializarIdEmpresa(int idEmpresa){
         this.idEmpresa = idEmpresa;
-        System.out.print(this.idEmpresa); 
+        if(this.idEmpresa != 0){
+            colEmpresa.setText("Colonia");
+            colEmpresa.setCellValueFactory(new PropertyValueFactory("colonia"));
+        }
         descargarSucursales();
+        inicializarBusqueda();
     }
     
     private void configurarTabla(){
         colNombre.setCellValueFactory(new PropertyValueFactory("nombre"));
         colNumTelefono.setCellValueFactory(new PropertyValueFactory("telefono"));
-        colEncargado.setCellValueFactory(new PropertyValueFactory("encargado"));
-        colDireccion.setCellValueFactory(new PropertyValueFactory("codigoPostal"));
-        colEmpresa.setCellValueFactory(new PropertyValueFactory("nombreEmpresa"));
-        
+        colCodigoPostal.setCellValueFactory(new PropertyValueFactory("codigoPostal"));
+        colCalle.setCellValueFactory(new PropertyValueFactory("calle"));
+        colNumero.setCellValueFactory(new PropertyValueFactory("numero"));        
+        colEmpresa.setCellValueFactory(new PropertyValueFactory("nombreEmpresa"));      
     }
+    
     
     private void descargarSucursales(){
         HashMap<String, Object> respuesta = null;
@@ -234,6 +243,50 @@ public class FXMLAdminSucursalesController implements Initializable, IRespuesta 
     public void recargarTabla(){
         sucursales.clear();
         descargarSucursales();
+    }
+    
+    private void inicializarBusqueda(){
+        if(sucursales != null){
+            FilteredList<Sucursal> filtroSucursal = new FilteredList<>(sucursales, p -> true); //Filtro, se le manda un observable list y un predicado, el cual determina qué se hará dependiedo si este es true o false
+            tfBarraBusqueda.textProperty().addListener(new ChangeListener<String>(){
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    filtroSucursal.setPredicate(busqueda ->{
+                        //Si no hay nada en el tf (es vacío), mete todo los valores
+                        if(newValue == null || newValue.isEmpty()){
+                            return true;                        
+                        } 
+                        String lowerFilter = newValue.toLowerCase();
+                        //-- Reglas de filtrado --\\
+                        //Por nombre
+                        if(busqueda.getNombre().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por Codigo Postal
+                        if(busqueda.getCodigoPostal().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por calle
+                        if(busqueda.getCalle().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por numero
+                        if(busqueda.getNumero().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por colonia
+                        if(busqueda.getColonia().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        return false;
+                    
+                    });
+                }
+            });//Modifica las porpiedades de un TF, para saber qué se escribe caracter por caracter y poder hacer algo con respecto a esto
+            SortedList<Sucursal> sucursalesOrdenadas = new SortedList(filtroSucursal);
+            sucursalesOrdenadas.comparatorProperty().bind(tvSucursales.comparatorProperty());
+            tvSucursales.setItems(sucursalesOrdenadas);
+        }
     }
     
 }

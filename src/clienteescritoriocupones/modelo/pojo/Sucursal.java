@@ -11,17 +11,19 @@ public class Sucursal {
     private String nombreEmpresa;
     private String calle;
     private String numero;
+    private String colonia;
 
     public Sucursal() {
     }
 
-    public Sucursal(Integer idSucursal, String nombre, String telefono, String encargado, Integer idUbicacion, Integer idEmpresa) {
+    public Sucursal(Integer idSucursal, String nombre, String telefono, String encargado, Integer idUbicacion, Integer idEmpresa, String colonia) {
         this.idSucursal = idSucursal;
         this.nombre = nombre;
         this.telefono = telefono;
         this.encargado = encargado;
         this.idUbicacion = idUbicacion;
         this.idEmpresa = idEmpresa;
+        this.colonia = colonia;
     }
 
     public Integer getIdSucursal() {
@@ -103,8 +105,12 @@ public class Sucursal {
     public void setNumero(String numero) {
         this.numero = numero;
     }
-    
-    
-    
-    
+
+    public String getColonia() {
+        return colonia;
+    }
+
+    public void setColonia(String colonia) {
+        this.colonia = colonia;
+    }   
 }

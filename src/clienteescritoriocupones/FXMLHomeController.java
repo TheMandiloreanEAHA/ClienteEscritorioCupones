@@ -1,10 +1,15 @@
 package clienteescritoriocupones;
 
 import clienteescritoriocupones.interfaz.IRespuesta;
+import clienteescritoriocupones.modelo.dao.InicioSesionDAO;
 import clienteescritoriocupones.modelo.pojo.Empleado;
+import clienteescritoriocupones.modelo.pojo.RespuestaLogin;
+import clienteescritoriocupones.utils.Constantes;
+import clienteescritoriocupones.utils.Utilidades;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +22,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -203,10 +209,35 @@ public class FXMLHomeController implements Initializable, IRespuesta {
 
     @FXML
     public void btnCerrarSesion(Event event) {
+        Optional<ButtonType> respuesta = Utilidades.mostrarAlertaConfirmacion("Cerrar sesión", "¿Está seguro que desea salir de la sesión");
+        if(respuesta.get()== ButtonType.OK){
+            Stage stageActual = (Stage) btnCanjeCupones.getScene().getWindow();
+            try {
+                FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLLogin.fxml"));
+                Parent vista = loadMain.load();
+
+                //FXMLHomeController controlador = loadMain.getController();
+                //controladorHome.inicializarEmpleado(empleado);
+                Scene escenea = new Scene(vista);
+                Stage nuevoStage = new Stage();
+                nuevoStage.setScene(escenea);
+                nuevoStage.getIcons().add(Constantes.imagenIcon);
+                nuevoStage.setResizable(false);
+                nuevoStage.show();
+
+                // Cerrar la ventana actual
+                stageActual.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+        
     }
 
     @Override
     public void notificarGuardado() {
+        RespuestaLogin respuesta = InicioSesionDAO.iniciarSesion(empleadoSesion);
+        inicializarEmpleado(respuesta.getEmpleadoSesion());
         
     }
 }
