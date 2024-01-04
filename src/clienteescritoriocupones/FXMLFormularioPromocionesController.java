@@ -217,8 +217,6 @@ public class FXMLFormularioPromocionesController implements Initializable {
     private void llenarCampos(Promocion promo){
         tfNombrePromo.setText(promo.getNombre());
         tfNumCupones.setText(promo.getNumeroCupones().toString());
-        tfCodigo.setText(promo.getCodigoPromocion());
-        tfCodigo.setDisable(true);
         taDescripcion.setText(promo.getDescripcion());
         taRestriccion.setText(promo.getRestriccion());
         //Parsear los datos para poder mostrar las fechas establecidas
