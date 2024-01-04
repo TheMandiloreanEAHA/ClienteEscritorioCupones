@@ -155,6 +155,14 @@ public class FXMLHomeController implements Initializable, IRespuesta {
                 }else{ //De lo contrario, es un administrador comercial y se debe mandar su id
                     controladorAdminEmp.inicializarIdEmpresa(empleadoSesion.getIdEmpresa());
                 }                
+            }else if(vista.contentEquals("FXMLAdminPromociones")){
+                FXMLAdminPromocionesController controladorAdmiPromos = loader.getController();
+                if(empleadoSesion.getIdEmpresa() == null){ //Si el id de la empresa es null, significa que es un administrador general
+                    controladorAdmiPromos.inicializarIdEmpresa(0);
+                }else{ //De lo contrario, es un administrador comercial y se debe mandar su id
+                    controladorAdmiPromos.inicializarIdEmpresa(empleadoSesion.getIdEmpresa());
+                }  
+                
             }
 
             bp.setCenter(root);

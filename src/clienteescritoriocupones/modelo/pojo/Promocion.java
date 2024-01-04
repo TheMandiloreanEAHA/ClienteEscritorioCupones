@@ -16,12 +16,13 @@ public class Promocion {
     private Integer idCategoria;
     private Integer idEmpresa;
     private String empresa;
+    private String categoria;
     private String imagenBase64;
 
     public Promocion() {
     }
 
-    public Promocion(Integer idPromocion, String nombre, String descripcion, Byte[] imagen, String inicioPromocion, String finPromocion, String restriccion, Integer numeroCupones, String codigoPromocion, String estatus, Integer idTipoPromocion, String tipo, Integer idCategoria, Integer idEmpresa, String empresa, String imagenBase64) {
+    public Promocion(Integer idPromocion, String nombre, String descripcion, Byte[] imagen, String inicioPromocion, String finPromocion, String restriccion, Integer numeroCupones, String codigoPromocion, String estatus, Integer idTipoPromocion, String tipo, Integer idCategoria, Integer idEmpresa, String empresa, String imagenBase64, String categoria) {
         this.idPromocion = idPromocion;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -38,6 +39,7 @@ public class Promocion {
         this.idEmpresa = idEmpresa;
         this.empresa = empresa;
         this.imagenBase64 = imagenBase64;
+        this.categoria = categoria;
     }
 
     public Integer getIdPromocion() {
@@ -168,5 +170,13 @@ public class Promocion {
         this.imagenBase64 = imagenBase64;
     }
 
-   
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    
 }

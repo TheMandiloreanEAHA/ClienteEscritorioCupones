@@ -223,9 +223,9 @@ public class FXMLAdminEmpleadosController implements Initializable, IRespuesta {
             if(respuesta.get()== ButtonType.OK){
                 eliminar(empSeleccion);
                 recargarTabla();
-            }else{
-            Utilidades.mostrarAlertaSimple("Selección Requerida", "Debes Seleccionar un empleado para su ELIMINACIÓN", Alert.AlertType.WARNING);
             }
+        }else{
+            Utilidades.mostrarAlertaSimple("Selección Requerida", "Debes Seleccionar un empleado para su ELIMINACIÓN", Alert.AlertType.WARNING);
         }
     }
     

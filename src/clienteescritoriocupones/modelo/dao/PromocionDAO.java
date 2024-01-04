@@ -1,6 +1,7 @@
 package clienteescritoriocupones.modelo.dao;
 
 import clienteescritoriocupones.modelo.ConexionWS;
+import clienteescritoriocupones.modelo.pojo.Categoria;
 import clienteescritoriocupones.modelo.pojo.Mensaje;
 import clienteescritoriocupones.modelo.pojo.Promocion;
 import clienteescritoriocupones.modelo.pojo.PromocionSucursal;
@@ -41,7 +42,7 @@ public class PromocionDAO {
     //-------------------------------- Agregar Promoción --------------------------------\\
     public static Mensaje agregarPromocion(Promocion promocion){
         Mensaje msj = new Mensaje();
-        String url = Constantes.URL_WS+"prmocion/agregarPromocion";
+        String url = Constantes.URL_WS+"promocion/agregarPromocion";
         Gson gson = new Gson();
         String parametros = gson.toJson(promocion);
         RespuestaHTTP respuestaPeticion = ConexionWS.peticionPOSTJSON(url, parametros);
@@ -57,7 +58,7 @@ public class PromocionDAO {
     //-------------------------------- Modificar Promoción --------------------------------\\
     public static Mensaje modificarPromocion(Promocion promocion){
         Mensaje msj = new Mensaje();
-        String url = Constantes.URL_WS+"prmocion/editarPromocion";
+        String url = Constantes.URL_WS+"promocion/editarPromocion";
         Gson gson = new Gson();
         String parametros = gson.toJson(promocion);
         RespuestaHTTP respuestaPeticion = ConexionWS.peticionPUTJSON(url, parametros);
@@ -71,11 +72,11 @@ public class PromocionDAO {
     }
     
     //-------------------------------- Eliminar Promoción --------------------------------\\
-    public static Mensaje eliminarPromocion(int idPromocion){
+    public static Mensaje eliminarPromocion(Promocion promocion){
         Mensaje msj = new Mensaje();
-        String url = Constantes.URL_WS+"prmocion/eliminarPromocion";
+        String url = Constantes.URL_WS+"promocion/eliminarPromocion";
         Gson gson = new Gson();
-        String parametros = gson.toJson(idPromocion);
+        String parametros = gson.toJson(promocion);
         RespuestaHTTP respuestaPeticion = ConexionWS.peticionDELETEJSON(url, parametros);
         if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
             msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);
@@ -212,4 +213,27 @@ public class PromocionDAO {
         return respService;
          
     }
+    
+    //---------------------------------------- Obtener lista de categorias ----------------------------------------\\
+    public static HashMap<String, Object> listaCategorias(){
+        HashMap<String, Object> respService = new LinkedHashMap<>();
+        List<Categoria> categorias = null;
+        String url = Constantes.URL_WS+"promocion/categorias";
+        RespuestaHTTP respuesta = ConexionWS.peticionGET(url);
+        System.out.println(url);
+        if(respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+           Gson gson = new Gson();
+           Type tipoListaCategoria = new TypeToken<List<Categoria>>(){}.getType();
+           categorias = gson.fromJson(respuesta.getContenido(), tipoListaCategoria);
+           respService.put("error", false);
+           respService.put("categorias", categorias);
+        }else{
+            respService.put("error", true);
+            respService.put("mensaje","Hubo un error en la peticion, por el momento no se puede cargar "
+                    + "la informacion de las categorias");
+        }
+        
+        return respService;
+    }
+
 }

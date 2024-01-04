@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="766.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLFormularioPromocionesController">
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <left>
+                <VBox prefHeight="200.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+                    <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="250.0">
+                            <children>
+                                <Label text="Nombre de la Promoción">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Pane prefHeight="25.0" prefWidth="42.0" />
+                                <Label fx:id="lbAlertNombre" prefHeight="17.0" prefWidth="44.0" textFill="RED" />
+                            </children>
+                        </HBox>
+                        <JFXTextField fx:id="tfNombrePromo" focusColor="#03e9f4" promptText="Nombre de la Promocion">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin></JFXTextField>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="250.0">
+                            <children>
+                                <Label text="Descripción">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="15.0" />
+                                    </font>
+                                </Label>
+                                <Pane prefHeight="25.0" prefWidth="42.0" />
+                                <Label fx:id="lbAlertApellidoP" textFill="RED" />
+                            </children>
+                        </HBox>
+                  <TextArea fx:id="taDescripcion" prefHeight="125.0" prefWidth="312.0" promptText="Agrega la descripción de la Promocion" />
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                            <children>
+                                <Label text="Fecha de Inicio">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="14.0" />
+                                    </font>
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                                </Label>
+                                <Pane prefHeight="25.0" prefWidth="42.0" />
+                                <Label fx:id="lbAlertEmail" textFill="RED" />
+                            </children>
+                        </HBox>
+                  <DatePicker fx:id="dpFechaInicio" prefHeight="31.0" prefWidth="262.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </DatePicker>
+                  <Label text="Fecha de fin">
+                     <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <DatePicker fx:id="dpFechaFin" prefHeight="31.0" prefWidth="271.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </DatePicker>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="250.0">
+                     <children>
+                        <Label text="Restricción">
+                           <font>
+                              <Font name="Gill Sans MT" size="15.0" />
+                           </font>
+                        </Label>
+                        <Pane prefHeight="25.0" prefWidth="42.0" />
+                        <Label fx:id="lbAlertApellidoP1" textFill="RED" />
+                     </children>
+                  </HBox>
+                  <JFXTextArea fx:id="taRestriccion" prefHeight="46.0" prefWidth="250.0" promptText="Agrega restricciones a la promocion">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </JFXTextArea>
+                  <Pane prefHeight="13.0" prefWidth="250.0" />
+                  <Label text="Categoría">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXComboBox fx:id="cbCategoria" prefHeight="31.0" prefWidth="272.0" promptText="Categoría">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </JFXComboBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
+                    </padding>
+                </VBox>
+            </left>
+            <right>
+                <VBox prefHeight="449.0" prefWidth="350.0" BorderPane.alignment="CENTER">
+                    <children>
+                  <Label text="Imagen de la Promocion">
+                     <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="9.0" prefWidth="250.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="ivImg" fitHeight="125.0" fitWidth="138.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@recursos/icon_CargarImagen.png" />
+                           </image></ImageView>
+                        <VBox prefHeight="150.0" prefWidth="107.0">
+                           <children>
+                              <Pane prefHeight="36.0" prefWidth="80.0" />
+                              <JFXButton fx:id="btnCargarImagen" onAction="#btnCargarImagen" prefHeight="26.0" prefWidth="109.0" style="-fx-background-color: BLACK; -fx-background-radius: 100PX;" text="CARGAR" textFill="WHITE">
+                                 <font>
+                                    <Font name="Gill Sans MT" size="14.0" />
+                                 </font>
+                              </JFXButton>
+                              <Pane prefHeight="36.0" prefWidth="80.0" />
+                              <JFXButton fx:id="btnSeleccionar" onAction="#btnSeleccionarImagen" prefHeight="22.0" prefWidth="106.0" style="-fx-background-color: BLACK; -fx-background-radius: 100px;" text="SELECCIONAR" textFill="WHITE">
+                                 <font>
+                                    <Font name="Gill Sans MT" size="13.0" />
+                                 </font>
+                              </JFXButton>
+                              <Pane prefHeight="39.0" prefWidth="80.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                        <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                            <children>
+                                <Label fx:id="lbAlertNombreUsuario" textFill="RED" />
+                                <Label prefHeight="16.0" prefWidth="134.0" text="Tipo de promoción">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="14.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                        </HBox>
+                  <RadioButton fx:id="rbDescuento" mnemonicParsing="false" text="Descuento" />
+                          <Pane prefHeight="7.0" prefWidth="250.0" />
+                  <RadioButton fx:id="rbCostoRebajado" mnemonicParsing="false" text="Costo Rebajado" />
+                  <Label prefHeight="16.0" prefWidth="206.0" text="Numero de cupones Disponibles">
+                     <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXTextField fx:id="tfNumCupones" focusColor="#03e9f4" promptText="Num. Cupones">
+                     <font>
+                        <Font name="Gill Sans MT" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="5.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <Label text="Código de Promocion">
+                     <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="tfCodigo" focusColor="#03e9f4" promptText="Código">
+                     <font>
+                        <Font name="Gill Sans MT" size="12.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </JFXTextField>
+                  <Label text="Empresa">
+                     <font>
+                        <Font name="Gill Sans MT" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXComboBox fx:id="cbEmpresa" prefHeight="31.0" prefWidth="272.0" promptText="Empresa">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </JFXComboBox>
+                  <HBox alignment="CENTER_LEFT" prefHeight="25.0" prefWidth="200.0">
+                     <children>
+                        <Label text="Estado de la Promoción">
+                           <font>
+                              <Font name="Gill Sans MT" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets top="20.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Pane prefHeight="25.0" prefWidth="42.0" />
+                        <Label fx:id="lbAlertNombreUsuario1" textFill="RED" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER" prefHeight="38.0" prefWidth="250.0">
+                     <children>
+                        <RadioButton fx:id="rbActiva" mnemonicParsing="false" text="Activa" />
+                        <Pane prefHeight="38.0" prefWidth="103.0" />
+                        <RadioButton fx:id="rbInactiva" mnemonicParsing="false" text="Inactiva" />
+                     </children>
+                  </HBox>
+                    </children>
+                    <padding>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
+                    </padding>
+                </VBox>
+            </right>
+            <bottom>
+                <Pane prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                    <children>
+                        <JFXButton fx:id="btnRegistrarPromo" layoutX="493.0" layoutY="12.0" onAction="#btnRegistrarPromo" prefHeight="45.0" prefWidth="193.0" ripplerFill="#03e9f4" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Registrar Promoción">
+                            <font>
+                                <Font name="Gill Sans MT" size="18.0" />
+                            </font></JFXButton>
+                    </children>
+                </Pane>
+            </bottom>
+            <top>
+                <BorderPane prefHeight="94.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+                    <top>
+                        <Pane prefHeight="58.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                            <children>
+                                <JFXButton fx:id="btnCerrar" layoutX="14.0" layoutY="11.0" onAction="#btnCerrarVentana" prefHeight="36.0" prefWidth="38.0" ripplerFill="RED" style="-fx-background-color: transparent; -fx-background-radius: 100px;" />
+                                <Label fx:id="lbTitulo" layoutX="162.0" layoutY="10.0" text="REGISTRO DE PROMOCIÓN" textFill="WHITE">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="33.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                    </top>
+                    <bottom>
+                        <Pane prefHeight="36.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                            <children>
+                                <Label fx:id="lbSubtitulo" layoutX="189.0" layoutY="15.0" text="INGRESA LOS DATOS DE LA PROMOCIÓN">
+                                    <font>
+                                        <Font name="Gill Sans MT" size="17.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                        </Pane>
+                    </bottom>
+                </BorderPane>
+            </top>
+        </BorderPane>
+    </children>
+</AnchorPane>

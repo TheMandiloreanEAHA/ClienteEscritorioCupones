@@ -204,6 +204,8 @@ public class FXMLAdminEmpresasController implements Initializable, IRespuesta {
                 eliminar(empresaSeleccion);
                 recargarTabla();
             }
+        }else{
+            Utilidades.mostrarAlertaSimple("Selección Requerida","Debes seleccionar una Empresa de la tabla para poder eliminarla", Alert.AlertType.WARNING);
         }
     }
     
