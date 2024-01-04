@@ -13,14 +13,20 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
 import java.time.LocalDate;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,8 +37,11 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 
 
 public class FXMLFormularioPromocionesController implements Initializable {
@@ -223,6 +232,9 @@ public class FXMLFormularioPromocionesController implements Initializable {
             rbCostoRebajado.setSelected(true);
         }
         
+        //Mostrar imagen
+        obtenerImgServicio();
+        
     }
     
     private boolean validarCampos(){
@@ -327,13 +339,71 @@ public class FXMLFormularioPromocionesController implements Initializable {
         }
     }
 
-    @FXML
-    private void btnCargarImagen(ActionEvent event) {
-        
-    }
-
+    
+    //---- Únicamente se selecciona la imagen ----\\
     @FXML
     private void btnSeleccionarImagen(ActionEvent event) {
+        FileChooser dialogoSeleccionImg = new FileChooser();
+        dialogoSeleccionImg.setTitle("Selecciona una Imagen");
+        //Configuración del tipo de archivo 
+        FileChooser.ExtensionFilter filtroImg = new FileChooser.ExtensionFilter("Archivos de imagen (*.png, *.jpg, *.jpeg)", "*.png", "*.jpg", "*.jpeg");
+        dialogoSeleccionImg.getExtensionFilters().add(filtroImg);
+        Stage stageActual = (Stage) tfCodigo.getScene().getWindow();
+        imagenSeleccionada = dialogoSeleccionImg.showOpenDialog(stageActual);
+        if(imagenSeleccionada != null){
+            mostrarLogoSeleccionado(imagenSeleccionada);
+        }
+    }
+    
+    @FXML
+    private void btnCargarImagen(ActionEvent event) {
+        if(imagenSeleccionada != null){
+            cargarLogoServidor(imagenSeleccionada);
+        }else{
+            Utilidades.mostrarAlertaSimple("Selecciona una foto", "Para cargar una imagen a la promoción, debes seleccionarla previamente", Alert.AlertType.WARNING);
+        }
+    }
+    
+     //--- Muestra la imagen seleccionada en el ImageView
+    private void mostrarLogoSeleccionado(File img){
+        try{
+            BufferedImage buffer = ImageIO.read(img);
+            Image image = SwingFXUtils.toFXImage(buffer, null);
+            ivImg.setImage(image);
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+    
+    //Carga la imagen al servidor
+    private void cargarLogoServidor(File img){
+        try {
+            byte[] imgBytes = Files.readAllBytes(img.toPath());
+            Mensaje msj = PromocionDAO.subirImagenPromo(promocion.getIdPromocion(), imgBytes);
+            
+            if(!msj.getError()){
+                Utilidades.mostrarAlertaSimple("Imagen Guardada", msj.getMensaje(), Alert.AlertType.INFORMATION);
+            }else{
+                Utilidades.mostrarAlertaSimple("Error al subir la imagen", msj.getMensaje(), Alert.AlertType.ERROR);
+            }
+        } catch (IOException ex) {
+            Utilidades.mostrarAlertaSimple("ERROR", "Error: "+ex.getMessage(), Alert.AlertType.ERROR);
+
+        }
+    }
+    
+    //Metodo para mostrar el logo de la empresa cagrado anteriormente
+    private void obtenerImgServicio(){
+        Promocion promoImg = PromocionDAO.obtenerImgPromo(promocion.getIdPromocion());
+        if(promoImg != null && promoImg.getImagenBase64()!= null && !promoImg.getImagenBase64().isEmpty()){
+            mostrarLogoServidor(promoImg.getImagenBase64());
+        }
+    }
+    
+    private void mostrarLogoServidor(String imgBase64){
+        byte[] img = Base64.getDecoder().decode(imgBase64.replaceAll("\\n", "")); //Se tiene que eliminar los saltos de linea, debido a que el Base64 sólo soporta letrar, signos de suma o igual
+        Image image = new Image(new ByteArrayInputStream(img));
+        ivImg.setImage(image);
     }
     
 }

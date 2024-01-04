@@ -159,12 +159,10 @@ public class FXMLFormularioEmpleadoController implements Initializable {
             cbRol.setValue("Administrador general");            
         }else{
             cbRol.setValue("Administrador Comercial");
-            HashMap<String, Object> respuesta = EmpresaDAO.buscarEmpresaPorId(empleado.getIdEmpresa());
-            Empresa empresa =(Empresa)respuesta.get("empresa");
             
             //Seleccionar la empresa en el combobox            
             for(Empresa empr: cbEmpresa.getItems()){
-                if(empr.getIdEmpresa() == empresa.getIdEmpresa()){
+                if(empr.getIdEmpresa() == empleado.getIdEmpresa()){
                     cbEmpresa.setValue(empr);
                     break;
                 }

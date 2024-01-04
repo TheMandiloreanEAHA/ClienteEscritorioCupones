@@ -235,5 +235,35 @@ public class PromocionDAO {
         
         return respService;
     }
+    
+    //---------------------------------------- Subir imagen Promo ----------------------------------------\\
+    public static Mensaje subirImagenPromo(int idPromocion, byte[] img){
+        Mensaje msj = new Mensaje();
+        String url = Constantes.URL_WS + "promocion/subirImg/" + idPromocion;
+        RespuestaHTTP respuesta = ConexionWS.peticionPUTImagen(url, img);
+        if(respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+            Gson gson = new Gson();
+            msj = gson.fromJson(respuesta.getContenido(), Mensaje.class);
+        }else{
+            msj.setError(true);
+            msj.setMensaje("Error al envíar la imagen de la promo, por favor intnte más tarde.");
+        }        
+        return msj;
+    } 
+    
+    //---------------------------------------- Obtener Logo empresa ----------------------------------------\\
+    public static Promocion obtenerImgPromo(int idPromocion){
+        Promocion promo = null;
+        String url = Constantes.URL_WS + "promocion/obtenerImg/"+idPromocion;
+        RespuestaHTTP respuesta = ConexionWS.peticionGET(url);
+        
+        if(respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+            Gson gson = new Gson();
+            promo = gson.fromJson(respuesta.getContenido(), Promocion.class);
+        }
+               
+        return promo;
+    }
+    
 
 }
