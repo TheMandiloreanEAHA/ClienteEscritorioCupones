@@ -73,6 +73,8 @@ public class FXMLAdminPromocionesController implements Initializable, IRespuesta
     private TableColumn colEstatus;
     @FXML
     private TableColumn colEmpresaPromocion;
+    @FXML
+    private JFXButton btnCanjearCupon;
 
    @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -246,7 +248,6 @@ public class FXMLAdminPromocionesController implements Initializable, IRespuesta
     }
     
     private void recargarTabla(){
-        System.out.println("HOA");
         promocion.clear();
         descargarPromos(); 
     }
@@ -284,6 +285,52 @@ public class FXMLAdminPromocionesController implements Initializable, IRespuesta
             SortedList<Promocion> promocionesOrdenadas = new SortedList(filtropromo);
             promocionesOrdenadas.comparatorProperty().bind(tvPromociones.comparatorProperty());
             tvPromociones.setItems(promocionesOrdenadas);
+        }
+    }
+
+    @FXML
+    private void btnCanjear(ActionEvent event) {
+        try {
+            //Cargar las vistas a memoria
+            FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLCanjeo.fxml"));
+            Parent vista = loadMain.load();
+
+            //Cargamos la información
+            FXMLCanjeoController controller = loadMain.getController();
+            controller.inicializarObservador(this);
+            
+
+            //Creamos un nuevo stage
+            Stage stageNuevo = new Stage();
+            Scene escena = new Scene(vista);
+            
+            stageNuevo.initStyle(StageStyle.DECORATED.UNDECORATED);
+            vista.setOnMousePressed(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent event){
+                    xOffset = event.getSceneX();
+                    yOffset = event.getSceneY();
+                }
+
+            });
+            vista.setOnMouseDragged(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent event){
+                    stageNuevo.setX(event.getScreenX() -xOffset);
+                    stageNuevo.setY(event.getScreenY() -yOffset);
+                }
+
+            });
+
+            stageNuevo.setScene(escena);
+            stageNuevo.setTitle("Canejar cupón");
+            stageNuevo.initModality(Modality.APPLICATION_MODAL); //Configuracion que nos ayuda a elegir el control de las pantallas. No perimte que otro stage tenga el control hasta que se cierre el stage actual
+            stageNuevo.showAndWait(); //Bloquea la pantalla de atras 
+
+
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
     

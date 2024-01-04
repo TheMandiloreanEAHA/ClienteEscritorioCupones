@@ -24,6 +24,7 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
@@ -283,8 +284,6 @@ public class FXMLFormularioPromocionesController implements Initializable {
             isValid = false;
         }else if(tfNumCupones.getText() == null || tfNumCupones.getText().isEmpty()){
             isValid = false;
-        }else if(tfCodigo.getText() == null || tfCodigo.getText().isEmpty()){
-            isValid = false;
         }
                 
         if(!isValid){
@@ -304,6 +303,14 @@ public class FXMLFormularioPromocionesController implements Initializable {
         escenario.close();
     }
     
+    private String generarCodigo() {
+        // Generar un UUID
+        UUID uuid = UUID.randomUUID();
+        // Obtener la representación en cadena del UUID y seleccionar solo los primeros 8 caracteres
+        String codigo = uuid.toString().substring(0, 8);
+        return codigo;
+    }
+
     private void registrarPromo(Promocion promo){
         Mensaje msj = PromocionDAO.agregarPromocion(promo);
         if(!msj.getError()){
@@ -336,7 +343,7 @@ public class FXMLFormularioPromocionesController implements Initializable {
             promo.setInicioPromocion(dpFechaInicio.getValue().toString());
             promo.setRestriccion(taRestriccion.getText());
             promo.setNumeroCupones(Integer.parseInt(tfNumCupones.getText()));
-            promo.setCodigoPromocion(tfCodigo.getText());
+            promo.setCodigoPromocion(generarCodigo());
             //LLenamos con la información de los combos:
             promo.setIdCategoria(cbCategoria.getValue().getIdCategoria());
             promo.setIdEmpresa(cbEmpresa.getValue().getIdEmpresa());

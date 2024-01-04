@@ -32,7 +32,14 @@
          <children>
             <Pane prefHeight="59.0" prefWidth="29.0" />
             <TextField fx:id="tfBarraBusqueda" prefHeight="25.0" prefWidth="206.0" style="-fx-background-color: #ffffff; -fx-background-radius: 100px; -fx-border-color: black; -fx-border-radius: 100px;" />
-            <Pane prefHeight="59.0" prefWidth="214.0" />
+            <Pane prefHeight="59.0" prefWidth="214.0">
+               <children>
+                  <JFXButton fx:id="btnCanjearCupon" layoutX="45.0" layoutY="10.0" onAction="#btnCanjear" prefHeight="39.0" prefWidth="122.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Canjear Cupón" textFill="WHITE">
+                     <font>
+                        <Font name="Gill Sans MT" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children></Pane>
             <JFXButton fx:id="btnAgregarP" onAction="#btnAgregar" prefHeight="39.0" prefWidth="82.0" ripplerFill="#03e9f4" style="-fx-background-color: black; -fx-background-radius: 100px;" text="Agregar" textFill="WHITE">
                <font>
                   <Font name="Gill Sans MT" size="14.0" />

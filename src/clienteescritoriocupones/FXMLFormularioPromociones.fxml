@@ -181,19 +181,6 @@
                         <Insets bottom="20.0" top="5.0" />
                      </VBox.margin>
                   </JFXTextField>
-                  <Label text="Código de Promocion">
-                     <font>
-                        <Font name="Gill Sans MT" size="14.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField fx:id="tfCodigo" focusColor="#03e9f4" promptText="Código">
-                     <font>
-                        <Font name="Gill Sans MT" size="12.0" />
-                     </font>
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </JFXTextField>
                   <Label text="Empresa">
                      <font>
                         <Font name="Gill Sans MT" size="15.0" />

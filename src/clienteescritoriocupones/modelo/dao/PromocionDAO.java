@@ -1,6 +1,7 @@
 package clienteescritoriocupones.modelo.dao;
 
 import clienteescritoriocupones.modelo.ConexionWS;
+import clienteescritoriocupones.modelo.pojo.CanjeoCupon;
 import clienteescritoriocupones.modelo.pojo.Categoria;
 import clienteescritoriocupones.modelo.pojo.Mensaje;
 import clienteescritoriocupones.modelo.pojo.Promocion;
@@ -323,6 +324,22 @@ public class PromocionDAO {
         String url = Constantes.URL_WS+"promocion/verPromocionPorSucursal";
         Gson gson = new Gson();
         String parametros = gson.toJson(promocion);
+        RespuestaHTTP respuestaPeticion = ConexionWS.peticionPOSTJSON(url, parametros);
+        if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
+            msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);
+        }else{
+            msj.setError(true);
+            msj.setMensaje("Hubo un error al procesar la solictud, porfavor intentalo más tarde");
+        }        
+        return msj;
+    }
+    
+    //-------------------------------- Canjear cupón --------------------------------\\
+    public static Mensaje canjearCupon(CanjeoCupon canjeo){
+        Mensaje msj = new Mensaje();
+        String url = Constantes.URL_WS+"promocion/canjeoCupon";
+        Gson gson = new Gson();
+        String parametros = gson.toJson(canjeo);
         RespuestaHTTP respuestaPeticion = ConexionWS.peticionPOSTJSON(url, parametros);
         if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
             msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);

@@ -40,11 +40,6 @@
                   <Font name="Gill Sans MT" size="27.0" />
                </font>
             </JFXButton>
-            <JFXButton fx:id="btnCanjeCupones" onMouseClicked="#btnCupones" prefHeight="50.0" prefWidth="213.0" ripplerFill="#03e9f4" style="-fx-border-color: #111212; -fx-border-width: 0px 0px 3px 0px;" text="Canjear Cupón" textFill="WHITE">
-               <font>
-                  <Font name="Gill Sans MT" size="27.0" />
-               </font>
-            </JFXButton>
             <Pane prefHeight="132.0" prefWidth="213.0" />
             <JFXButton fx:id="btnEditarPerfil" onMouseClicked="#btnEditarPerfil" prefHeight="50.0" prefWidth="213.0" ripplerFill="#03e9f4" style="-fx-border-color: #111212; -fx-border-width: 0px 0px 3px 0px;" text="Editar Perfil" textFill="WHITE">
                <font>
