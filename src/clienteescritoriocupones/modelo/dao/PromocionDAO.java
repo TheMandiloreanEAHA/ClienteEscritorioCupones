@@ -3,6 +3,7 @@ package clienteescritoriocupones.modelo.dao;
 import clienteescritoriocupones.modelo.ConexionWS;
 import clienteescritoriocupones.modelo.pojo.CanjeoCupon;
 import clienteescritoriocupones.modelo.pojo.Categoria;
+import clienteescritoriocupones.modelo.pojo.Empresa;
 import clienteescritoriocupones.modelo.pojo.Mensaje;
 import clienteescritoriocupones.modelo.pojo.Promocion;
 import clienteescritoriocupones.modelo.pojo.PromocionSucursal;
@@ -98,6 +99,21 @@ public class PromocionDAO {
         String url = Constantes.URL_WS+"promocion/eliminarPromocion";
         Gson gson = new Gson();
         String parametros = gson.toJson(promocion);
+        RespuestaHTTP respuestaPeticion = ConexionWS.peticionDELETEJSON(url, parametros);
+        if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
+            msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);
+        }else{
+            msj.setError(true);
+            msj.setMensaje("Hubo un error al procesar la solictud, porfavor intentalo más tarde");
+        }        
+        return msj;
+    }
+    
+    public static Mensaje eliminarPromocionesEmpresa(Empresa empresa){
+        Mensaje msj = new Mensaje();
+        String url = Constantes.URL_WS+"promocion/eliminarPromocionesEmpresa";
+        Gson gson = new Gson();
+        String parametros = gson.toJson(empresa);
         RespuestaHTTP respuestaPeticion = ConexionWS.peticionDELETEJSON(url, parametros);
         if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
             msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);

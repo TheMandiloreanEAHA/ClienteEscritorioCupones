@@ -83,6 +83,8 @@ public class FXMLAdminSucursalesController implements Initializable, IRespuesta 
         if(this.idEmpresa != 0){
             colEmpresa.setText("Colonia");
             colEmpresa.setCellValueFactory(new PropertyValueFactory("colonia"));
+        }else{
+            btnAgregarS.setDisable(true);
         }
         descargarSucursales();
         inicializarBusqueda();

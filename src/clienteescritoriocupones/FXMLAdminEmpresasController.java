@@ -3,6 +3,7 @@ package clienteescritoriocupones;
 import clienteescritoriocupones.interfaz.IRespuesta;
 import clienteescritoriocupones.modelo.dao.EmpleadoDAO;
 import clienteescritoriocupones.modelo.dao.EmpresaDAO;
+import clienteescritoriocupones.modelo.dao.PromocionDAO;
 import clienteescritoriocupones.modelo.dao.SucursalDAO;
 import clienteescritoriocupones.modelo.pojo.Empresa;
 import clienteescritoriocupones.modelo.pojo.Mensaje;
@@ -198,7 +199,7 @@ public class FXMLAdminEmpresasController implements Initializable, IRespuesta {
     private void btnEliminar(ActionEvent event) {
         Empresa empresaSeleccion = tvEmpresa.getSelectionModel().getSelectedItem();
         if(empresaSeleccion != null){
-            Optional<ButtonType> respuesta = Utilidades.mostrarAlertaConfirmacion("Confirmar Eliminación", "¿Está seguro que desea eliminar la empresa " + empresaSeleccion.getNombre() + ", juntos con TODOS sus empleados dentro de su registro?");
+            Optional<ButtonType> respuesta = Utilidades.mostrarAlertaConfirmacion("Confirmar Eliminación", "¿Está seguro que desea eliminar la empresa " + empresaSeleccion.getNombre() + ", juntos con TODOS sus empleados y sus promociones dentro de su registro?");
             //Comparar el resultado del botón en la conficación
             if(respuesta.get() == ButtonType.OK){
                 eliminar(empresaSeleccion);
@@ -214,19 +215,16 @@ public class FXMLAdminEmpresasController implements Initializable, IRespuesta {
         if(!(boolean)respuesta.get("error")){
             List<Sucursal> listaEmpresas = (List<Sucursal>)respuesta.get("sucursal");
             if(!listaEmpresas.isEmpty()){
-                Utilidades.mostrarAlertaSimple("Sucursales asignadas:", "LA empresa tiene sucursales asignadas. Asegurese se eliminar las sucursales asociadas a esta empresa antes de realizar su eliminación", Alert.AlertType.ERROR);           
+                Utilidades.mostrarAlertaSimple("Sucursales asignadas:", "La empresa tiene sucursales asignadas. Asegurese se eliminar las sucursales asociadas a esta empresa antes de realizar su eliminación", Alert.AlertType.ERROR);           
             }else{ //Si no tiene sucursdales asignadas, elimina a la empresa junto con sus empleados asociados.  
-                Mensaje msj = EmpleadoDAO.eliminarEmpleadosEmpresa(empr);                
-                if (msj.getError() == false) {
-                    Utilidades.mostrarAlertaSimple("Empleados eliminados", "Empleados de la empresa "+ empr.getNombreComercial() + "Eliminados", Alert.AlertType.INFORMATION);
-                    msj = EmpresaDAO.eliminarEmpresa(empr);
-                    if (msj.getError() == false) {
-                        Utilidades.mostrarAlertaSimple("Empresa eliminada con exito", msj.getMensaje(), Alert.AlertType.INFORMATION);
-                    }else {
-                        Utilidades.mostrarAlertaSimple("Error:", msj.getMensaje(), Alert.AlertType.ERROR);           
-                    }                    
-                }else {
-                    Utilidades.mostrarAlertaSimple("Error:", msj.getMensaje(), Alert.AlertType.ERROR);           
+                Mensaje msj = EmpleadoDAO.eliminarEmpleadosEmpresa(empr);
+                msj = PromocionDAO.eliminarPromocionesEmpresa(empr);
+                msj = EmpresaDAO.eliminarEmpresa(empr); 
+                if(!msj.getError()){
+                    Utilidades.mostrarAlertaSimple("Empresa eliminada", msj.getMensaje(), Alert.AlertType.INFORMATION);         
+
+                }else{
+                    Utilidades.mostrarAlertaSimple("Error", msj.getMensaje(), Alert.AlertType.ERROR);    
                 }
                                  
             }    

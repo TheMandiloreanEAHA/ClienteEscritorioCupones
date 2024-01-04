@@ -374,7 +374,7 @@ public class FXMLFormularioPromocionesController implements Initializable {
         //Configuración del tipo de archivo 
         FileChooser.ExtensionFilter filtroImg = new FileChooser.ExtensionFilter("Archivos de imagen (*.png, *.jpg, *.jpeg)", "*.png", "*.jpg", "*.jpeg");
         dialogoSeleccionImg.getExtensionFilters().add(filtroImg);
-        Stage stageActual = (Stage) tfCodigo.getScene().getWindow();
+        Stage stageActual = (Stage) tfNombrePromo.getScene().getWindow();
         imagenSeleccionada = dialogoSeleccionImg.showOpenDialog(stageActual);
         if(imagenSeleccionada != null){
             mostrarLogoSeleccionado(imagenSeleccionada);
