@@ -38,6 +38,26 @@ public class PromocionDAO {
         }
         return respService;
     }
+    //-------------------------------- Lista de Promociones por Empresa --------------------------------\\
+    public static HashMap<String, Object> listaPromocionesPorempresa(int idEmpresa){
+        HashMap<String, Object> respService = new LinkedHashMap<>();
+        List<Promocion> promocion =null;
+        String url = Constantes.URL_WS+"promocion/promocionesPorEmpresa/"+idEmpresa;
+        RespuestaHTTP respuesta = ConexionWS.peticionGET(url);
+        System.out.println(url);
+        if(respuesta.getCodigoRespuesta() == HttpURLConnection.HTTP_OK){
+           Gson gson = new Gson();
+           Type tipoListaPromocion = new TypeToken<List<Promocion>>(){}.getType();
+           promocion = gson.fromJson(respuesta.getContenido(), tipoListaPromocion);
+           respService.put("error", false);
+           respService.put("promocion", promocion);
+        }else{
+            respService.put("error", true);
+            respService.put("mensaje","Hubo un error en la peticion, por el momento no se puede cargar "
+                    + "la informacion de las promociones");
+        }
+        return respService;
+    }
     
     //-------------------------------- Agregar Promoción --------------------------------\\
     public static Mensaje agregarPromocion(Promocion promocion){

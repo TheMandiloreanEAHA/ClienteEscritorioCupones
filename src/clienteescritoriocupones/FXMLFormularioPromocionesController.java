@@ -102,6 +102,8 @@ public class FXMLFormularioPromocionesController implements Initializable {
     private JFXButton btnRegistrarPromo;
     @FXML
     private ImageView ivImg;
+    @FXML
+    private JFXButton btnAsignarSucursales;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -137,6 +139,7 @@ public class FXMLFormularioPromocionesController implements Initializable {
         
         btnCargarImagen.setDisable(true);
         btnSeleccionar.setDisable(true);
+        btnAsignarSucursales.setDisable(true);
         
     }
     
@@ -150,7 +153,14 @@ public class FXMLFormularioPromocionesController implements Initializable {
         }else{
             System.out.println("Admin Comercial");
             cbEmpresa.setDisable(true);
-            //agregar validacion de combo 
+            //agregar validacion de combo
+            for(Empresa empr: cbEmpresa.getItems()){
+            if(empr.getIdEmpresa() == this.idEmpresa){
+                cbEmpresa.setValue(empr);
+                break;
+            }
+        }
+            
         }
     }
     
@@ -160,6 +170,7 @@ public class FXMLFormularioPromocionesController implements Initializable {
         btnRegistrarPromo.setText("Guardar Cambios");
         btnCargarImagen.setDisable(false);
         btnSeleccionar.setDisable(false);
+        btnAsignarSucursales.setDisable(false);
         lbTitulo.setText("EDICIÓN DE PROMOCIÓN");
         lbSubtitulo.setText("EDITA LOS DATOS DE LA PROMOCIÓN");
         //Cargar info promoción
@@ -404,6 +415,10 @@ public class FXMLFormularioPromocionesController implements Initializable {
         byte[] img = Base64.getDecoder().decode(imgBase64.replaceAll("\\n", "")); //Se tiene que eliminar los saltos de linea, debido a que el Base64 sólo soporta letrar, signos de suma o igual
         Image image = new Image(new ByteArrayInputStream(img));
         ivImg.setImage(image);
+    }
+
+    @FXML
+    private void btnAsignarSuc(ActionEvent event) {
     }
     
 }

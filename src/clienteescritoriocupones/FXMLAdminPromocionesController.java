@@ -1,9 +1,7 @@
 package clienteescritoriocupones;
 
 import clienteescritoriocupones.interfaz.IRespuesta;
-import clienteescritoriocupones.modelo.dao.EmpresaDAO;
 import clienteescritoriocupones.modelo.dao.PromocionDAO;
-import clienteescritoriocupones.modelo.pojo.Empresa;
 import clienteescritoriocupones.modelo.pojo.Mensaje;
 import clienteescritoriocupones.modelo.pojo.Promocion;
 import clienteescritoriocupones.utils.Utilidades;
@@ -14,8 +12,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -76,15 +78,17 @@ public class FXMLAdminPromocionesController implements Initializable, IRespuesta
     public void initialize(URL url, ResourceBundle rb) {
         promocion = FXCollections.observableArrayList();
         configurarTabla();
-        descargarPromos();
+        
     } 
     
     public void inicializarIdEmpresa(int idEmpresa){
         this.idEmpresa = idEmpresa;
-        if(this.idEmpresa == 0){
-            System.out.println("Admin General");
-        }else{
-            System.out.println("Admin Comercial");
+        descargarPromos();
+        inicializarBusqueda();
+        if(this.idEmpresa != 0){
+            //Tiene una empresa signada, por lo que sólo ve las promos de su empresa
+            colEmpresaPromocion.setVisible(false);
+            
         }
     }
     
@@ -101,7 +105,13 @@ public class FXMLAdminPromocionesController implements Initializable, IRespuesta
     }
     
     private void descargarPromos(){
-        HashMap<String, Object> respuesta = PromocionDAO.listaPromociones();
+        HashMap<String, Object> respuesta = null;        
+        //SI el idEmpresa es 0, es porque es un Admin general, por lo que verá todas las promos registradas
+        if(idEmpresa == 0){
+            respuesta = PromocionDAO.listaPromociones();
+        }else{
+            respuesta = PromocionDAO.listaPromocionesPorempresa(idEmpresa);
+        }
         if(!(boolean)respuesta.get("error")){
             List<Promocion> listaWS = (List<Promocion>)respuesta.get("promocion");
             promocion.addAll(listaWS);
@@ -235,10 +245,46 @@ public class FXMLAdminPromocionesController implements Initializable, IRespuesta
         recargarTabla();
     }
     
-    public void recargarTabla(){
+    private void recargarTabla(){
         System.out.println("HOA");
         promocion.clear();
         descargarPromos(); 
+    }
+    
+    private void inicializarBusqueda(){
+        if(promocion != null){
+            FilteredList<Promocion> filtropromo = new FilteredList<>(promocion, p -> true); //Filtro, se le manda un observable list y un predicado, el cual determina qué se hará dependiedo si este es true o false
+            tfBarraBusqueda.textProperty().addListener(new ChangeListener<String>(){
+                @Override
+                public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                    filtropromo.setPredicate(busqueda ->{
+                        //Si no hay nada en el tf (es vacío), mete todo los valores
+                        if(newValue == null || newValue.isEmpty()){
+                            return true;                        
+                        } 
+                        String lowerFilter = newValue.toLowerCase();
+                        //-- Reglas de filtrado --\\
+                        //Por nombre
+                        if(busqueda.getNombre().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por fecha de inicio
+                        if(busqueda.getInicioPromocion().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        //Por fecha de fin
+                        if(busqueda.getFinPromocion().toLowerCase().contains(lowerFilter)){
+                            return true;
+                        }
+                        return false;
+                    
+                    });
+                }
+            });//Modifica las porpiedades de un TF, para saber qué se escribe caracter por caracter y poder hacer algo con respecto a esto
+            SortedList<Promocion> promocionesOrdenadas = new SortedList(filtropromo);
+            promocionesOrdenadas.comparatorProperty().bind(tvPromociones.comparatorProperty());
+            tvPromociones.setItems(promocionesOrdenadas);
+        }
     }
     
 }

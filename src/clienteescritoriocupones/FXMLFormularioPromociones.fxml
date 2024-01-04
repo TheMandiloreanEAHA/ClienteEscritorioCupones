@@ -107,7 +107,7 @@
                   </JFXComboBox>
                     </children>
                     <padding>
-                        <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
+                        <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
                     </padding>
                 </VBox>
             </left>
@@ -228,9 +228,17 @@
                         <RadioButton fx:id="rbInactiva" mnemonicParsing="false" text="Inactiva" />
                      </children>
                   </HBox>
+                  <JFXButton fx:id="btnAsignarSucursales" onAction="#btnAsignarSuc" prefHeight="48.0" prefWidth="183.0" style="-fx-background-color: BLACK; -fx-background-radius: 100PX;" text="Asignar Sucursales" textFill="WHITE" translateX="30.0">
+                     <font>
+                        <Font name="Gill Sans MT Bold" size="18.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
                     </children>
                     <padding>
-                        <Insets bottom="50.0" left="50.0" right="50.0" top="30.0" />
+                        <Insets bottom="30.0" left="50.0" right="50.0" top="30.0" />
                     </padding>
                 </VBox>
             </right>
