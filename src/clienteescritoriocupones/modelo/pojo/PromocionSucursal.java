@@ -2,16 +2,26 @@ package clienteescritoriocupones.modelo.pojo;
 
 public class PromocionSucursal {
     private Integer idPromocion;
+    private String codigoPromocion;
     private Integer idSucursal;
 
     public PromocionSucursal() {
     }
 
-    public PromocionSucursal(Integer idPromocion, Integer idSucursal) {
+    public PromocionSucursal(Integer idPromocion, String codigoPromocion,Integer idSucursal) {
         this.idPromocion = idPromocion;
+        this.codigoPromocion = codigoPromocion;
         this.idSucursal = idSucursal;
     }
 
+    public String getCodigoPromocion() {
+        return codigoPromocion;
+    }
+
+    public void setCodigoPromocion(String codigoPromocion) {
+        this.codigoPromocion = codigoPromocion;
+    }
+    
     public Integer getIdPromocion() {
         return idPromocion;
     }

@@ -285,5 +285,52 @@ public class PromocionDAO {
         return promo;
     }
     
+    //-------------------------------- Agregar Promoción Por sucursal--------------------------------\\
+    public static Mensaje agregarPromocionPorSucursal(PromocionSucursal promocion){
+        Mensaje msj = new Mensaje();
+        String url = Constantes.URL_WS+"promocion/promocionPorSucursal";
+        Gson gson = new Gson();
+        String parametros = gson.toJson(promocion);
+        RespuestaHTTP respuestaPeticion = ConexionWS.peticionPOSTJSON(url, parametros);
+        if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
+            msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);
+        }else{
+            msj.setError(true);
+            msj.setMensaje("Hubo un error al procesar la solictud, porfavor intentalo más tarde");
+        }        
+        return msj;
+    }
+    
+    //-------------------------------- Eliminar sucursal de promocion --------------------------------\\
+    public static Mensaje eliminarSucursalPorPromocion(PromocionSucursal promocion){
+        Mensaje msj = new Mensaje();
+        String url = Constantes.URL_WS+"promocion/eliminarPromocionPorSucursal";
+        Gson gson = new Gson();
+        String parametros = gson.toJson(promocion);
+        RespuestaHTTP respuestaPeticion = ConexionWS.peticionDELETEJSON(url, parametros);
+        if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
+            msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);
+        }else{
+            msj.setError(true);
+            msj.setMensaje("Hubo un error al procesar la solictud, porfavor intentalo más tarde");
+        }        
+        return msj;
+    }
+    
+    //-------------------------------- Eliminar sucursal de promocion --------------------------------\\
+    public static Mensaje verSucursalPorPromocion(PromocionSucursal promocion){
+        Mensaje msj = new Mensaje();
+        String url = Constantes.URL_WS+"promocion/verPromocionPorSucursal";
+        Gson gson = new Gson();
+        String parametros = gson.toJson(promocion);
+        RespuestaHTTP respuestaPeticion = ConexionWS.peticionPOSTJSON(url, parametros);
+        if(respuestaPeticion.getCodigoRespuesta()== HttpURLConnection.HTTP_OK){
+            msj = gson.fromJson(respuestaPeticion.getContenido(), Mensaje.class);
+        }else{
+            msj.setError(true);
+            msj.setMensaje("Hubo un error al procesar la solictud, porfavor intentalo más tarde");
+        }        
+        return msj;
+    }
 
 }

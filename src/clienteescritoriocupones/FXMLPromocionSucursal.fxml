@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="clienteescritoriocupones.FXMLPromocionSucursalController">
+    <children>
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <bottom>
+            <Pane prefHeight="68.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton fx:id="btnEliminar" layoutX="515.0" layoutY="12.0" onAction="#btnEliminar" prefHeight="45.0" prefWidth="171.0" ripplerFill="#03e9f4" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Eliminar">
+                     <font>
+                        <Font name="Gill Sans MT" size="18.0" />
+                     </font></JFXButton>
+                  <JFXButton fx:id="btnGuardar" layoutX="329.0" layoutY="12.0" onAction="#btnRegistrar" prefHeight="45.0" prefWidth="171.0" ripplerFill="#03e9f4" style="-fx-background-color: #ffffff; -fx-background-radius: 90px;" text="Guardar">
+                     <font>
+                        <Font name="Gill Sans MT" size="18.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
+         </bottom>
+         <top>
+            <BorderPane prefHeight="94.0" prefWidth="700.0" BorderPane.alignment="CENTER">
+               <top>
+                  <Pane prefHeight="58.0" prefWidth="700.0" style="-fx-background-color: black;" BorderPane.alignment="CENTER">
+                     <children>
+                        <JFXButton fx:id="btnCerrar" layoutX="14.0" layoutY="11.0" onAction="#cerrarVentana" prefHeight="36.0" prefWidth="38.0" ripplerFill="RED" style="-fx-background-color: transparent; -fx-background-radius: 100px;" />
+                        <Label fx:id="lbTitulo" layoutX="61.0" layoutY="10.0" text="ASIGNAR PROMOCION A SUCURSALES" textFill="WHITE">
+                           <font>
+                              <Font name="Gill Sans MT" size="33.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </top>
+               <bottom>
+                  <Pane prefHeight="49.0" prefWidth="700.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label layoutX="233.0" layoutY="15.0" text="SELECCIONA LAS SUCURSALES">
+                           <font>
+                              <Font name="Gill Sans MT" size="17.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+               </bottom>
+            </BorderPane>
+         </top>
+         <center>
+            <TableView fx:id="tvSucursales" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="colNombre" prefWidth="509.0" text="Nombre" />
+                  <TableColumn fx:id="colSeleccionar" prefWidth="184.0" />
+              </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

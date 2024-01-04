@@ -28,8 +28,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -39,12 +43,18 @@ import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.imageio.ImageIO;
 
 
 public class FXMLFormularioPromocionesController implements Initializable {
+    
+    private double xOffset = 0;
+    private double yOffset = 0;
     
     private Promocion promocion;
     
@@ -419,6 +429,47 @@ public class FXMLFormularioPromocionesController implements Initializable {
 
     @FXML
     private void btnAsignarSuc(ActionEvent event) {
+        try {
+            //Cargar las vistas a memoria
+            FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLPromocionSucursal.fxml"));
+            Parent vista = loadMain.load();
+
+            //Cargamos la información
+            FXMLPromocionSucursalController controller = loadMain.getController();
+            controller.inicializarIds(idEmpresa, promocion.getIdPromocion(), promocion.getCodigoPromocion());
+
+            //Creamos un nuevo stage
+            Stage stageNuevo = new Stage();
+            Scene escena = new Scene(vista);
+            
+            stageNuevo.initStyle(StageStyle.DECORATED.UNDECORATED);
+            vista.setOnMousePressed(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent event){
+                    xOffset = event.getSceneX();
+                    yOffset = event.getSceneY();
+                }
+
+            });
+            vista.setOnMouseDragged(new EventHandler<MouseEvent>(){
+                @Override
+                public void handle(MouseEvent event){
+                    stageNuevo.setX(event.getScreenX() -xOffset);
+                    stageNuevo.setY(event.getScreenY() -yOffset);
+                }
+
+            });
+
+            stageNuevo.setScene(escena);
+            stageNuevo.setTitle("Asignar Sucursales");
+            stageNuevo.initModality(Modality.APPLICATION_MODAL); //Configuracion que nos ayuda a elegir el control de las pantallas. No perimte que otro stage tenga el control hasta que se cierre el stage actual
+            stageNuevo.showAndWait(); //Bloquea la pantalla de atras 
+
+
+            
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }
