@@ -261,34 +261,58 @@ public class FXMLFormularioPromocionesController implements Initializable {
         boolean isValid = true;
         //-- Validamos los ComboBox --\\
         if(cbCategoria.getValue() == null){
-            Utilidades.mostrarAlertaSimple("Información incompleta", "Se debe asignar una categoría a la promoción", Alert.AlertType.ERROR);
+        Utilidades.mostrarAlertaSimple("Información incompleta", "Se debe asignar una categoría a la promoción", Alert.AlertType.ERROR);
+        isValid = false;
+    }else if(cbEmpresa.getValue() == null){
+        Utilidades.mostrarAlertaSimple("Información incompleta", "La promoción se debe asignar a una empresa", Alert.AlertType.ERROR);
+        isValid = false;
+    }else if(tfNombrePromo.getText() == null || tfNombrePromo.getText().isEmpty()){
+        Utilidades.mostrarAlertaSimple("Información incompleta", "Ingrese el nombre de la promoción", Alert.AlertType.ERROR);
+        isValid = false;
+    }else if(taDescripcion.getText() == null || taDescripcion.getText().isEmpty()){
+        Utilidades.mostrarAlertaSimple("Información incompleta", "Ingrese una descripción de la promoción", Alert.AlertType.ERROR);
+        isValid = false;
+    }else if(dpFechaFin.getValue() == null){
+        Utilidades.mostrarAlertaSimple("Información incompleta", "Ingrese la fecha de finalización de la promoción", Alert.AlertType.ERROR);
+        isValid = false;
+    }else if(dpFechaInicio.getValue() == null){
+        Utilidades.mostrarAlertaSimple("Información incompleta", "Ingrese la fecha de inicio de la promoción", Alert.AlertType.ERROR);
+        isValid = false;
+    }else if(taRestriccion.getText() == null || taRestriccion.getText().isEmpty()){
+        Utilidades.mostrarAlertaSimple("Información incompleta", "Ingrese las restricciones de la promoción", Alert.AlertType.ERROR);
+        isValid = false;
+    }else if(tipoPromocion == null){
+        Utilidades.mostrarAlertaSimple("Información incompleta", "Seleccione el tipo de promoción", Alert.AlertType.ERROR);
+        isValid = false;
+    }else if(estatusPromocion == null){
+        Utilidades.mostrarAlertaSimple("Información incompleta", "Seleccione el estatus de la promoción", Alert.AlertType.ERROR);
+        isValid = false;
+    }else if(tfNumCupones.getText() == null || tfNumCupones.getText().isEmpty()){
+        Utilidades.mostrarAlertaSimple("Información incompleta", "Ingrese el número de cupones", Alert.AlertType.ERROR);
+        isValid = false;
+    }else{
+        //-- Validamos el número de cupones --\\
+        tfNumCupones.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                tfNumCupones.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+
+        if (!tfNumCupones.getText().matches("\\d+")){
+            Utilidades.mostrarAlertaSimple("Información incompleta", "El número de cupones debe ser un número entero", Alert.AlertType.ERROR);
             isValid = false;
-        }else if(cbEmpresa.getValue() == null){
-            Utilidades.mostrarAlertaSimple("Información incompleta", "La promoción se debe asignar a una empresa", Alert.AlertType.ERROR);
-            isValid = false;
-        }else if(tfNombrePromo.getText() == null || tfNombrePromo.getText().isEmpty()){
-            isValid = false;
-        }else if(taDescripcion.getText() == null || taDescripcion.getText().isEmpty()){
-            isValid = false;
-        }else if(dpFechaFin.getValue() == null){
-            isValid = false;
-        }else if(dpFechaInicio.getValue() == null){
-            isValid = false;
-        }else if(taRestriccion.getText() == null || taRestriccion.getText().isEmpty()){
-            isValid = false;
-        }else if(tipoPromocion == null){
-            isValid = false;
-        }else if(estatusPromocion == null){
-            isValid = false;
-        }else if(tfNumCupones.getText() == null || tfNumCupones.getText().isEmpty()){
+        }else if (Integer.parseInt(tfNumCupones.getText()) < 1){
+            Utilidades.mostrarAlertaSimple("Información incompleta", "El número de cupones debe ser mayor o igual a 1", Alert.AlertType.ERROR);
             isValid = false;
         }
-                
-        if(!isValid){
-            Utilidades.mostrarAlertaSimple("Información incompleta", "Debe de llenar todo los campos", Alert.AlertType.ERROR);
-        }
-        
+    }
+
+    if(!isValid){
+        Utilidades.mostrarAlertaSimple("Información incompleta", "Debe de llenar todo los campos", Alert.AlertType.ERROR);
+    }
+
         return isValid;
+
     }
 
     @FXML

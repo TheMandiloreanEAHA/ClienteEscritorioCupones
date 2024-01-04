@@ -238,14 +238,22 @@ public class FXMLFormularioEmpleadoController implements Initializable {
             }else if(cbRol.getValue().equals("Administrador Comercial")){
                 emp.setIdRol(2);
                 emp.setIdEmpresa(cbEmpresa.getValue().getIdEmpresa());
-            }   
-                     
-            if(btnRegistrarEmpleado.getText().equals("Guardar Cambios")){
-                emp.setIdEmpleado(empleado.getIdEmpleado());
-                modificarEmpleado(emp);
-            }else{
-                registrarEmpleado(emp);
             }
+            
+            HashMap<String, Object> respuesta= EmpleadoDAO.buscarEmpleadoPorNombreDeUsuario(emp.getNombreUsuario());
+            if(!(boolean)respuesta.get("error")){
+                //Empleado empExiste = (Empleado)respuesta.get("empleado");
+                Utilidades.mostrarAlertaSimple("Error", "El usuario con ese nombre de usuario ya existe, intente con otro", Alert.AlertType.ERROR);
+            }else{
+                if(btnRegistrarEmpleado.getText().equals("Guardar Cambios")){
+                    emp.setIdEmpleado(empleado.getIdEmpleado());
+                    modificarEmpleado(emp);
+                }else{
+
+                    registrarEmpleado(emp);
+                }
+            }
+            
         }               
                 
     }

@@ -219,7 +219,7 @@ public class FXMLHomeController implements Initializable, IRespuesta {
     public void btnCerrarSesion(Event event) {
         Optional<ButtonType> respuesta = Utilidades.mostrarAlertaConfirmacion("Cerrar sesión", "¿Está seguro que desea salir de la sesión");
         if(respuesta.get()== ButtonType.OK){
-            Stage stageActual = (Stage) btnCanjeCupones.getScene().getWindow();
+            Stage stageActual = (Stage) btnSucursales.getScene().getWindow();
             try {
                 FXMLLoader loadMain = new FXMLLoader(getClass().getResource("FXMLLogin.fxml"));
                 Parent vista = loadMain.load();
